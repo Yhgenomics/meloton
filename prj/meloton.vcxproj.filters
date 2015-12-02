@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="inc">
+      <UniqueIdentifier>{4462e97f-74b0-4896-adbd-88acf9381efd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{eb68abc6-863d-4e1e-a201-fd369e8a2528}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="message">
+      <UniqueIdentifier>{c96014a0-abc6-414e-bee1-e264bcff3bc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="handler">
+      <UniqueIdentifier>{82f91f6a-2161-456e-8dde-f80da66021da}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\meloton.cpp" />
+    <ClCompile Include="..\src\NodeDetector.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\NodeListener.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Variable.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\NodeBroadcaster.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\message\MessageAccept.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\message\MessageQueryFile.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\message\MessageQueryFileResult.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\message\MessageRegister.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\inc\NodeDetector.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\NodeListener.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Variable.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\meloton.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\NodeBroadcaster.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageAccept.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageQueryFile.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageQueryFileResult.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageRegister.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

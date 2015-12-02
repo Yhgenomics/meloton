@@ -1,0 +1,4 @@
+message MessageRegister
+{
+    required string id = 1;
+}

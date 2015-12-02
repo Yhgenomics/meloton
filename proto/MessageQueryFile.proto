@@ -1,0 +1,4 @@
+message MessageQueryFile
+{
+    required string file_name = 1;
+}
