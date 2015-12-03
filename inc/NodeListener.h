@@ -13,9 +13,12 @@
 using namespace MRT;
 
 class NodeListener :
-    MRT::Listener
+    public MRT::Listener
 {
 public:
+
+    NodeListener( std::string ip , int port );
+    ~NodeListener( );
 
 protected:
 

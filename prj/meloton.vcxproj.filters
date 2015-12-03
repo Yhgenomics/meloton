@@ -40,6 +40,21 @@
     <ClCompile Include="..\message\MessageRegister.pb.cc">
       <Filter>message</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\ClusterSession.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CMDParameter.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MasterConnector.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MasterSession.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\NodeSession.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\inc\NodeDetector.h">
@@ -68,6 +83,36 @@
     </ClInclude>
     <ClInclude Include="..\message\MessageRegister.pb.h">
       <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\handler\MessageUtils.h">
+      <Filter>handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\ClusterSession.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\handler\MessageAcceptHandler.h">
+      <Filter>handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\handler\MessageQueryFileHandler.h">
+      <Filter>handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\handler\MessageQueryFileResultHandler.h">
+      <Filter>handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\handler\MessageRegisterHandler.h">
+      <Filter>handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\CMDParameter.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\MasterConnector.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\MasterSession.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\NodeSession.h">
+      <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

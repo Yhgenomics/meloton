@@ -1,8 +1,18 @@
 #include "NodeListener.h"
+#include "NodeSession.h"
+
+NodeListener::NodeListener( std::string ip , int port )
+    : MRT::Listener( ip , port )
+{
+}
+
+NodeListener::~NodeListener( )
+{
+}
 
 Session * NodeListener::create_session( )
 {
-    return nullptr;
+    return new NodeSession( );
 }
 
 void NodeListener::on_session_open( Session * session )

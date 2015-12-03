@@ -8,9 +8,15 @@
 #ifndef VARIABLE_H_
 #define VARIABLE_H_
 
+#include <string>
+
 class Variable
 {
 public:
+
+    static int          mode;
+    static std::string  server_ip;
+    static int          port;
 
 };
 

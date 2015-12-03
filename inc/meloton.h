@@ -12,4 +12,7 @@
 
 #endif // !MELOTON_H_
 
+#define VERSIONMAJOR 0
+#define VERSJONMINOR 1
+
 #define PP_DEF(type,value) 
