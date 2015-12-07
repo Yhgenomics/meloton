@@ -15,4 +15,9 @@
 #define VERSIONMAJOR 0
 #define VERSJONMINOR 1
 
-#define PP_DEF(type,value) 
+#define SINGLETON(__type__) \
+    static __type__ * instance( ) \
+    { \
+        static __type__ instance_; \
+        return &instance_;\
+    }

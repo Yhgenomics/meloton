@@ -16,8 +16,17 @@
 #include <google/protobuf/message.h>
 #include <MessageRegister.pb.h>
 
+#include "MessageAccept.pb.h"
+#include "NodeManager.h"
+
 static int MessageRegisterHandler( ClusterSession * session , uptr<MessageRegister> msg )
 {
+    auto ptr = sptr<NodeSession>( ( NodeSession* ) session );
+    NodeManager::instance( )->push_node( ptr );
+
+    auto reply = make_uptr( MessageAccept );
+    reply->set_session_id( session->id( ) );
+    session->send_message( move_ptr( reply ) );
 
     return 0;
 }

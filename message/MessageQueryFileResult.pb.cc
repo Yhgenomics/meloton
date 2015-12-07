@@ -83,7 +83,7 @@ void protobuf_AddDesc_MessageQueryFileResult_2eproto() {
     "\n\034MessageQueryFileResult.proto\"|\n\026Messag"
     "eQueryFileResult\022\022\n\nsession_id\030\001 \002(\003\022\r\n\005"
     "error\030\002 \002(\003\022\021\n\tfile_name\030\003 \002(\t\022\024\n\014file_p"
-    "art_id\030\004 \002(\003\022\026\n\016file_part_size\030\005 \002(\003", 156);
+    "art_id\030\004 \003(\003\022\026\n\016file_part_size\030\005 \003(\003", 156);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessageQueryFileResult.proto", &protobuf_RegisterTypes);
   MessageQueryFileResult::default_instance_ = new MessageQueryFileResult();
@@ -130,8 +130,6 @@ void MessageQueryFileResult::SharedCtor() {
   session_id_ = GOOGLE_LONGLONG(0);
   error_ = GOOGLE_LONGLONG(0);
   file_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  file_part_id_ = GOOGLE_LONGLONG(0);
-  file_part_size_ = GOOGLE_LONGLONG(0);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -180,9 +178,8 @@ void MessageQueryFileResult::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 31) {
+  if (_has_bits_[0 / 32] & 7) {
     ZR_(session_id_, error_);
-    ZR_(file_part_id_, file_part_size_);
     if (has_file_name()) {
       if (file_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         file_name_->clear();
@@ -193,6 +190,8 @@ void MessageQueryFileResult::Clear() {
 #undef OFFSET_OF_FIELD_
 #undef ZR_
 
+  file_part_id_.Clear();
+  file_part_size_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -253,32 +252,40 @@ bool MessageQueryFileResult::MergePartialFromCodedStream(
         break;
       }
 
-      // required int64 file_part_id = 4;
+      // repeated int64 file_part_id = 4;
       case 4: {
         if (tag == 32) {
          parse_file_part_id:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &file_part_id_)));
-          set_has_file_part_id();
+                 1, 32, input, this->mutable_file_part_id())));
+        } else if (tag == 34) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, this->mutable_file_part_id())));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(32)) goto parse_file_part_id;
         if (input->ExpectTag(40)) goto parse_file_part_size;
         break;
       }
 
-      // required int64 file_part_size = 5;
+      // repeated int64 file_part_size = 5;
       case 5: {
         if (tag == 40) {
          parse_file_part_size:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &file_part_size_)));
-          set_has_file_part_size();
+                 1, 40, input, this->mutable_file_part_size())));
+        } else if (tag == 42) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, this->mutable_file_part_size())));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(40)) goto parse_file_part_size;
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -328,14 +335,16 @@ void MessageQueryFileResult::SerializeWithCachedSizes(
       3, this->file_name(), output);
   }
 
-  // required int64 file_part_id = 4;
-  if (has_file_part_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(4, this->file_part_id(), output);
+  // repeated int64 file_part_id = 4;
+  for (int i = 0; i < this->file_part_id_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(
+      4, this->file_part_id(i), output);
   }
 
-  // required int64 file_part_size = 5;
-  if (has_file_part_size()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(5, this->file_part_size(), output);
+  // repeated int64 file_part_size = 5;
+  for (int i = 0; i < this->file_part_size_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(
+      5, this->file_part_size(i), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -369,14 +378,16 @@ void MessageQueryFileResult::SerializeWithCachedSizes(
         3, this->file_name(), target);
   }
 
-  // required int64 file_part_id = 4;
-  if (has_file_part_id()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(4, this->file_part_id(), target);
+  // repeated int64 file_part_id = 4;
+  for (int i = 0; i < this->file_part_id_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteInt64ToArray(4, this->file_part_id(i), target);
   }
 
-  // required int64 file_part_size = 5;
-  if (has_file_part_size()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(5, this->file_part_size(), target);
+  // repeated int64 file_part_size = 5;
+  for (int i = 0; i < this->file_part_size_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteInt64ToArray(5, this->file_part_size(i), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -412,21 +423,27 @@ int MessageQueryFileResult::ByteSize() const {
           this->file_name());
     }
 
-    // required int64 file_part_id = 4;
-    if (has_file_part_id()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int64Size(
-          this->file_part_id());
-    }
-
-    // required int64 file_part_size = 5;
-    if (has_file_part_size()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int64Size(
-          this->file_part_size());
-    }
-
   }
+  // repeated int64 file_part_id = 4;
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->file_part_id_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        Int64Size(this->file_part_id(i));
+    }
+    total_size += 1 * this->file_part_id_size() + data_size;
+  }
+
+  // repeated int64 file_part_size = 5;
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->file_part_size_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        Int64Size(this->file_part_size(i));
+    }
+    total_size += 1 * this->file_part_size_size() + data_size;
+  }
+
   if (!unknown_fields().empty()) {
     total_size +=
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
@@ -452,6 +469,8 @@ void MessageQueryFileResult::MergeFrom(const ::google::protobuf::Message& from) 
 
 void MessageQueryFileResult::MergeFrom(const MessageQueryFileResult& from) {
   GOOGLE_CHECK_NE(&from, this);
+  file_part_id_.MergeFrom(from.file_part_id_);
+  file_part_size_.MergeFrom(from.file_part_size_);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_session_id()) {
       set_session_id(from.session_id());
@@ -461,12 +480,6 @@ void MessageQueryFileResult::MergeFrom(const MessageQueryFileResult& from) {
     }
     if (from.has_file_name()) {
       set_file_name(from.file_name());
-    }
-    if (from.has_file_part_id()) {
-      set_file_part_id(from.file_part_id());
-    }
-    if (from.has_file_part_size()) {
-      set_file_part_size(from.file_part_size());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -485,7 +498,7 @@ void MessageQueryFileResult::CopyFrom(const MessageQueryFileResult& from) {
 }
 
 bool MessageQueryFileResult::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000001f) != 0x0000001f) return false;
+  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
 
   return true;
 }
@@ -495,8 +508,8 @@ void MessageQueryFileResult::Swap(MessageQueryFileResult* other) {
     std::swap(session_id_, other->session_id_);
     std::swap(error_, other->error_);
     std::swap(file_name_, other->file_name_);
-    std::swap(file_part_id_, other->file_part_id_);
-    std::swap(file_part_size_, other->file_part_size_);
+    file_part_id_.Swap(&other->file_part_id_);
+    file_part_size_.Swap(&other->file_part_size_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

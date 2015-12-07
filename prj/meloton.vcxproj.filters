@@ -55,6 +55,15 @@
     <ClCompile Include="..\src\NodeSession.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\NodeManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Array.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\FileTable.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\inc\NodeDetector.h">
@@ -112,6 +121,15 @@
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\NodeSession.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\NodeManager.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Array.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\FileTable.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>

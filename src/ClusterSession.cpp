@@ -4,6 +4,9 @@
 ClusterSession::ClusterSession( )
 {
     this->parse_state_ = kHead;
+     static size_t ndoe_session_id = 0x1000;
+    this->id_ = ndoe_session_id;
+    ndoe_session_id = ( ndoe_session_id + 1 ) % 0xFFFFFFFFFFFF;
 }
 
 ClusterSession::~ClusterSession( )

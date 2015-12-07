@@ -16,15 +16,16 @@ class NodeSession :
 public:
 
     NodeSession( );
-    ~NodeSession( );
+    ~NodeSession( ); 
 
-    size_t id( );
+    void    update_alive( );
+    size_t  alive_time( );
 
 protected:
 
-private:
+private: 
 
-    size_t id_;
+    size_t alive_time_ = 0;
 
 };
 

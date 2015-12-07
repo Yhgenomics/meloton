@@ -19,7 +19,8 @@ public:
     ClusterSession( );
     ~ClusterSession( );
 
-    void send_message( uptr<::google::protobuf::Message> message );
+    void    send_message( uptr<::google::protobuf::Message> message );
+    size_t  id          ( ) { return this->id_; };
 
 protected:
 
@@ -39,6 +40,8 @@ private:
     ParseState          parse_state_;
     int                 body_length_;
     MRT::CircleBuffer   circle_buffer_;
+
+    size_t              id_;
 };
 
 #endif // !CLUSTER_SESSION_H_

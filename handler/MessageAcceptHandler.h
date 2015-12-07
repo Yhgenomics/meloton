@@ -18,7 +18,7 @@
 
 static int MessageAcceptHandler( ClusterSession * session , uptr<MessageAccept> msg )
 {
-
+    
     return 0;
 }
 

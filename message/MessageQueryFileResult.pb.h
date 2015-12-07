@@ -114,19 +114,29 @@ class MessageQueryFileResult : public ::google::protobuf::Message {
   inline ::std::string* release_file_name();
   inline void set_allocated_file_name(::std::string* file_name);
 
-  // required int64 file_part_id = 4;
-  inline bool has_file_part_id() const;
+  // repeated int64 file_part_id = 4;
+  inline int file_part_id_size() const;
   inline void clear_file_part_id();
   static const int kFilePartIdFieldNumber = 4;
-  inline ::google::protobuf::int64 file_part_id() const;
-  inline void set_file_part_id(::google::protobuf::int64 value);
+  inline ::google::protobuf::int64 file_part_id(int index) const;
+  inline void set_file_part_id(int index, ::google::protobuf::int64 value);
+  inline void add_file_part_id(::google::protobuf::int64 value);
+  inline const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+      file_part_id() const;
+  inline ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+      mutable_file_part_id();
 
-  // required int64 file_part_size = 5;
-  inline bool has_file_part_size() const;
+  // repeated int64 file_part_size = 5;
+  inline int file_part_size_size() const;
   inline void clear_file_part_size();
   static const int kFilePartSizeFieldNumber = 5;
-  inline ::google::protobuf::int64 file_part_size() const;
-  inline void set_file_part_size(::google::protobuf::int64 value);
+  inline ::google::protobuf::int64 file_part_size(int index) const;
+  inline void set_file_part_size(int index, ::google::protobuf::int64 value);
+  inline void add_file_part_size(::google::protobuf::int64 value);
+  inline const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+      file_part_size() const;
+  inline ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+      mutable_file_part_size();
 
   // @@protoc_insertion_point(class_scope:MessageQueryFileResult)
  private:
@@ -136,10 +146,6 @@ class MessageQueryFileResult : public ::google::protobuf::Message {
   inline void clear_has_error();
   inline void set_has_file_name();
   inline void clear_has_file_name();
-  inline void set_has_file_part_id();
-  inline void clear_has_file_part_id();
-  inline void set_has_file_part_size();
-  inline void clear_has_file_part_size();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -148,8 +154,8 @@ class MessageQueryFileResult : public ::google::protobuf::Message {
   ::google::protobuf::int64 session_id_;
   ::google::protobuf::int64 error_;
   ::std::string* file_name_;
-  ::google::protobuf::int64 file_part_id_;
-  ::google::protobuf::int64 file_part_size_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int64 > file_part_id_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int64 > file_part_size_;
   friend void  protobuf_AddDesc_MessageQueryFileResult_2eproto();
   friend void protobuf_AssignDesc_MessageQueryFileResult_2eproto();
   friend void protobuf_ShutdownFile_MessageQueryFileResult_2eproto();
@@ -288,52 +294,64 @@ inline void MessageQueryFileResult::set_allocated_file_name(::std::string* file_
   // @@protoc_insertion_point(field_set_allocated:MessageQueryFileResult.file_name)
 }
 
-// required int64 file_part_id = 4;
-inline bool MessageQueryFileResult::has_file_part_id() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-inline void MessageQueryFileResult::set_has_file_part_id() {
-  _has_bits_[0] |= 0x00000008u;
-}
-inline void MessageQueryFileResult::clear_has_file_part_id() {
-  _has_bits_[0] &= ~0x00000008u;
+// repeated int64 file_part_id = 4;
+inline int MessageQueryFileResult::file_part_id_size() const {
+  return file_part_id_.size();
 }
 inline void MessageQueryFileResult::clear_file_part_id() {
-  file_part_id_ = GOOGLE_LONGLONG(0);
-  clear_has_file_part_id();
+  file_part_id_.Clear();
 }
-inline ::google::protobuf::int64 MessageQueryFileResult::file_part_id() const {
+inline ::google::protobuf::int64 MessageQueryFileResult::file_part_id(int index) const {
   // @@protoc_insertion_point(field_get:MessageQueryFileResult.file_part_id)
-  return file_part_id_;
+  return file_part_id_.Get(index);
 }
-inline void MessageQueryFileResult::set_file_part_id(::google::protobuf::int64 value) {
-  set_has_file_part_id();
-  file_part_id_ = value;
+inline void MessageQueryFileResult::set_file_part_id(int index, ::google::protobuf::int64 value) {
+  file_part_id_.Set(index, value);
   // @@protoc_insertion_point(field_set:MessageQueryFileResult.file_part_id)
 }
+inline void MessageQueryFileResult::add_file_part_id(::google::protobuf::int64 value) {
+  file_part_id_.Add(value);
+  // @@protoc_insertion_point(field_add:MessageQueryFileResult.file_part_id)
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+MessageQueryFileResult::file_part_id() const {
+  // @@protoc_insertion_point(field_list:MessageQueryFileResult.file_part_id)
+  return file_part_id_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+MessageQueryFileResult::mutable_file_part_id() {
+  // @@protoc_insertion_point(field_mutable_list:MessageQueryFileResult.file_part_id)
+  return &file_part_id_;
+}
 
-// required int64 file_part_size = 5;
-inline bool MessageQueryFileResult::has_file_part_size() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
-}
-inline void MessageQueryFileResult::set_has_file_part_size() {
-  _has_bits_[0] |= 0x00000010u;
-}
-inline void MessageQueryFileResult::clear_has_file_part_size() {
-  _has_bits_[0] &= ~0x00000010u;
+// repeated int64 file_part_size = 5;
+inline int MessageQueryFileResult::file_part_size_size() const {
+  return file_part_size_.size();
 }
 inline void MessageQueryFileResult::clear_file_part_size() {
-  file_part_size_ = GOOGLE_LONGLONG(0);
-  clear_has_file_part_size();
+  file_part_size_.Clear();
 }
-inline ::google::protobuf::int64 MessageQueryFileResult::file_part_size() const {
+inline ::google::protobuf::int64 MessageQueryFileResult::file_part_size(int index) const {
   // @@protoc_insertion_point(field_get:MessageQueryFileResult.file_part_size)
+  return file_part_size_.Get(index);
+}
+inline void MessageQueryFileResult::set_file_part_size(int index, ::google::protobuf::int64 value) {
+  file_part_size_.Set(index, value);
+  // @@protoc_insertion_point(field_set:MessageQueryFileResult.file_part_size)
+}
+inline void MessageQueryFileResult::add_file_part_size(::google::protobuf::int64 value) {
+  file_part_size_.Add(value);
+  // @@protoc_insertion_point(field_add:MessageQueryFileResult.file_part_size)
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+MessageQueryFileResult::file_part_size() const {
+  // @@protoc_insertion_point(field_list:MessageQueryFileResult.file_part_size)
   return file_part_size_;
 }
-inline void MessageQueryFileResult::set_file_part_size(::google::protobuf::int64 value) {
-  set_has_file_part_size();
-  file_part_size_ = value;
-  // @@protoc_insertion_point(field_set:MessageQueryFileResult.file_part_size)
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+MessageQueryFileResult::mutable_file_part_size() {
+  // @@protoc_insertion_point(field_mutable_list:MessageQueryFileResult.file_part_size)
+  return &file_part_size_;
 }
 
 

@@ -152,14 +152,17 @@
     <ClCompile Include="..\message\MessageQueryFile.pb.cc" />
     <ClCompile Include="..\message\MessageQueryFileResult.pb.cc" />
     <ClCompile Include="..\message\MessageRegister.pb.cc" />
+    <ClCompile Include="..\src\Array.cpp" />
     <ClCompile Include="..\src\ClusterSession.cpp" />
     <ClCompile Include="..\src\CMDParameter.cpp" />
+    <ClCompile Include="..\src\FileTable.cpp" />
     <ClCompile Include="..\src\MasterConnector.cpp" />
     <ClCompile Include="..\src\MasterSession.cpp" />
     <ClCompile Include="..\src\meloton.cpp" />
     <ClCompile Include="..\src\NodeBroadcaster.cpp" />
     <ClCompile Include="..\src\NodeDetector.cpp" />
     <ClCompile Include="..\src\NodeListener.cpp" />
+    <ClCompile Include="..\src\NodeManager.cpp" />
     <ClCompile Include="..\src\NodeSession.cpp" />
     <ClCompile Include="..\src\Variable.cpp" />
   </ItemGroup>
@@ -169,14 +172,17 @@
     <ClInclude Include="..\handler\MessageQueryFileResultHandler.h" />
     <ClInclude Include="..\handler\MessageRegisterHandler.h" />
     <ClInclude Include="..\handler\MessageUtils.h" />
+    <ClInclude Include="..\inc\Array.h" />
     <ClInclude Include="..\inc\ClusterSession.h" />
     <ClInclude Include="..\inc\CMDParameter.h" />
+    <ClInclude Include="..\inc\FileTable.h" />
     <ClInclude Include="..\inc\MasterConnector.h" />
     <ClInclude Include="..\inc\MasterSession.h" />
     <ClInclude Include="..\inc\meloton.h" />
     <ClInclude Include="..\inc\NodeBroadcaster.h" />
     <ClInclude Include="..\inc\NodeDetector.h" />
     <ClInclude Include="..\inc\NodeListener.h" />
+    <ClInclude Include="..\inc\NodeManager.h" />
     <ClInclude Include="..\inc\NodeSession.h" />
     <ClInclude Include="..\inc\Variable.h" />
     <ClInclude Include="..\message\MessageAccept.pb.h" />
