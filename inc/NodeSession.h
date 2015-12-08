@@ -20,12 +20,14 @@ public:
 
     void    update_alive( );
     size_t  alive_time( );
+    size_t  delay( );
 
 protected:
 
 private: 
 
     size_t alive_time_ = 0;
+    size_t delay_      = 0;
 
 };
 

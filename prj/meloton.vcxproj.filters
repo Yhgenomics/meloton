@@ -64,6 +64,12 @@
     <ClCompile Include="..\src\FileTable.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\message\MessageAlive.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\message\MessageAliveACK.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\inc\NodeDetector.h">
@@ -130,6 +136,21 @@
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\FileTable.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageAlive.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageAliveACK.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\handler\MessageAliveACKHandler.h">
+      <Filter>handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\handler\MessageAliveHandler.h">
+      <Filter>handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\MasterConfig.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>

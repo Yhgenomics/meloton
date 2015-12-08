@@ -114,6 +114,13 @@ class MessageAccept : public ::google::protobuf::Message {
   inline ::google::protobuf::int64 session_id() const;
   inline void set_session_id(::google::protobuf::int64 value);
 
+  // required int64 alive_duration = 4;
+  inline bool has_alive_duration() const;
+  inline void clear_alive_duration();
+  static const int kAliveDurationFieldNumber = 4;
+  inline ::google::protobuf::int64 alive_duration() const;
+  inline void set_alive_duration(::google::protobuf::int64 value);
+
   // @@protoc_insertion_point(class_scope:MessageAccept)
  private:
   inline void set_has_parent_address();
@@ -122,6 +129,8 @@ class MessageAccept : public ::google::protobuf::Message {
   inline void clear_has_parent_port();
   inline void set_has_session_id();
   inline void clear_has_session_id();
+  inline void set_has_alive_duration();
+  inline void clear_has_alive_duration();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -129,6 +138,7 @@ class MessageAccept : public ::google::protobuf::Message {
   mutable int _cached_size_;
   ::std::string* parent_address_;
   ::google::protobuf::int64 session_id_;
+  ::google::protobuf::int64 alive_duration_;
   ::google::protobuf::int32 parent_port_;
   friend void  protobuf_AddDesc_MessageAccept_2eproto();
   friend void protobuf_AssignDesc_MessageAccept_2eproto();
@@ -266,6 +276,30 @@ inline void MessageAccept::set_session_id(::google::protobuf::int64 value) {
   set_has_session_id();
   session_id_ = value;
   // @@protoc_insertion_point(field_set:MessageAccept.session_id)
+}
+
+// required int64 alive_duration = 4;
+inline bool MessageAccept::has_alive_duration() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void MessageAccept::set_has_alive_duration() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void MessageAccept::clear_has_alive_duration() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void MessageAccept::clear_alive_duration() {
+  alive_duration_ = GOOGLE_LONGLONG(0);
+  clear_has_alive_duration();
+}
+inline ::google::protobuf::int64 MessageAccept::alive_duration() const {
+  // @@protoc_insertion_point(field_get:MessageAccept.alive_duration)
+  return alive_duration_;
+}
+inline void MessageAccept::set_alive_duration(::google::protobuf::int64 value) {
+  set_has_alive_duration();
+  alive_duration_ = value;
+  // @@protoc_insertion_point(field_set:MessageAccept.alive_duration)
 }
 
 

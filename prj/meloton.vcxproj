@@ -149,6 +149,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\message\MessageAccept.pb.cc" />
+    <ClCompile Include="..\message\MessageAlive.pb.cc" />
+    <ClCompile Include="..\message\MessageAliveACK.pb.cc" />
     <ClCompile Include="..\message\MessageQueryFile.pb.cc" />
     <ClCompile Include="..\message\MessageQueryFileResult.pb.cc" />
     <ClCompile Include="..\message\MessageRegister.pb.cc" />
@@ -168,6 +170,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\handler\MessageAcceptHandler.h" />
+    <ClInclude Include="..\handler\MessageAliveACKHandler.h" />
+    <ClInclude Include="..\handler\MessageAliveHandler.h" />
     <ClInclude Include="..\handler\MessageQueryFileHandler.h" />
     <ClInclude Include="..\handler\MessageQueryFileResultHandler.h" />
     <ClInclude Include="..\handler\MessageRegisterHandler.h" />
@@ -175,6 +179,7 @@
     <ClInclude Include="..\inc\Array.h" />
     <ClInclude Include="..\inc\ClusterSession.h" />
     <ClInclude Include="..\inc\CMDParameter.h" />
+    <ClInclude Include="..\inc\MasterConfig.h" />
     <ClInclude Include="..\inc\FileTable.h" />
     <ClInclude Include="..\inc\MasterConnector.h" />
     <ClInclude Include="..\inc\MasterSession.h" />
@@ -186,6 +191,8 @@
     <ClInclude Include="..\inc\NodeSession.h" />
     <ClInclude Include="..\inc\Variable.h" />
     <ClInclude Include="..\message\MessageAccept.pb.h" />
+    <ClInclude Include="..\message\MessageAlive.pb.h" />
+    <ClInclude Include="..\message\MessageAliveACK.pb.h" />
     <ClInclude Include="..\message\MessageQueryFile.pb.h" />
     <ClInclude Include="..\message\MessageQueryFileResult.pb.h" />
     <ClInclude Include="..\message\MessageRegister.pb.h" />

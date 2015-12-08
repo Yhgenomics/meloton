@@ -32,8 +32,9 @@ void protobuf_AssignDesc_MessageQueryFile_2eproto() {
       "MessageQueryFile.proto");
   GOOGLE_CHECK(file != NULL);
   MessageQueryFile_descriptor_ = file->message_type(0);
-  static const int MessageQueryFile_offsets_[1] = {
+  static const int MessageQueryFile_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageQueryFile, file_name_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageQueryFile, job_id_),
   };
   MessageQueryFile_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -76,8 +77,8 @@ void protobuf_AddDesc_MessageQueryFile_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\026MessageQueryFile.proto\"%\n\020MessageQuery"
-    "File\022\021\n\tfile_name\030\001 \002(\t", 63);
+    "\n\026MessageQueryFile.proto\"5\n\020MessageQuery"
+    "File\022\021\n\tfile_name\030\001 \002(\t\022\016\n\006job_id\030\002 \002(\003", 79);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessageQueryFile.proto", &protobuf_RegisterTypes);
   MessageQueryFile::default_instance_ = new MessageQueryFile();
@@ -96,6 +97,7 @@ struct StaticDescriptorInitializer_MessageQueryFile_2eproto {
 
 #ifndef _MSC_VER
 const int MessageQueryFile::kFileNameFieldNumber;
+const int MessageQueryFile::kJobIdFieldNumber;
 #endif  // !_MSC_VER
 
 MessageQueryFile::MessageQueryFile()
@@ -118,6 +120,7 @@ void MessageQueryFile::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   file_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  job_id_ = GOOGLE_LONGLONG(0);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -156,10 +159,13 @@ MessageQueryFile* MessageQueryFile::New() const {
 }
 
 void MessageQueryFile::Clear() {
-  if (has_file_name()) {
-    if (file_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-      file_name_->clear();
+  if (_has_bits_[0 / 32] & 3) {
+    if (has_file_name()) {
+      if (file_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        file_name_->clear();
+      }
     }
+    job_id_ = GOOGLE_LONGLONG(0);
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -184,6 +190,21 @@ bool MessageQueryFile::MergePartialFromCodedStream(
             this->file_name().data(), this->file_name().length(),
             ::google::protobuf::internal::WireFormat::PARSE,
             "file_name");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_job_id;
+        break;
+      }
+
+      // required int64 job_id = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_job_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &job_id_)));
+          set_has_job_id();
         } else {
           goto handle_unusual;
         }
@@ -226,6 +247,11 @@ void MessageQueryFile::SerializeWithCachedSizes(
       1, this->file_name(), output);
   }
 
+  // required int64 job_id = 2;
+  if (has_job_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->job_id(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -247,6 +273,11 @@ void MessageQueryFile::SerializeWithCachedSizes(
         1, this->file_name(), target);
   }
 
+  // required int64 job_id = 2;
+  if (has_job_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->job_id(), target);
+  }
+
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -264,6 +295,13 @@ int MessageQueryFile::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->file_name());
+    }
+
+    // required int64 job_id = 2;
+    if (has_job_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->job_id());
     }
 
   }
@@ -296,6 +334,9 @@ void MessageQueryFile::MergeFrom(const MessageQueryFile& from) {
     if (from.has_file_name()) {
       set_file_name(from.file_name());
     }
+    if (from.has_job_id()) {
+      set_job_id(from.job_id());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -313,7 +354,7 @@ void MessageQueryFile::CopyFrom(const MessageQueryFile& from) {
 }
 
 bool MessageQueryFile::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
 
   return true;
 }
@@ -321,6 +362,7 @@ bool MessageQueryFile::IsInitialized() const {
 void MessageQueryFile::Swap(MessageQueryFile* other) {
   if (other != this) {
     std::swap(file_name_, other->file_name_);
+    std::swap(job_id_, other->job_id_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

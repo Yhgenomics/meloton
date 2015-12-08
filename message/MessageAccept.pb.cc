@@ -32,10 +32,11 @@ void protobuf_AssignDesc_MessageAccept_2eproto() {
       "MessageAccept.proto");
   GOOGLE_CHECK(file != NULL);
   MessageAccept_descriptor_ = file->message_type(0);
-  static const int MessageAccept_offsets_[3] = {
+  static const int MessageAccept_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageAccept, parent_address_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageAccept, parent_port_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageAccept, session_id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageAccept, alive_duration_),
   };
   MessageAccept_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -78,9 +79,10 @@ void protobuf_AddDesc_MessageAccept_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\023MessageAccept.proto\"S\n\rMessageAccept\022\026"
+    "\n\023MessageAccept.proto\"k\n\rMessageAccept\022\026"
     "\n\016parent_address\030\001 \001(\t\022\026\n\013parent_port\030\002 "
-    "\002(\005:\0010\022\022\n\nsession_id\030\003 \002(\003", 106);
+    "\002(\005:\0010\022\022\n\nsession_id\030\003 \002(\003\022\026\n\016alive_dura"
+    "tion\030\004 \002(\003", 130);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessageAccept.proto", &protobuf_RegisterTypes);
   MessageAccept::default_instance_ = new MessageAccept();
@@ -101,6 +103,7 @@ struct StaticDescriptorInitializer_MessageAccept_2eproto {
 const int MessageAccept::kParentAddressFieldNumber;
 const int MessageAccept::kParentPortFieldNumber;
 const int MessageAccept::kSessionIdFieldNumber;
+const int MessageAccept::kAliveDurationFieldNumber;
 #endif  // !_MSC_VER
 
 MessageAccept::MessageAccept()
@@ -125,6 +128,7 @@ void MessageAccept::SharedCtor() {
   parent_address_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   parent_port_ = 0;
   session_id_ = GOOGLE_LONGLONG(0);
+  alive_duration_ = GOOGLE_LONGLONG(0);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -173,7 +177,7 @@ void MessageAccept::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 7) {
+  if (_has_bits_[0 / 32] & 15) {
     ZR_(session_id_, parent_port_);
     if (has_parent_address()) {
       if (parent_address_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
@@ -241,6 +245,21 @@ bool MessageAccept::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(32)) goto parse_alive_duration;
+        break;
+      }
+
+      // required int64 alive_duration = 4;
+      case 4: {
+        if (tag == 32) {
+         parse_alive_duration:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &alive_duration_)));
+          set_has_alive_duration();
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -290,6 +309,11 @@ void MessageAccept::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt64(3, this->session_id(), output);
   }
 
+  // required int64 alive_duration = 4;
+  if (has_alive_duration()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(4, this->alive_duration(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -319,6 +343,11 @@ void MessageAccept::SerializeWithCachedSizes(
   // required int64 session_id = 3;
   if (has_session_id()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(3, this->session_id(), target);
+  }
+
+  // required int64 alive_duration = 4;
+  if (has_alive_duration()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(4, this->alive_duration(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -352,6 +381,13 @@ int MessageAccept::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int64Size(
           this->session_id());
+    }
+
+    // required int64 alive_duration = 4;
+    if (has_alive_duration()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->alive_duration());
     }
 
   }
@@ -390,6 +426,9 @@ void MessageAccept::MergeFrom(const MessageAccept& from) {
     if (from.has_session_id()) {
       set_session_id(from.session_id());
     }
+    if (from.has_alive_duration()) {
+      set_alive_duration(from.alive_duration());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -407,7 +446,7 @@ void MessageAccept::CopyFrom(const MessageAccept& from) {
 }
 
 bool MessageAccept::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000006) != 0x00000006) return false;
+  if ((_has_bits_[0] & 0x0000000e) != 0x0000000e) return false;
 
   return true;
 }
@@ -417,6 +456,7 @@ void MessageAccept::Swap(MessageAccept* other) {
     std::swap(parent_address_, other->parent_address_);
     std::swap(parent_port_, other->parent_port_);
     std::swap(session_id_, other->session_id_);
+    std::swap(alive_duration_, other->alive_duration_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

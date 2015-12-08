@@ -1,7 +1,7 @@
 /* * * * * * * * * * * * * * * *
 * YHGenomics Inc.
 * Author     : yang shubo
-* Date       : 2015-12-03
+* Date       : 2015-12-08
 * Description: map messages to id
 * * * * * * * * * * * * * * * */
 
@@ -16,11 +16,15 @@
 #include <google/protobuf/message.h>
 
 #include "MessageAccept.pb.h"
+#include "MessageAlive.pb.h"
+#include "MessageAliveACK.pb.h"
 #include "MessageQueryFile.pb.h"
 #include "MessageQueryFileResult.pb.h"
 #include "MessageRegister.pb.h"
 
 #include "MessageAcceptHandler.h"
+#include "MessageAliveHandler.h"
+#include "MessageAliveACKHandler.h"
 #include "MessageQueryFileHandler.h"
 #include "MessageQueryFileResultHandler.h"
 #include "MessageRegisterHandler.h"
@@ -68,6 +72,18 @@ public:
                 auto msg = new MessageAccept( );
                 msg->ParseFromArray( data, msg_len );
                 return MessageAcceptHandler( session , move_ptr( std::unique_ptr<MessageAccept>( msg ) ) );
+            }break;
+            case 0x4165676177776D6F : 
+            {
+                auto msg = new MessageAlive( );
+                msg->ParseFromArray( data, msg_len );
+                return MessageAliveHandler( session , move_ptr( std::unique_ptr<MessageAlive>( msg ) ) );
+            }break;
+            case 0x416F676177776D6F : 
+            {
+                auto msg = new MessageAliveACK( );
+                msg->ParseFromArray( data, msg_len );
+                return MessageAliveACKHandler( session , move_ptr( std::unique_ptr<MessageAliveACK>( msg ) ) );
             }break;
             case 0x756D6F677B73657F : 
             {

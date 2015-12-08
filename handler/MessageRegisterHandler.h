@@ -18,6 +18,7 @@
 
 #include "MessageAccept.pb.h"
 #include "NodeManager.h"
+#include "MasterConfig.h"
 
 static int MessageRegisterHandler( ClusterSession * session , uptr<MessageRegister> msg )
 {
@@ -26,6 +27,8 @@ static int MessageRegisterHandler( ClusterSession * session , uptr<MessageRegist
 
     auto reply = make_uptr( MessageAccept );
     reply->set_session_id( session->id( ) );
+    reply->set_alive_duration( MasterConfig::alive_time );
+
     session->send_message( move_ptr( reply ) );
 
     return 0;
