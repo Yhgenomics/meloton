@@ -15,8 +15,9 @@
 
 const size_t FT_ERROR_FILE_EXIST = 0x100;
 const size_t FT_ERROR_FILE_NOTFOUND = 0x101;
-const size_t FT_ERROR_READ_OUTOFBOUND = 0x101;
-const size_t FT_ERROR_FILE_CLOSED = 0x101;
+const size_t FT_ERROR_READ_OUTOFBOUND = 0x102;
+const size_t FT_ERROR_WRITE_OUTOFBOUND = 0x103;
+const size_t FT_ERROR_FILE_CLOSED = 0x104;
 
 
 class FileHandler
@@ -47,17 +48,17 @@ public:
     
     sptr<FileHandler> create_file( const std::string & file_name , 
                               const size_t & part_id  ,
-                              size_t file_size );
+                              const size_t & file_size );
 
     sptr<FileHandler> open_file( const std::string & file_name , 
-                            const size_t & part_id );
+                                 const size_t & part_id );
 
     size_t write_file( sptr<FileHandler> handler , 
                        const char * data , 
                        const size_t len );
 
     size_t read_file( sptr<FileHandler> handler , 
-                      char ** buffer , 
+                      char * buffer , 
                       const size_t buffer_size );
 
     size_t seek_file( sptr<FileHandler> handler ,
@@ -82,6 +83,7 @@ private:
     };
 
     FileTable( );
+
     
     void            read_file_index  ( FILE * file );
     void            save_index       ( FileIndex * index );
@@ -89,22 +91,31 @@ private:
     size_t          hash_name        ( const char file_name[248] );
     size_t          hash_name        ( const char * file_name , 
                                        size_t len );
-    FileIndex *     find_index       ( const std::string & file_name , size_t part_id );
+    FileIndex *     find_index       ( const std::string & file_name , 
+                                       const size_t & part_id );
     FileIndex *     find_hash        ( size_t hash);
-    
-    FileIndex** idx_array_          = nullptr;
-    size_t      idx_size_           = 0;
-    size_t      idx_index_          = 0;
 
-    FILE*       file_idx_           = 0;
-    MRT::Mutex  file_idx_mutex_;
+    FILE*           open_table_read  ( );
+    FILE*           open_table_append( );
+    FILE*           open_idx_write   ( );
+    FILE*           open_idx_read    ( );
+    void            close_file       ( FILE* );
 
-    FILE*       file_table_         = 0;
-    MRT::Mutex  mutex_handle_file ;
-  
-
-    size_t      error_              = 0;
-
+    FileIndex** idx_array_           = nullptr;
+    size_t      idx_size_            = 0;
+    size_t      idx_index_           = 0;
+                                     
+    FILE*       file_idx_            = 0;
+    MRT::Mutex  file_idx_mutex_;     
+                                     
+    FILE*       file_table_          = 0;
+    MRT::Mutex  mutex_handle_file ;  
+                                     
+                                     
+    size_t      error_               = 0;
+                                     
+    const std::string FILE_IDX_NAME  = "file.idx";
+    const std::string FILE_DATA_NAME = "file.data";
 };
 
 #endif // !FILE_TABLE_H_

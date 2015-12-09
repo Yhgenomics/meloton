@@ -14,6 +14,7 @@ FileHandler::~FileHandler( )
 FileTable::FileTable( )
 {
     this->idx_array_ = new FileIndex*[1024 * 1024 * 10];
+    memset( this->idx_array_ , 0 , 1024 * 1024 * 10 * sizeof( FileIndex* ) );
 }
 
 FileTable::~FileTable( )
@@ -23,26 +24,30 @@ FileTable::~FileTable( )
 
 void FileTable::initial( )
 {
-    const static std::string FILE_IDX_NAME = "file.idx";
-    const static std::string FILE_DATA_NAME = "file.data";
+    this->file_idx_ = fopen( FILE_IDX_NAME.c_str( ) , "rb+" );
+    this->file_table_ = fopen( FILE_DATA_NAME.c_str( ) , "rb+" );
 
-    this->file_idx_ = fopen( FILE_IDX_NAME.c_str( ) , "ab+" );
-    this->file_table_ = fopen( FILE_DATA_NAME.c_str( ) , "ab+" );
-/*
     if ( this->file_idx_ == NULL )
     {
-        this->file_idx_ = fopen( FILE_IDX_NAME.c_str( ) , "ab+" );
+        this->file_idx_ = fopen( FILE_IDX_NAME.c_str( ) , "wb+" );
     }
 
     if ( this->file_table_ == NULL )
     {
-        this->file_table_ = fopen( FILE_DATA_NAME.c_str( ) , "ab+" );
+        this->file_table_ = fopen( FILE_DATA_NAME.c_str( ) , "wb+" );
     }
-*/
+
     read_file_index( this->file_idx_ );
+
+    for ( size_t i = 0; i < this->idx_size_; i++ )
+    {
+        LOG_DEBUG( "%lld : [%lld]%s" , i , this->idx_array_[i]->file_name_hash , this->idx_array_[i]->file_name );
+    }
 }
 
-sptr<FileHandler> FileTable::create_file( const std::string & file_name , const size_t & part_id , size_t file_size )
+sptr<FileHandler> FileTable::create_file( const std::string & file_name ,
+                                          const size_t & part_id , 
+                                          const size_t & file_size )
 {
     mutex_handle_file.wait( );
 
@@ -69,13 +74,21 @@ sptr<FileHandler> FileTable::create_file( const std::string & file_name , const 
 
     this->add_index( idx );
 
-    auto file_pos = 0;
-    while ( file_pos < file_size )
-    {
-        char buffer[1] = { 0 };
-        file_pos += fwrite( buffer , 1 , file_size , file_table_ );
-    }
+    size_t bytes_left = file_size;
+    const size_t bytes_length = 1024*10;
+    size_t bytes_write = bytes_length;
+    char buffer[bytes_length] = { 0 };
 
+    while ( bytes_left > 0 )
+    {
+        bytes_write = bytes_left > bytes_length ? bytes_length : bytes_left;
+        auto file_write = fwrite( buffer ,
+                                  1 ,
+                                  bytes_write ,
+                                  file_table_ );
+        bytes_left -= file_write; 
+    }
+    
     mutex_handle_file.release( );
 
     save_index( idx );
@@ -83,7 +96,8 @@ sptr<FileHandler> FileTable::create_file( const std::string & file_name , const 
     return file;
 }
 
-sptr<FileHandler> FileTable::open_file( const std::string & file_name , const size_t & part_id )
+sptr<FileHandler> FileTable::open_file( const std::string & file_name ,
+                                        const size_t & part_id )
 {
     sptr<FileHandler> file = make_sptr( FileHandler );
 
@@ -113,10 +127,21 @@ size_t FileTable::write_file( sptr<FileHandler> handler , const char * data , co
 
     FileIndex* idx = ( FileIndex* ) handler->h_idx;
 
+    if ( len > idx->part_size )
+    {
+        this->error_ = FT_ERROR_WRITE_OUTOFBOUND;
+        return 0;
+    }
+
     this->mutex_handle_file.wait( );
 
-    fseek( this->file_table_ , idx->offset + handler->position , SEEK_CUR );
-    writes              = fwrite( data , len , 1 , this->file_table_ );
+    auto hf = fseek( this->file_table_ , 
+                     idx->offset + handler->position , 
+                     SEEK_SET );
+
+    auto pos = ftell( this->file_table_ );
+
+    writes              = fwrite( data , 1 , len , this->file_table_ );
     handler->position   += writes;
 
     this->mutex_handle_file.release( );
@@ -124,8 +149,10 @@ size_t FileTable::write_file( sptr<FileHandler> handler , const char * data , co
     return writes;
 }
 
-size_t FileTable::read_file( sptr<FileHandler> handler , char ** buffer , const size_t buffer_size )
+size_t FileTable::read_file( sptr<FileHandler> handler , char * buffer , const size_t buffer_size )
 {
+    size_t buf_size = buffer_size;
+
     if ( handler == nullptr || handler->h_idx == 0 )
     {
         this->error_ = FT_ERROR_FILE_CLOSED;
@@ -141,10 +168,16 @@ size_t FileTable::read_file( sptr<FileHandler> handler , char ** buffer , const 
         return 0;
     }
 
+    if ( ( handler->position + buffer_size) > buffer_size )
+    {
+        buf_size = buffer_size - handler->position + 1;
+    }
+
     this->mutex_handle_file.wait( );
 
-    fseek( this->file_table_ , idx->offset + handler->position , SEEK_CUR );
-    reads = fread( *buffer , buffer_size , 1 , file_table_ );
+    fseek( this->file_table_ , idx->offset + handler->position , SEEK_SET );
+    reads = fread( buffer ,  1 , buf_size , file_table_ );
+    
     handler->position += reads;
 
     this->mutex_handle_file.release( );
@@ -189,28 +222,46 @@ size_t FileTable::error( )
 void FileTable::read_file_index( FILE * file )
 {
     size_t total_file_num   = 0;
-
-    fread( &total_file_num , sizeof( size_t ) , 1 , file );
-
-    for ( size_t i = 0; i < total_file_num; i++ )
+    this->idx_size_ = 0;
+    while ( true )
     {
         auto idx = new FileIndex( );
-        fread( idx , sizeof( FileIndex ) , 1 , file );
+        auto reads = fread( idx , sizeof( FileIndex ) , 1 , file );
+        
+        if ( reads == 0 )
+        {
+            delete idx;
+            break;
+        }
+
         this->add_index( idx );
     }
 
-    idx_size_ = total_file_num;
+    //fseek( this->file_idx_ ,
+    //       0 ,
+    //       SEEK_SET );
+
+    //fread( &total_file_num , sizeof( size_t ) , 1 , file );
+
+    //for ( size_t i = 0; i < total_file_num; i++ )
+    //{
+    //    auto idx = new FileIndex( );
+    //    fread( idx , sizeof( FileIndex ) , 1 , file );
+    //    this->add_index( idx );
+    //}
+
+    //idx_size_ = total_file_num;
 }
 
 void FileTable::save_index( FileIndex * index )
 {
     file_idx_mutex_.wait( );
 
-    fseek( this->file_idx_ ,
-           0 ,
-           SEEK_CUR );
-    
-    fwrite( &this->idx_size_ , sizeof( size_t ) , 1 , file_idx_ );
+    //fseek( this->file_idx_ ,
+    //       0 ,
+    //       SEEK_SET );
+    //
+    //fwrite( &this->idx_size_ , sizeof( size_t ) , 1 , file_idx_ );
 
     int num_size    = sizeof( size_t );
     int offset      = fseek( this->file_idx_ ,
@@ -221,6 +272,8 @@ void FileTable::save_index( FileIndex * index )
             1 ,
             this->file_idx_ );
 
+    fflush( file_idx_ );
+
     file_idx_mutex_.release( );
 }
 
@@ -229,7 +282,7 @@ size_t FileTable::add_index( FileIndex * index )
     file_idx_mutex_.wait( );
 
     auto pos_index = this->find_hash( index->file_name_hash );
-    size_t pos = 0;
+    size_t pos = this->idx_index_;
 
     if ( pos_index != nullptr )
     {
@@ -288,7 +341,8 @@ size_t FileTable::hash_name( const char * file_name , size_t len )
     return result;
 }
 
-FileTable::FileIndex * FileTable::find_index( const std::string & file_name , size_t part_id )
+FileTable::FileIndex * FileTable::find_index( const std::string & file_name , 
+                                              const size_t & part_id )
 {
     size_t head , tail , cur , hash_name;
 
@@ -331,13 +385,17 @@ FileTable::FileIndex * FileTable::find_index( const std::string & file_name , si
 }
 
 FileTable::FileIndex * FileTable::find_hash( size_t hash)
-{
+{ 
+    if ( this->idx_size_ == 0 )return nullptr;
+    
     size_t head , tail , cur , hash_name;
 
-    hash_name = hash;
-    head = 0;
-    tail = this->idx_index_;
-    cur  = this->idx_index_ >> 1;
+    hash_name   = hash;
+    head        = 0;
+    tail        = this->idx_size_ - 1;
+    cur         = tail >> 1;
+
+    if ( this->idx_array_[cur] == nullptr ) return nullptr;
 
     while ( head != tail )
     {
@@ -347,17 +405,40 @@ FileTable::FileIndex * FileTable::find_hash( size_t hash)
         }
         else if ( this->idx_array_[cur]->file_name_hash < hash_name )
         {
-            head = ( tail - head + 1 ) >> 1;
-            cur  = ( tail - cur )  >> 1;
+            head += ( tail - head + 1) >> 1;
+            cur  += ( tail - cur + 1 )  >> 1;
         }
         else if ( this->idx_array_[cur]->file_name_hash > hash_name )
         {
-            tail = tail >> 1;
-            cur  = ( cur - head ) >> 1;
+            tail -=  ( tail - head + 1) >> 1;
+            cur  = cur >> 1;
         }
     }
-
+    
     return nullptr;
 }
 
+FILE * FileTable::open_table_read( )
+{
+    return fopen( FILE_DATA_NAME.c_str( ) , "rb+" );
+}
 
+FILE * FileTable::open_table_append( )
+{
+   return fopen( FILE_DATA_NAME.c_str( ) , "ab+" );
+}
+
+FILE * FileTable::open_idx_write( )
+{
+   return fopen( FILE_DATA_NAME.c_str( ) , "wb+" );
+}
+
+FILE * FileTable::open_idx_read( )
+{
+   return fopen( FILE_DATA_NAME.c_str( ) , "rb+" );
+}
+
+void FileTable::close_file( FILE * file )
+{
+    fclose( file );
+}
