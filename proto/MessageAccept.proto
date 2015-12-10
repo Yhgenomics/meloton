@@ -3,4 +3,5 @@ message MessageAccept
     optional string parent_address = 1;
     required int32 parent_port = 2 [default = 0];
     required int64 session_id = 3;
+    required int64 alive_duration = 4;
 }
