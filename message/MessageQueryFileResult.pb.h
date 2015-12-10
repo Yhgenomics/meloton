@@ -138,6 +138,13 @@ class MessageQueryFileResult : public ::google::protobuf::Message {
   inline ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
       mutable_file_part_size();
 
+  // required int64 query_id = 6;
+  inline bool has_query_id() const;
+  inline void clear_query_id();
+  static const int kQueryIdFieldNumber = 6;
+  inline ::google::protobuf::int64 query_id() const;
+  inline void set_query_id(::google::protobuf::int64 value);
+
   // @@protoc_insertion_point(class_scope:MessageQueryFileResult)
  private:
   inline void set_has_session_id();
@@ -146,6 +153,8 @@ class MessageQueryFileResult : public ::google::protobuf::Message {
   inline void clear_has_error();
   inline void set_has_file_name();
   inline void clear_has_file_name();
+  inline void set_has_query_id();
+  inline void clear_has_query_id();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -156,6 +165,7 @@ class MessageQueryFileResult : public ::google::protobuf::Message {
   ::std::string* file_name_;
   ::google::protobuf::RepeatedField< ::google::protobuf::int64 > file_part_id_;
   ::google::protobuf::RepeatedField< ::google::protobuf::int64 > file_part_size_;
+  ::google::protobuf::int64 query_id_;
   friend void  protobuf_AddDesc_MessageQueryFileResult_2eproto();
   friend void protobuf_AssignDesc_MessageQueryFileResult_2eproto();
   friend void protobuf_ShutdownFile_MessageQueryFileResult_2eproto();
@@ -352,6 +362,30 @@ inline ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
 MessageQueryFileResult::mutable_file_part_size() {
   // @@protoc_insertion_point(field_mutable_list:MessageQueryFileResult.file_part_size)
   return &file_part_size_;
+}
+
+// required int64 query_id = 6;
+inline bool MessageQueryFileResult::has_query_id() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void MessageQueryFileResult::set_has_query_id() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void MessageQueryFileResult::clear_has_query_id() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void MessageQueryFileResult::clear_query_id() {
+  query_id_ = GOOGLE_LONGLONG(0);
+  clear_has_query_id();
+}
+inline ::google::protobuf::int64 MessageQueryFileResult::query_id() const {
+  // @@protoc_insertion_point(field_get:MessageQueryFileResult.query_id)
+  return query_id_;
+}
+inline void MessageQueryFileResult::set_query_id(::google::protobuf::int64 value) {
+  set_has_query_id();
+  query_id_ = value;
+  // @@protoc_insertion_point(field_set:MessageQueryFileResult.query_id)
 }
 
 

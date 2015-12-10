@@ -100,26 +100,26 @@ class MessageQueryFile : public ::google::protobuf::Message {
   inline ::std::string* release_file_name();
   inline void set_allocated_file_name(::std::string* file_name);
 
-  // required int64 job_id = 2;
-  inline bool has_job_id() const;
-  inline void clear_job_id();
-  static const int kJobIdFieldNumber = 2;
-  inline ::google::protobuf::int64 job_id() const;
-  inline void set_job_id(::google::protobuf::int64 value);
+  // required int64 query_id = 2;
+  inline bool has_query_id() const;
+  inline void clear_query_id();
+  static const int kQueryIdFieldNumber = 2;
+  inline ::google::protobuf::int64 query_id() const;
+  inline void set_query_id(::google::protobuf::int64 value);
 
   // @@protoc_insertion_point(class_scope:MessageQueryFile)
  private:
   inline void set_has_file_name();
   inline void clear_has_file_name();
-  inline void set_has_job_id();
-  inline void clear_has_job_id();
+  inline void set_has_query_id();
+  inline void clear_has_query_id();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
   ::std::string* file_name_;
-  ::google::protobuf::int64 job_id_;
+  ::google::protobuf::int64 query_id_;
   friend void  protobuf_AddDesc_MessageQueryFile_2eproto();
   friend void protobuf_AssignDesc_MessageQueryFile_2eproto();
   friend void protobuf_ShutdownFile_MessageQueryFile_2eproto();
@@ -210,28 +210,28 @@ inline void MessageQueryFile::set_allocated_file_name(::std::string* file_name) 
   // @@protoc_insertion_point(field_set_allocated:MessageQueryFile.file_name)
 }
 
-// required int64 job_id = 2;
-inline bool MessageQueryFile::has_job_id() const {
+// required int64 query_id = 2;
+inline bool MessageQueryFile::has_query_id() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void MessageQueryFile::set_has_job_id() {
+inline void MessageQueryFile::set_has_query_id() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void MessageQueryFile::clear_has_job_id() {
+inline void MessageQueryFile::clear_has_query_id() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void MessageQueryFile::clear_job_id() {
-  job_id_ = GOOGLE_LONGLONG(0);
-  clear_has_job_id();
+inline void MessageQueryFile::clear_query_id() {
+  query_id_ = GOOGLE_LONGLONG(0);
+  clear_has_query_id();
 }
-inline ::google::protobuf::int64 MessageQueryFile::job_id() const {
-  // @@protoc_insertion_point(field_get:MessageQueryFile.job_id)
-  return job_id_;
+inline ::google::protobuf::int64 MessageQueryFile::query_id() const {
+  // @@protoc_insertion_point(field_get:MessageQueryFile.query_id)
+  return query_id_;
 }
-inline void MessageQueryFile::set_job_id(::google::protobuf::int64 value) {
-  set_has_job_id();
-  job_id_ = value;
-  // @@protoc_insertion_point(field_set:MessageQueryFile.job_id)
+inline void MessageQueryFile::set_query_id(::google::protobuf::int64 value) {
+  set_has_query_id();
+  query_id_ = value;
+  // @@protoc_insertion_point(field_set:MessageQueryFile.query_id)
 }
 
 

@@ -159,6 +159,8 @@
     <ClCompile Include="..\src\CMDParameter.cpp" />
     <ClCompile Include="..\src\FileTable.cpp" />
     <ClCompile Include="..\src\MasterConnector.cpp" />
+    <ClCompile Include="..\src\MasterHTTPListener.cpp" />
+    <ClCompile Include="..\src\MasterHTTPSession.cpp" />
     <ClCompile Include="..\src\MasterSession.cpp" />
     <ClCompile Include="..\src\meloton.cpp" />
     <ClCompile Include="..\src\NodeBroadcaster.cpp" />
@@ -182,6 +184,8 @@
     <ClInclude Include="..\inc\MasterConfig.h" />
     <ClInclude Include="..\inc\FileTable.h" />
     <ClInclude Include="..\inc\MasterConnector.h" />
+    <ClInclude Include="..\inc\MasterHTTPListener.h" />
+    <ClInclude Include="..\inc\MasterHTTPSession.h" />
     <ClInclude Include="..\inc\MasterSession.h" />
     <ClInclude Include="..\inc\meloton.h" />
     <ClInclude Include="..\inc\NodeBroadcaster.h" />

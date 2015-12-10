@@ -32,12 +32,13 @@ void protobuf_AssignDesc_MessageQueryFileResult_2eproto() {
       "MessageQueryFileResult.proto");
   GOOGLE_CHECK(file != NULL);
   MessageQueryFileResult_descriptor_ = file->message_type(0);
-  static const int MessageQueryFileResult_offsets_[5] = {
+  static const int MessageQueryFileResult_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageQueryFileResult, session_id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageQueryFileResult, error_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageQueryFileResult, file_name_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageQueryFileResult, file_part_id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageQueryFileResult, file_part_size_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageQueryFileResult, query_id_),
   };
   MessageQueryFileResult_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -80,10 +81,11 @@ void protobuf_AddDesc_MessageQueryFileResult_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\034MessageQueryFileResult.proto\"|\n\026Messag"
-    "eQueryFileResult\022\022\n\nsession_id\030\001 \002(\003\022\r\n\005"
-    "error\030\002 \002(\003\022\021\n\tfile_name\030\003 \002(\t\022\024\n\014file_p"
-    "art_id\030\004 \003(\003\022\026\n\016file_part_size\030\005 \003(\003", 156);
+    "\n\034MessageQueryFileResult.proto\"\216\001\n\026Messa"
+    "geQueryFileResult\022\022\n\nsession_id\030\001 \002(\003\022\r\n"
+    "\005error\030\002 \002(\003\022\021\n\tfile_name\030\003 \002(\t\022\024\n\014file_"
+    "part_id\030\004 \003(\003\022\026\n\016file_part_size\030\005 \003(\003\022\020\n"
+    "\010query_id\030\006 \002(\003", 175);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessageQueryFileResult.proto", &protobuf_RegisterTypes);
   MessageQueryFileResult::default_instance_ = new MessageQueryFileResult();
@@ -106,6 +108,7 @@ const int MessageQueryFileResult::kErrorFieldNumber;
 const int MessageQueryFileResult::kFileNameFieldNumber;
 const int MessageQueryFileResult::kFilePartIdFieldNumber;
 const int MessageQueryFileResult::kFilePartSizeFieldNumber;
+const int MessageQueryFileResult::kQueryIdFieldNumber;
 #endif  // !_MSC_VER
 
 MessageQueryFileResult::MessageQueryFileResult()
@@ -130,6 +133,7 @@ void MessageQueryFileResult::SharedCtor() {
   session_id_ = GOOGLE_LONGLONG(0);
   error_ = GOOGLE_LONGLONG(0);
   file_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  query_id_ = GOOGLE_LONGLONG(0);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -178,13 +182,14 @@ void MessageQueryFileResult::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 7) {
+  if (_has_bits_[0 / 32] & 39) {
     ZR_(session_id_, error_);
     if (has_file_name()) {
       if (file_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         file_name_->clear();
       }
     }
+    query_id_ = GOOGLE_LONGLONG(0);
   }
 
 #undef OFFSET_OF_FIELD_
@@ -286,6 +291,21 @@ bool MessageQueryFileResult::MergePartialFromCodedStream(
           goto handle_unusual;
         }
         if (input->ExpectTag(40)) goto parse_file_part_size;
+        if (input->ExpectTag(48)) goto parse_query_id;
+        break;
+      }
+
+      // required int64 query_id = 6;
+      case 6: {
+        if (tag == 48) {
+         parse_query_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &query_id_)));
+          set_has_query_id();
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -347,6 +367,11 @@ void MessageQueryFileResult::SerializeWithCachedSizes(
       5, this->file_part_size(i), output);
   }
 
+  // required int64 query_id = 6;
+  if (has_query_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(6, this->query_id(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -390,6 +415,11 @@ void MessageQueryFileResult::SerializeWithCachedSizes(
       WriteInt64ToArray(5, this->file_part_size(i), target);
   }
 
+  // required int64 query_id = 6;
+  if (has_query_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(6, this->query_id(), target);
+  }
+
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -421,6 +451,13 @@ int MessageQueryFileResult::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->file_name());
+    }
+
+    // required int64 query_id = 6;
+    if (has_query_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->query_id());
     }
 
   }
@@ -481,6 +518,9 @@ void MessageQueryFileResult::MergeFrom(const MessageQueryFileResult& from) {
     if (from.has_file_name()) {
       set_file_name(from.file_name());
     }
+    if (from.has_query_id()) {
+      set_query_id(from.query_id());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -498,7 +538,7 @@ void MessageQueryFileResult::CopyFrom(const MessageQueryFileResult& from) {
 }
 
 bool MessageQueryFileResult::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
+  if ((_has_bits_[0] & 0x00000027) != 0x00000027) return false;
 
   return true;
 }
@@ -510,6 +550,7 @@ void MessageQueryFileResult::Swap(MessageQueryFileResult* other) {
     std::swap(file_name_, other->file_name_);
     file_part_id_.Swap(&other->file_part_id_);
     file_part_size_.Swap(&other->file_part_size_);
+    std::swap(query_id_, other->query_id_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

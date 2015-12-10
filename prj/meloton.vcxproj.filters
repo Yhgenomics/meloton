@@ -70,6 +70,12 @@
     <ClCompile Include="..\message\MessageAliveACK.pb.cc">
       <Filter>message</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\MasterHTTPListener.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MasterHTTPSession.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\inc\NodeDetector.h">
@@ -151,6 +157,12 @@
       <Filter>handler</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\MasterConfig.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\MasterHTTPListener.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\MasterHTTPSession.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>

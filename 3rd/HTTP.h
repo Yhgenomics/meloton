@@ -80,6 +80,8 @@ public:
 
     void* data                  ( );
     void data                   ( void* value );
+
+    bool finish                 ( );
      
 private:
 
@@ -145,6 +147,8 @@ public:
     uptr<Buffer> build_body      ( );
 
     void         parse           ( uptr<Buffer> data );
+
+    bool         finish          ( );
 
 private: 
 

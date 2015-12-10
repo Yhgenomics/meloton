@@ -9,8 +9,8 @@
 #include "FileTable.h"
 #include <time.h>
 
-int main( int argc , char * argv[] )
-{ 
+void test_file_table( )
+{
     size_t data_size = 1024;
     FileTable::instance( )->initial( );
     char read_tmp_data[512] = { 0 };
@@ -36,7 +36,11 @@ int main( int argc , char * argv[] )
         FileTable::instance( )->write_file( f , write_data , data_size );
     }
 
-     auto deltaTime = time( 0 ) - tim;
+    auto deltaTime = time( 0 ) - tim;
+}
+
+int main( int argc , char * argv[] )
+{  
 
     if ( !CMDParameter::parse( argc , argv ) )
     {
@@ -52,6 +56,8 @@ int main( int argc , char * argv[] )
         MRT::Maraton::instance( )->regist( make_uptr( NodeListener , 
                                            Variable::server_ip , 
                                            Variable::port));
+
+        LOG_ERROR( "system shutdown" );
     }
     // Node mode
     else if ( Variable::mode == 1 )
@@ -59,12 +65,20 @@ int main( int argc , char * argv[] )
         LOG_SYS( "system start in node mode" );
         LOG_SYS( "connecting %s:%d" , Variable::server_ip , Variable::port );
 
-        MRT::Maraton::instance( )->regist( make_uptr( MasterConnector , 
+        while ( true )
+        {
+            MRT::Maraton::instance( )->regist( make_uptr( MasterConnector , 
                                            Variable::server_ip , 
                                            Variable::port));
+
+            MRT::Maraton::instance( )->loop( );
+
+            LOG_ERROR( "disconnected to server , reconnecting" );
+        }
+        
     }
 
-    MRT::Maraton::instance( )->loop( );
+  
 
     return 0;
 }

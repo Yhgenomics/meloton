@@ -181,6 +181,8 @@ size_t FileTable::read_file( sptr<FileHandler> handler , char * buffer , const s
     handler->position += reads;
 
     this->mutex_handle_file.release( );
+
+    return reads;
 }
 
 size_t FileTable::seek_file( sptr<FileHandler> handler , const size_t & position )

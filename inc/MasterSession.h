@@ -15,13 +15,20 @@ class MasterSession :
 {
 public:
 
+    static MasterSession* instance( );
+
     MasterSession( );
     ~MasterSession( );
+
+    virtual void on_connect ( ) override;
 
 protected:
 
 private:
 
+    static MasterSession* instance_;
+
+    friend class MasterConnector;
 };
 
 #endif // !MASETER_SESSION_H_
