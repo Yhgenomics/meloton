@@ -100,16 +100,36 @@ class MessageRegister : public ::google::protobuf::Message {
   inline ::std::string* release_id();
   inline void set_allocated_id(::std::string* id);
 
+  // required int64 disk_space = 2;
+  inline bool has_disk_space() const;
+  inline void clear_disk_space();
+  static const int kDiskSpaceFieldNumber = 2;
+  inline ::google::protobuf::int64 disk_space() const;
+  inline void set_disk_space(::google::protobuf::int64 value);
+
+  // required int64 block_num = 3;
+  inline bool has_block_num() const;
+  inline void clear_block_num();
+  static const int kBlockNumFieldNumber = 3;
+  inline ::google::protobuf::int64 block_num() const;
+  inline void set_block_num(::google::protobuf::int64 value);
+
   // @@protoc_insertion_point(class_scope:MessageRegister)
  private:
   inline void set_has_id();
   inline void clear_has_id();
+  inline void set_has_disk_space();
+  inline void clear_has_disk_space();
+  inline void set_has_block_num();
+  inline void clear_has_block_num();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
   ::std::string* id_;
+  ::google::protobuf::int64 disk_space_;
+  ::google::protobuf::int64 block_num_;
   friend void  protobuf_AddDesc_MessageRegister_2eproto();
   friend void protobuf_AssignDesc_MessageRegister_2eproto();
   friend void protobuf_ShutdownFile_MessageRegister_2eproto();
@@ -198,6 +218,54 @@ inline void MessageRegister::set_allocated_id(::std::string* id) {
     id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
   // @@protoc_insertion_point(field_set_allocated:MessageRegister.id)
+}
+
+// required int64 disk_space = 2;
+inline bool MessageRegister::has_disk_space() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void MessageRegister::set_has_disk_space() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void MessageRegister::clear_has_disk_space() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void MessageRegister::clear_disk_space() {
+  disk_space_ = GOOGLE_LONGLONG(0);
+  clear_has_disk_space();
+}
+inline ::google::protobuf::int64 MessageRegister::disk_space() const {
+  // @@protoc_insertion_point(field_get:MessageRegister.disk_space)
+  return disk_space_;
+}
+inline void MessageRegister::set_disk_space(::google::protobuf::int64 value) {
+  set_has_disk_space();
+  disk_space_ = value;
+  // @@protoc_insertion_point(field_set:MessageRegister.disk_space)
+}
+
+// required int64 block_num = 3;
+inline bool MessageRegister::has_block_num() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void MessageRegister::set_has_block_num() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void MessageRegister::clear_has_block_num() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void MessageRegister::clear_block_num() {
+  block_num_ = GOOGLE_LONGLONG(0);
+  clear_has_block_num();
+}
+inline ::google::protobuf::int64 MessageRegister::block_num() const {
+  // @@protoc_insertion_point(field_get:MessageRegister.block_num)
+  return block_num_;
+}
+inline void MessageRegister::set_block_num(::google::protobuf::int64 value) {
+  set_has_block_num();
+  block_num_ = value;
+  // @@protoc_insertion_point(field_set:MessageRegister.block_num)
 }
 
 

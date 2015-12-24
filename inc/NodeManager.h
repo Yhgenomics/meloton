@@ -26,7 +26,7 @@ public:
     SINGLETON( NodeManager );
 
     ~NodeManager( );
-
+    NodeSession*        create_node ( );
     void                push_node   ( sptr<NodeSession> session );
     void                remove_node ( sptr<NodeSession> session );
     sptr<NodeSession>   find_node   ( find_callback_t callback );

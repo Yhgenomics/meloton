@@ -1,7 +1,7 @@
 /* * * * * * * * * * * * * * * *
 * YHGenomics Inc.
 * Author     : yang shubo
-* Date       : 2015-12-08
+* Date       : 2015-12-24
 * Description: map messages to id
 * * * * * * * * * * * * * * * */
 
@@ -17,17 +17,27 @@
 
 #include "MessageAccept.pb.h"
 #include "MessageAlive.pb.h"
-#include "MessageAliveACK.pb.h"
-#include "MessageQueryFile.pb.h"
-#include "MessageQueryFileResult.pb.h"
+#include "MessageBlockData.pb.h"
+#include "MessageGet.pb.h"
+#include "MessageGetTokenACK.pb.h"
+#include "MessagePut.pb.h"
+#include "MessagePutTokenACK.pb.h"
 #include "MessageRegister.pb.h"
+#include "MessageRequestPutToken.pb.h"
+#include "MessageToken.pb.h"
+#include "MessageUpdateBlock.pb.h"
 
 #include "MessageAcceptHandler.h"
 #include "MessageAliveHandler.h"
-#include "MessageAliveACKHandler.h"
-#include "MessageQueryFileHandler.h"
-#include "MessageQueryFileResultHandler.h"
+#include "MessageBlockDataHandler.h"
+#include "MessageGetHandler.h"
+#include "MessageGetTokenACKHandler.h"
+#include "MessagePutHandler.h"
+#include "MessagePutTokenACKHandler.h"
 #include "MessageRegisterHandler.h"
+#include "MessageRequestPutTokenHandler.h"
+#include "MessageTokenHandler.h"
+#include "MessageUpdateBlockHandler.h"
 
 class MessageUtils
 {
@@ -79,29 +89,59 @@ public:
                 msg->ParseFromArray( data, msg_len );
                 return MessageAliveHandler( session , move_ptr( std::unique_ptr<MessageAlive>( msg ) ) );
             }break;
-            case 0x416F676177776D6F : 
+            case 0x637567657B736F6F : 
             {
-                auto msg = new MessageAliveACK( );
+                auto msg = new MessageBlockData( );
                 msg->ParseFromArray( data, msg_len );
-                return MessageAliveACKHandler( session , move_ptr( std::unique_ptr<MessageAliveACK>( msg ) ) );
+                return MessageBlockDataHandler( session , move_ptr( std::unique_ptr<MessageBlockData>( msg ) ) );
             }break;
-            case 0x756D6F677B73657F : 
+            case 0x476567617373756F : 
             {
-                auto msg = new MessageQueryFile( );
+                auto msg = new MessageGet( );
                 msg->ParseFromArray( data, msg_len );
-                return MessageQueryFileHandler( session , move_ptr( std::unique_ptr<MessageQueryFile>( msg ) ) );
+                return MessageGetHandler( session , move_ptr( std::unique_ptr<MessageGet>( msg ) ) );
             }break;
-            case 0x756D7F6F7F73657F : 
+            case 0x476F676B7F777F7F : 
             {
-                auto msg = new MessageQueryFileResult( );
+                auto msg = new MessageGetTokenACK( );
                 msg->ParseFromArray( data, msg_len );
-                return MessageQueryFileResultHandler( session , move_ptr( std::unique_ptr<MessageQueryFileResult>( msg ) ) );
+                return MessageGetTokenACKHandler( session , move_ptr( std::unique_ptr<MessageGetTokenACK>( msg ) ) );
+            }break;
+            case 0x506567617373757F : 
+            {
+                auto msg = new MessagePut( );
+                msg->ParseFromArray( data, msg_len );
+                return MessagePutHandler( session , move_ptr( std::unique_ptr<MessagePut>( msg ) ) );
+            }break;
+            case 0x516F676B7F777F7F : 
+            {
+                auto msg = new MessagePutTokenACK( );
+                msg->ParseFromArray( data, msg_len );
+                return MessagePutTokenACKHandler( session , move_ptr( std::unique_ptr<MessagePutTokenACK>( msg ) ) );
             }break;
             case 0x52776775737B676F : 
             {
                 auto msg = new MessageRegister( );
                 msg->ParseFromArray( data, msg_len );
                 return MessageRegisterHandler( session , move_ptr( std::unique_ptr<MessageRegister>( msg ) ) );
+            }break;
+            case 0x77757F777F7F757F : 
+            {
+                auto msg = new MessageRequestPutToken( );
+                msg->ParseFromArray( data, msg_len );
+                return MessageRequestPutTokenHandler( session , move_ptr( std::unique_ptr<MessageRequestPutToken>( msg ) ) );
+            }break;
+            case 0x546567617F776F6F : 
+            {
+                auto msg = new MessageToken( );
+                msg->ParseFromArray( data, msg_len );
+                return MessageTokenHandler( session , move_ptr( std::unique_ptr<MessageToken>( msg ) ) );
+            }break;
+            case 0x7F6D676577736F7F : 
+            {
+                auto msg = new MessageUpdateBlock( );
+                msg->ParseFromArray( data, msg_len );
+                return MessageUpdateBlockHandler( session , move_ptr( std::unique_ptr<MessageUpdateBlock>( msg ) ) );
             }break;
             default: return -1;
         }

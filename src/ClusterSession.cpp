@@ -73,9 +73,16 @@ void ClusterSession::try_dispatch_message( MRT::CircleBuffer & buffer )
 
                     if ( buf == nullptr )return;
 
-                    MessageUtils::handle( this , 
+                    auto result = MessageUtils::handle( this , 
                                           buf->data( ) , 
                                           buf->size( ) );
+
+                    if ( result < 0 )
+                    {
+                        this->close( );
+                        return;
+                    }
+
                     body_length_        = 0;
                     this->parse_state_  = ParseState::kHead;
                 }break;

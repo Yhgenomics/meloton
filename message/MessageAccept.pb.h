@@ -88,58 +88,23 @@ class MessageAccept : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional string parent_address = 1;
-  inline bool has_parent_address() const;
-  inline void clear_parent_address();
-  static const int kParentAddressFieldNumber = 1;
-  inline const ::std::string& parent_address() const;
-  inline void set_parent_address(const ::std::string& value);
-  inline void set_parent_address(const char* value);
-  inline void set_parent_address(const char* value, size_t size);
-  inline ::std::string* mutable_parent_address();
-  inline ::std::string* release_parent_address();
-  inline void set_allocated_parent_address(::std::string* parent_address);
-
-  // required int32 parent_port = 2 [default = 0];
-  inline bool has_parent_port() const;
-  inline void clear_parent_port();
-  static const int kParentPortFieldNumber = 2;
-  inline ::google::protobuf::int32 parent_port() const;
-  inline void set_parent_port(::google::protobuf::int32 value);
-
-  // required int64 session_id = 3;
+  // required int64 session_id = 1;
   inline bool has_session_id() const;
   inline void clear_session_id();
-  static const int kSessionIdFieldNumber = 3;
+  static const int kSessionIdFieldNumber = 1;
   inline ::google::protobuf::int64 session_id() const;
   inline void set_session_id(::google::protobuf::int64 value);
 
-  // required int64 alive_duration = 4;
-  inline bool has_alive_duration() const;
-  inline void clear_alive_duration();
-  static const int kAliveDurationFieldNumber = 4;
-  inline ::google::protobuf::int64 alive_duration() const;
-  inline void set_alive_duration(::google::protobuf::int64 value);
-
   // @@protoc_insertion_point(class_scope:MessageAccept)
  private:
-  inline void set_has_parent_address();
-  inline void clear_has_parent_address();
-  inline void set_has_parent_port();
-  inline void clear_has_parent_port();
   inline void set_has_session_id();
   inline void clear_has_session_id();
-  inline void set_has_alive_duration();
-  inline void clear_has_alive_duration();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::std::string* parent_address_;
   ::google::protobuf::int64 session_id_;
-  ::google::protobuf::int64 alive_duration_;
-  ::google::protobuf::int32 parent_port_;
   friend void  protobuf_AddDesc_MessageAccept_2eproto();
   friend void protobuf_AssignDesc_MessageAccept_2eproto();
   friend void protobuf_ShutdownFile_MessageAccept_2eproto();
@@ -154,115 +119,15 @@ class MessageAccept : public ::google::protobuf::Message {
 
 // MessageAccept
 
-// optional string parent_address = 1;
-inline bool MessageAccept::has_parent_address() const {
+// required int64 session_id = 1;
+inline bool MessageAccept::has_session_id() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void MessageAccept::set_has_parent_address() {
+inline void MessageAccept::set_has_session_id() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void MessageAccept::clear_has_parent_address() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void MessageAccept::clear_parent_address() {
-  if (parent_address_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    parent_address_->clear();
-  }
-  clear_has_parent_address();
-}
-inline const ::std::string& MessageAccept::parent_address() const {
-  // @@protoc_insertion_point(field_get:MessageAccept.parent_address)
-  return *parent_address_;
-}
-inline void MessageAccept::set_parent_address(const ::std::string& value) {
-  set_has_parent_address();
-  if (parent_address_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    parent_address_ = new ::std::string;
-  }
-  parent_address_->assign(value);
-  // @@protoc_insertion_point(field_set:MessageAccept.parent_address)
-}
-inline void MessageAccept::set_parent_address(const char* value) {
-  set_has_parent_address();
-  if (parent_address_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    parent_address_ = new ::std::string;
-  }
-  parent_address_->assign(value);
-  // @@protoc_insertion_point(field_set_char:MessageAccept.parent_address)
-}
-inline void MessageAccept::set_parent_address(const char* value, size_t size) {
-  set_has_parent_address();
-  if (parent_address_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    parent_address_ = new ::std::string;
-  }
-  parent_address_->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:MessageAccept.parent_address)
-}
-inline ::std::string* MessageAccept::mutable_parent_address() {
-  set_has_parent_address();
-  if (parent_address_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    parent_address_ = new ::std::string;
-  }
-  // @@protoc_insertion_point(field_mutable:MessageAccept.parent_address)
-  return parent_address_;
-}
-inline ::std::string* MessageAccept::release_parent_address() {
-  clear_has_parent_address();
-  if (parent_address_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    return NULL;
-  } else {
-    ::std::string* temp = parent_address_;
-    parent_address_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-    return temp;
-  }
-}
-inline void MessageAccept::set_allocated_parent_address(::std::string* parent_address) {
-  if (parent_address_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete parent_address_;
-  }
-  if (parent_address) {
-    set_has_parent_address();
-    parent_address_ = parent_address;
-  } else {
-    clear_has_parent_address();
-    parent_address_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-  // @@protoc_insertion_point(field_set_allocated:MessageAccept.parent_address)
-}
-
-// required int32 parent_port = 2 [default = 0];
-inline bool MessageAccept::has_parent_port() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void MessageAccept::set_has_parent_port() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void MessageAccept::clear_has_parent_port() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void MessageAccept::clear_parent_port() {
-  parent_port_ = 0;
-  clear_has_parent_port();
-}
-inline ::google::protobuf::int32 MessageAccept::parent_port() const {
-  // @@protoc_insertion_point(field_get:MessageAccept.parent_port)
-  return parent_port_;
-}
-inline void MessageAccept::set_parent_port(::google::protobuf::int32 value) {
-  set_has_parent_port();
-  parent_port_ = value;
-  // @@protoc_insertion_point(field_set:MessageAccept.parent_port)
-}
-
-// required int64 session_id = 3;
-inline bool MessageAccept::has_session_id() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void MessageAccept::set_has_session_id() {
-  _has_bits_[0] |= 0x00000004u;
-}
 inline void MessageAccept::clear_has_session_id() {
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000001u;
 }
 inline void MessageAccept::clear_session_id() {
   session_id_ = GOOGLE_LONGLONG(0);
@@ -276,30 +141,6 @@ inline void MessageAccept::set_session_id(::google::protobuf::int64 value) {
   set_has_session_id();
   session_id_ = value;
   // @@protoc_insertion_point(field_set:MessageAccept.session_id)
-}
-
-// required int64 alive_duration = 4;
-inline bool MessageAccept::has_alive_duration() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-inline void MessageAccept::set_has_alive_duration() {
-  _has_bits_[0] |= 0x00000008u;
-}
-inline void MessageAccept::clear_has_alive_duration() {
-  _has_bits_[0] &= ~0x00000008u;
-}
-inline void MessageAccept::clear_alive_duration() {
-  alive_duration_ = GOOGLE_LONGLONG(0);
-  clear_has_alive_duration();
-}
-inline ::google::protobuf::int64 MessageAccept::alive_duration() const {
-  // @@protoc_insertion_point(field_get:MessageAccept.alive_duration)
-  return alive_duration_;
-}
-inline void MessageAccept::set_alive_duration(::google::protobuf::int64 value) {
-  set_has_alive_duration();
-  alive_duration_ = value;
-  // @@protoc_insertion_point(field_set:MessageAccept.alive_duration)
 }
 
 

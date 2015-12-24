@@ -32,8 +32,10 @@ void protobuf_AssignDesc_MessageRegister_2eproto() {
       "MessageRegister.proto");
   GOOGLE_CHECK(file != NULL);
   MessageRegister_descriptor_ = file->message_type(0);
-  static const int MessageRegister_offsets_[1] = {
+  static const int MessageRegister_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageRegister, id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageRegister, disk_space_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageRegister, block_num_),
   };
   MessageRegister_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -76,8 +78,9 @@ void protobuf_AddDesc_MessageRegister_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\025MessageRegister.proto\"\035\n\017MessageRegist"
-    "er\022\n\n\002id\030\001 \002(\t", 54);
+    "\n\025MessageRegister.proto\"D\n\017MessageRegist"
+    "er\022\n\n\002id\030\001 \002(\t\022\022\n\ndisk_space\030\002 \002(\003\022\021\n\tbl"
+    "ock_num\030\003 \002(\003", 93);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessageRegister.proto", &protobuf_RegisterTypes);
   MessageRegister::default_instance_ = new MessageRegister();
@@ -96,6 +99,8 @@ struct StaticDescriptorInitializer_MessageRegister_2eproto {
 
 #ifndef _MSC_VER
 const int MessageRegister::kIdFieldNumber;
+const int MessageRegister::kDiskSpaceFieldNumber;
+const int MessageRegister::kBlockNumFieldNumber;
 #endif  // !_MSC_VER
 
 MessageRegister::MessageRegister()
@@ -118,6 +123,8 @@ void MessageRegister::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  disk_space_ = GOOGLE_LONGLONG(0);
+  block_num_ = GOOGLE_LONGLONG(0);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -156,11 +163,28 @@ MessageRegister* MessageRegister::New() const {
 }
 
 void MessageRegister::Clear() {
-  if (has_id()) {
-    if (id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-      id_->clear();
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<MessageRegister*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  if (_has_bits_[0 / 32] & 7) {
+    ZR_(disk_space_, block_num_);
+    if (has_id()) {
+      if (id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        id_->clear();
+      }
     }
   }
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -184,6 +208,36 @@ bool MessageRegister::MergePartialFromCodedStream(
             this->id().data(), this->id().length(),
             ::google::protobuf::internal::WireFormat::PARSE,
             "id");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_disk_space;
+        break;
+      }
+
+      // required int64 disk_space = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_disk_space:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &disk_space_)));
+          set_has_disk_space();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_block_num;
+        break;
+      }
+
+      // required int64 block_num = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_block_num:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &block_num_)));
+          set_has_block_num();
         } else {
           goto handle_unusual;
         }
@@ -226,6 +280,16 @@ void MessageRegister::SerializeWithCachedSizes(
       1, this->id(), output);
   }
 
+  // required int64 disk_space = 2;
+  if (has_disk_space()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->disk_space(), output);
+  }
+
+  // required int64 block_num = 3;
+  if (has_block_num()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(3, this->block_num(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -247,6 +311,16 @@ void MessageRegister::SerializeWithCachedSizes(
         1, this->id(), target);
   }
 
+  // required int64 disk_space = 2;
+  if (has_disk_space()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->disk_space(), target);
+  }
+
+  // required int64 block_num = 3;
+  if (has_block_num()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(3, this->block_num(), target);
+  }
+
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -264,6 +338,20 @@ int MessageRegister::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->id());
+    }
+
+    // required int64 disk_space = 2;
+    if (has_disk_space()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->disk_space());
+    }
+
+    // required int64 block_num = 3;
+    if (has_block_num()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->block_num());
     }
 
   }
@@ -296,6 +384,12 @@ void MessageRegister::MergeFrom(const MessageRegister& from) {
     if (from.has_id()) {
       set_id(from.id());
     }
+    if (from.has_disk_space()) {
+      set_disk_space(from.disk_space());
+    }
+    if (from.has_block_num()) {
+      set_block_num(from.block_num());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -313,7 +407,7 @@ void MessageRegister::CopyFrom(const MessageRegister& from) {
 }
 
 bool MessageRegister::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
 
   return true;
 }
@@ -321,6 +415,8 @@ bool MessageRegister::IsInitialized() const {
 void MessageRegister::Swap(MessageRegister* other) {
   if (other != this) {
     std::swap(id_, other->id_);
+    std::swap(disk_space_, other->disk_space_);
+    std::swap(block_num_, other->block_num_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

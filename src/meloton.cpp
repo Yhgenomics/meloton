@@ -57,7 +57,7 @@ int main( int argc , char * argv[] )
                                            Variable::server_ip , 
                                            Variable::port));
 
-        LOG_ERROR( "system shutdown" );
+        LOG_SYS( "system shutdown" );
     }
     // Node mode
     else if ( Variable::mode == 1 )
@@ -73,12 +73,10 @@ int main( int argc , char * argv[] )
 
             MRT::Maraton::instance( )->loop( );
 
-            LOG_ERROR( "disconnected to server , reconnecting" );
+            LOG_SYS( "disconnected to server , reconnecting" );
         }
         
-    }
-
-  
+    } 
 
     return 0;
 }

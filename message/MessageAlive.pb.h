@@ -102,12 +102,30 @@ class MessageAlive : public ::google::protobuf::Message {
   inline ::google::protobuf::int64 local_time() const;
   inline void set_local_time(::google::protobuf::int64 value);
 
+  // required int64 disk_space = 3;
+  inline bool has_disk_space() const;
+  inline void clear_disk_space();
+  static const int kDiskSpaceFieldNumber = 3;
+  inline ::google::protobuf::int64 disk_space() const;
+  inline void set_disk_space(::google::protobuf::int64 value);
+
+  // required int64 block_num = 4;
+  inline bool has_block_num() const;
+  inline void clear_block_num();
+  static const int kBlockNumFieldNumber = 4;
+  inline ::google::protobuf::int64 block_num() const;
+  inline void set_block_num(::google::protobuf::int64 value);
+
   // @@protoc_insertion_point(class_scope:MessageAlive)
  private:
   inline void set_has_session_id();
   inline void clear_has_session_id();
   inline void set_has_local_time();
   inline void clear_has_local_time();
+  inline void set_has_disk_space();
+  inline void clear_has_disk_space();
+  inline void set_has_block_num();
+  inline void clear_has_block_num();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -115,6 +133,8 @@ class MessageAlive : public ::google::protobuf::Message {
   mutable int _cached_size_;
   ::google::protobuf::int64 session_id_;
   ::google::protobuf::int64 local_time_;
+  ::google::protobuf::int64 disk_space_;
+  ::google::protobuf::int64 block_num_;
   friend void  protobuf_AddDesc_MessageAlive_2eproto();
   friend void protobuf_AssignDesc_MessageAlive_2eproto();
   friend void protobuf_ShutdownFile_MessageAlive_2eproto();
@@ -175,6 +195,54 @@ inline void MessageAlive::set_local_time(::google::protobuf::int64 value) {
   set_has_local_time();
   local_time_ = value;
   // @@protoc_insertion_point(field_set:MessageAlive.local_time)
+}
+
+// required int64 disk_space = 3;
+inline bool MessageAlive::has_disk_space() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void MessageAlive::set_has_disk_space() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void MessageAlive::clear_has_disk_space() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void MessageAlive::clear_disk_space() {
+  disk_space_ = GOOGLE_LONGLONG(0);
+  clear_has_disk_space();
+}
+inline ::google::protobuf::int64 MessageAlive::disk_space() const {
+  // @@protoc_insertion_point(field_get:MessageAlive.disk_space)
+  return disk_space_;
+}
+inline void MessageAlive::set_disk_space(::google::protobuf::int64 value) {
+  set_has_disk_space();
+  disk_space_ = value;
+  // @@protoc_insertion_point(field_set:MessageAlive.disk_space)
+}
+
+// required int64 block_num = 4;
+inline bool MessageAlive::has_block_num() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void MessageAlive::set_has_block_num() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void MessageAlive::clear_has_block_num() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void MessageAlive::clear_block_num() {
+  block_num_ = GOOGLE_LONGLONG(0);
+  clear_has_block_num();
+}
+inline ::google::protobuf::int64 MessageAlive::block_num() const {
+  // @@protoc_insertion_point(field_get:MessageAlive.block_num)
+  return block_num_;
+}
+inline void MessageAlive::set_block_num(::google::protobuf::int64 value) {
+  set_has_block_num();
+  block_num_ = value;
+  // @@protoc_insertion_point(field_set:MessageAlive.block_num)
 }
 
 

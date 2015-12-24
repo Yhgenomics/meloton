@@ -2,11 +2,11 @@
 * YHGenomics Inc.
 * Author     : yang shubo
 * Date       : 2015-12-24
-* Description: handler for MessageAccept
+* Description: handler for MessageUpdateBlock
 * * * * * * * * * * * * * * * */
 
-#ifndef MESSAGEACCEPT_HANDLER_
-#define MESSAGEACCEPT_HANDLER_
+#ifndef MESSAGEUPDATEBLOCK_HANDLER_
+#define MESSAGEUPDATEBLOCK_HANDLER_
 
 #include <string>
 #include <memory>
@@ -14,17 +14,13 @@
 #include <MRT.h>
 #include <ClusterSession.h>
 #include <google/protobuf/message.h>
-#include <MessageAccept.pb.h>
+#include <MessageUpdateBlock.pb.h>
 
-#include "NodeSession.h"
-
-static int MessageAcceptHandler( ClusterSession * session , uptr<MessageAccept> msg )
+static int MessageUpdateBlockHandler( ClusterSession * session , uptr<MessageUpdateBlock> msg )
 {
-
-
     return 0;
 }
 
 #endif
 
-// !MESSAGEACCEPT_HANDLER_
+// !MESSAGEUPDATEBLOCK_HANDLER_

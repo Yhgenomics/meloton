@@ -23,6 +23,5 @@ size_t NodeSession::alive_time( )
 
 size_t NodeSession::delay( )
 {
-    return ( Timer::tick( ) - this->alive_time_ ) - MasterConfig::alive_time;
+    return ( Timer::tick( ) - this->alive_time_ ) / 2 - MasterConfig::alive_time;
 }
- 

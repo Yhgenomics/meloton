@@ -13,7 +13,7 @@ NodeListener::~NodeListener( )
 
 Session * NodeListener::create_session( )
 {
-    return new NodeSession( );
+    return NodeManager::instance( )->create_node( );
 }
 
 void NodeListener::on_session_open( Session * session )
@@ -24,7 +24,6 @@ void NodeListener::on_session_open( Session * session )
 
 void NodeListener::on_session_close( Session * session )
 {
-
     auto ptr = sptr<NodeSession>( (NodeSession*)session );
     NodeManager::instance( )->remove_node( ptr );
 }

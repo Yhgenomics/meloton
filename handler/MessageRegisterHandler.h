@@ -1,7 +1,7 @@
 /* * * * * * * * * * * * * * * *
 * YHGenomics Inc.
 * Author     : yang shubo
-* Date       : 2015-12-03
+* Date       : 2015-12-24
 * Description: handler for MessageRegister
 * * * * * * * * * * * * * * * */
 
@@ -16,20 +16,24 @@
 #include <google/protobuf/message.h>
 #include <MessageRegister.pb.h>
 
-#include "MessageAccept.pb.h"
-#include "NodeManager.h"
-#include "MasterConfig.h"
+#include "NodeSession.h"
 
 static int MessageRegisterHandler( ClusterSession * session , uptr<MessageRegister> msg )
 {
-    auto ptr = sptr<NodeSession>( ( NodeSession* ) session );
-    NodeManager::instance( )->push_node( ptr );
+    auto instance = scast<NodeSession*>( session );
+
+    if ( instance == nullptr )
+    {
+        session->close( );
+    }
+
+    instance->block_num( msg->block_num( ) );
+    instance->disk_space( msg->disk_space( ) );
 
     auto reply = make_uptr( MessageAccept );
-    reply->set_session_id( session->id( ) );
-    reply->set_alive_duration( MasterConfig::alive_time );
-
-    session->send_message( move_ptr( reply ) );
+    reply->set_session_id( instance->id( ) );
+    
+    instance->send_message( move_ptr( reply ) );
 
     return 0;
 }

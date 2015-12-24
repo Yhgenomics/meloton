@@ -23,6 +23,12 @@ NodeManager::~NodeManager( )
 
 }
 
+NodeSession * NodeManager::create_node( )
+{
+    auto session = make_sptr( NodeSession );
+    return session.get( );
+}
+
 void NodeManager::push_node( sptr<NodeSession> session )
 {
     this->node_array_->push( session );
