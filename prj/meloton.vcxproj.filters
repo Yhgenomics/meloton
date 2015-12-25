@@ -97,6 +97,24 @@
     <ClCompile Include="..\message\MessageUpdateBlock.pb.cc">
       <Filter>message</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Path.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PathParser.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Error.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\IO.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DirectoryMeta.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\FileMeta.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\inc\NodeDetector.h">
@@ -221,6 +239,30 @@
     </ClInclude>
     <ClInclude Include="..\handler\MessageUtils.h">
       <Filter>handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\PathParser.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Path.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Error.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\IO.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\DirectoryMeta.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\FileMeta.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Utils.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\BlockMeta.h">
+      <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

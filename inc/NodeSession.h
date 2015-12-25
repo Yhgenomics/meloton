@@ -20,7 +20,6 @@ public:
 
     PP_DEF( size_t , block_num )
     PP_DEF( size_t , disk_space )
-    
 
     void    update_alive( );
     size_t  alive_time( );
