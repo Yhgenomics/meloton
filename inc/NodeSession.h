@@ -20,6 +20,7 @@ public:
 
     PP_DEF( size_t , block_num )
     PP_DEF( size_t , disk_space )
+    PP_DEF( size_t , token_num )
 
     void    update_alive( );
     size_t  alive_time( );
@@ -34,6 +35,7 @@ private:
     size_t delay_       = 0;
     size_t block_num_   = 0;
     size_t disk_space_  = 0;
+    size_t token_num_   = 0;
 };
 
 #endif // !NODE_SESSION_H_

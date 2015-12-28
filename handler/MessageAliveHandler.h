@@ -22,6 +22,10 @@ static int MessageAliveHandler( ClusterSession * session , uptr<MessageAlive> ms
 {
     auto instance = scast<NodeSession*>( session );
     
+    instance->block_num( msg->block_num( ) );
+    instance->disk_space( msg->disk_space( ) );
+    instance->token_num( msg->token_num( ) );
+
     instance->update_alive( );
 
     return 0;

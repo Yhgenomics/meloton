@@ -79,16 +79,7 @@
     <ClCompile Include="..\message\MessagePutTokenACK.pb.cc">
       <Filter>message</Filter>
     </ClCompile>
-    <ClCompile Include="..\message\MessageQueryFile.pb.cc">
-      <Filter>message</Filter>
-    </ClCompile>
-    <ClCompile Include="..\message\MessageQueryFileResult.pb.cc">
-      <Filter>message</Filter>
-    </ClCompile>
     <ClCompile Include="..\message\MessageRegister.pb.cc">
-      <Filter>message</Filter>
-    </ClCompile>
-    <ClCompile Include="..\message\MessageRequestPutToken.pb.cc">
       <Filter>message</Filter>
     </ClCompile>
     <ClCompile Include="..\message\MessageToken.pb.cc">
@@ -100,13 +91,7 @@
     <ClCompile Include="..\src\Path.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\PathParser.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Error.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\IO.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\DirectoryMeta.cpp">
@@ -114,6 +99,24 @@
     </ClCompile>
     <ClCompile Include="..\src\FileMeta.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\BlockMeta.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\NodeMeta.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\FS.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\message\MessageActionError.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\message\MessageRequestGet.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\message\MessageRequestPut.pb.cc">
+      <Filter>message</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -186,16 +189,7 @@
     <ClInclude Include="..\message\MessagePutTokenACK.pb.h">
       <Filter>message</Filter>
     </ClInclude>
-    <ClInclude Include="..\message\MessageQueryFile.pb.h">
-      <Filter>message</Filter>
-    </ClInclude>
-    <ClInclude Include="..\message\MessageQueryFileResult.pb.h">
-      <Filter>message</Filter>
-    </ClInclude>
     <ClInclude Include="..\message\MessageRegister.pb.h">
-      <Filter>message</Filter>
-    </ClInclude>
-    <ClInclude Include="..\message\MessageRequestPutToken.pb.h">
       <Filter>message</Filter>
     </ClInclude>
     <ClInclude Include="..\message\MessageToken.pb.h">
@@ -228,9 +222,6 @@
     <ClInclude Include="..\handler\MessageRegisterHandler.h">
       <Filter>handler</Filter>
     </ClInclude>
-    <ClInclude Include="..\handler\MessageRequestPutTokenHandler.h">
-      <Filter>handler</Filter>
-    </ClInclude>
     <ClInclude Include="..\handler\MessageTokenHandler.h">
       <Filter>handler</Filter>
     </ClInclude>
@@ -240,16 +231,10 @@
     <ClInclude Include="..\handler\MessageUtils.h">
       <Filter>handler</Filter>
     </ClInclude>
-    <ClInclude Include="..\inc\PathParser.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\inc\Path.h">
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\Error.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\inc\IO.h">
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\DirectoryMeta.h">
@@ -262,6 +247,30 @@
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\BlockMeta.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\NodeMeta.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\FS.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageActionError.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageRequestGet.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageRequestPut.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\handler\MessageRequestGetHandler.h">
+      <Filter>handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\handler\MessageRequestPutHandler.h">
+      <Filter>handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\ErrDef.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>

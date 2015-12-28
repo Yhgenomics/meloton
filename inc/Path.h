@@ -17,6 +17,7 @@ class Path
 {
 public:
 
+    Path( );
     Path( std::string );
     ~Path( );
 

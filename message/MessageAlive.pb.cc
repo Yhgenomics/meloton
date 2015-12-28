@@ -32,11 +32,12 @@ void protobuf_AssignDesc_MessageAlive_2eproto() {
       "MessageAlive.proto");
   GOOGLE_CHECK(file != NULL);
   MessageAlive_descriptor_ = file->message_type(0);
-  static const int MessageAlive_offsets_[4] = {
+  static const int MessageAlive_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageAlive, session_id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageAlive, local_time_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageAlive, disk_space_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageAlive, block_num_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageAlive, token_num_),
   };
   MessageAlive_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -79,9 +80,10 @@ void protobuf_AddDesc_MessageAlive_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\022MessageAlive.proto\"]\n\014MessageAlive\022\022\n\n"
+    "\n\022MessageAlive.proto\"p\n\014MessageAlive\022\022\n\n"
     "session_id\030\001 \002(\003\022\022\n\nlocal_time\030\002 \002(\003\022\022\n\n"
-    "disk_space\030\003 \002(\003\022\021\n\tblock_num\030\004 \002(\003", 115);
+    "disk_space\030\003 \002(\003\022\021\n\tblock_num\030\004 \002(\003\022\021\n\tt"
+    "oken_num\030\005 \002(\003", 134);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessageAlive.proto", &protobuf_RegisterTypes);
   MessageAlive::default_instance_ = new MessageAlive();
@@ -103,6 +105,7 @@ const int MessageAlive::kSessionIdFieldNumber;
 const int MessageAlive::kLocalTimeFieldNumber;
 const int MessageAlive::kDiskSpaceFieldNumber;
 const int MessageAlive::kBlockNumFieldNumber;
+const int MessageAlive::kTokenNumFieldNumber;
 #endif  // !_MSC_VER
 
 MessageAlive::MessageAlive()
@@ -127,6 +130,7 @@ void MessageAlive::SharedCtor() {
   local_time_ = GOOGLE_LONGLONG(0);
   disk_space_ = GOOGLE_LONGLONG(0);
   block_num_ = GOOGLE_LONGLONG(0);
+  token_num_ = GOOGLE_LONGLONG(0);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -172,7 +176,9 @@ void MessageAlive::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  ZR_(session_id_, block_num_);
+  if (_has_bits_[0 / 32] & 31) {
+    ZR_(session_id_, token_num_);
+  }
 
 #undef OFFSET_OF_FIELD_
 #undef ZR_
@@ -246,6 +252,21 @@ bool MessageAlive::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(40)) goto parse_token_num;
+        break;
+      }
+
+      // required int64 token_num = 5;
+      case 5: {
+        if (tag == 40) {
+         parse_token_num:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &token_num_)));
+          set_has_token_num();
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -295,6 +316,11 @@ void MessageAlive::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt64(4, this->block_num(), output);
   }
 
+  // required int64 token_num = 5;
+  if (has_token_num()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(5, this->token_num(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -323,6 +349,11 @@ void MessageAlive::SerializeWithCachedSizes(
   // required int64 block_num = 4;
   if (has_block_num()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(4, this->block_num(), target);
+  }
+
+  // required int64 token_num = 5;
+  if (has_token_num()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(5, this->token_num(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -365,6 +396,13 @@ int MessageAlive::ByteSize() const {
           this->block_num());
     }
 
+    // required int64 token_num = 5;
+    if (has_token_num()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->token_num());
+    }
+
   }
   if (!unknown_fields().empty()) {
     total_size +=
@@ -404,6 +442,9 @@ void MessageAlive::MergeFrom(const MessageAlive& from) {
     if (from.has_block_num()) {
       set_block_num(from.block_num());
     }
+    if (from.has_token_num()) {
+      set_token_num(from.token_num());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -421,7 +462,7 @@ void MessageAlive::CopyFrom(const MessageAlive& from) {
 }
 
 bool MessageAlive::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
+  if ((_has_bits_[0] & 0x0000001f) != 0x0000001f) return false;
 
   return true;
 }
@@ -432,6 +473,7 @@ void MessageAlive::Swap(MessageAlive* other) {
     std::swap(local_time_, other->local_time_);
     std::swap(disk_space_, other->disk_space_);
     std::swap(block_num_, other->block_num_);
+    std::swap(token_num_, other->token_num_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

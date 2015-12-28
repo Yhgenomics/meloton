@@ -13,7 +13,15 @@ DirectoryMeta::~DirectoryMeta( )
 
 sptr<FileMeta> DirectoryMeta::append_file( sptr<FileMeta> meta )
 {
-    this->files_.push_back( meta );
+    for ( auto & f : this->files_ )
+    {
+        if ( f->name_hash() == meta->name_hash() && 
+             f->name( ) == meta->name() )
+        {
+            return nullptr;
+        }
+    }
+
     return meta;
 }
 

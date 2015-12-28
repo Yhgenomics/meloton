@@ -116,6 +116,13 @@ class MessageAlive : public ::google::protobuf::Message {
   inline ::google::protobuf::int64 block_num() const;
   inline void set_block_num(::google::protobuf::int64 value);
 
+  // required int64 token_num = 5;
+  inline bool has_token_num() const;
+  inline void clear_token_num();
+  static const int kTokenNumFieldNumber = 5;
+  inline ::google::protobuf::int64 token_num() const;
+  inline void set_token_num(::google::protobuf::int64 value);
+
   // @@protoc_insertion_point(class_scope:MessageAlive)
  private:
   inline void set_has_session_id();
@@ -126,6 +133,8 @@ class MessageAlive : public ::google::protobuf::Message {
   inline void clear_has_disk_space();
   inline void set_has_block_num();
   inline void clear_has_block_num();
+  inline void set_has_token_num();
+  inline void clear_has_token_num();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -135,6 +144,7 @@ class MessageAlive : public ::google::protobuf::Message {
   ::google::protobuf::int64 local_time_;
   ::google::protobuf::int64 disk_space_;
   ::google::protobuf::int64 block_num_;
+  ::google::protobuf::int64 token_num_;
   friend void  protobuf_AddDesc_MessageAlive_2eproto();
   friend void protobuf_AssignDesc_MessageAlive_2eproto();
   friend void protobuf_ShutdownFile_MessageAlive_2eproto();
@@ -243,6 +253,30 @@ inline void MessageAlive::set_block_num(::google::protobuf::int64 value) {
   set_has_block_num();
   block_num_ = value;
   // @@protoc_insertion_point(field_set:MessageAlive.block_num)
+}
+
+// required int64 token_num = 5;
+inline bool MessageAlive::has_token_num() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void MessageAlive::set_has_token_num() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void MessageAlive::clear_has_token_num() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void MessageAlive::clear_token_num() {
+  token_num_ = GOOGLE_LONGLONG(0);
+  clear_has_token_num();
+}
+inline ::google::protobuf::int64 MessageAlive::token_num() const {
+  // @@protoc_insertion_point(field_get:MessageAlive.token_num)
+  return token_num_;
+}
+inline void MessageAlive::set_token_num(::google::protobuf::int64 value) {
+  set_has_token_num();
+  token_num_ = value;
+  // @@protoc_insertion_point(field_set:MessageAlive.token_num)
 }
 
 

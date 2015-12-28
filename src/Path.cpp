@@ -1,5 +1,10 @@
 #include "Path.h"
 
+Path::Path( )
+{
+
+}
+
 Path::Path( std::string path)
 {
     this->path_ = path;

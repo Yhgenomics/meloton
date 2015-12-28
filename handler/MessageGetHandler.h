@@ -18,6 +18,7 @@
 
 static int MessageGetHandler( ClusterSession * session , uptr<MessageGet> msg )
 {
+   
     return 0;
 }
 
