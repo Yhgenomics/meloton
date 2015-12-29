@@ -32,12 +32,13 @@ void protobuf_AssignDesc_MessageToken_2eproto() {
       "MessageToken.proto");
   GOOGLE_CHECK(file != NULL);
   MessageToken_descriptor_ = file->message_type(0);
-  static const int MessageToken_offsets_[5] = {
+  static const int MessageToken_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageToken, token_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageToken, expire_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageToken, address_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageToken, port_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageToken, offset_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageToken, block_id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageToken, index_),
   };
   MessageToken_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -80,9 +81,10 @@ void protobuf_AddDesc_MessageToken_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\022MessageToken.proto\"\\\n\014MessageToken\022\r\n\005"
-    "token\030\001 \002(\t\022\016\n\006expire\030\002 \002(\003\022\017\n\007address\030\003"
-    " \002(\t\022\014\n\004port\030\004 \002(\005\022\016\n\006offset\030\005 \002(\003", 114);
+    "\n\022MessageToken.proto\"m\n\014MessageToken\022\r\n\005"
+    "token\030\001 \003(\t\022\016\n\006expire\030\002 \003(\003\022\017\n\007address\030\003"
+    " \003(\t\022\014\n\004port\030\004 \003(\005\022\020\n\010block_id\030\005 \003(\003\022\r\n\005"
+    "index\030\006 \003(\003", 131);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessageToken.proto", &protobuf_RegisterTypes);
   MessageToken::default_instance_ = new MessageToken();
@@ -104,7 +106,8 @@ const int MessageToken::kTokenFieldNumber;
 const int MessageToken::kExpireFieldNumber;
 const int MessageToken::kAddressFieldNumber;
 const int MessageToken::kPortFieldNumber;
-const int MessageToken::kOffsetFieldNumber;
+const int MessageToken::kBlockIdFieldNumber;
+const int MessageToken::kIndexFieldNumber;
 #endif  // !_MSC_VER
 
 MessageToken::MessageToken()
@@ -126,11 +129,6 @@ MessageToken::MessageToken(const MessageToken& from)
 void MessageToken::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
-  token_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  expire_ = GOOGLE_LONGLONG(0);
-  address_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  port_ = 0;
-  offset_ = GOOGLE_LONGLONG(0);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -140,12 +138,6 @@ MessageToken::~MessageToken() {
 }
 
 void MessageToken::SharedDtor() {
-  if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete token_;
-  }
-  if (address_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete address_;
-  }
   if (this != default_instance_) {
   }
 }
@@ -172,34 +164,12 @@ MessageToken* MessageToken::New() const {
 }
 
 void MessageToken::Clear() {
-#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
-  &reinterpret_cast<MessageToken*>(16)->f) - \
-   reinterpret_cast<char*>(16))
-
-#define ZR_(first, last) do {                              \
-    size_t f = OFFSET_OF_FIELD_(first);                    \
-    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
-    ::memset(&first, 0, n);                                \
-  } while (0)
-
-  if (_has_bits_[0 / 32] & 31) {
-    ZR_(offset_, port_);
-    if (has_token()) {
-      if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-        token_->clear();
-      }
-    }
-    expire_ = GOOGLE_LONGLONG(0);
-    if (has_address()) {
-      if (address_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-        address_->clear();
-      }
-    }
-  }
-
-#undef OFFSET_OF_FIELD_
-#undef ZR_
-
+  token_.Clear();
+  expire_.Clear();
+  address_.Clear();
+  port_.Clear();
+  block_id_.Clear();
+  index_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -214,80 +184,116 @@ bool MessageToken::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required string token = 1;
+      // repeated string token = 1;
       case 1: {
         if (tag == 10) {
+         parse_token:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_token()));
+                input, this->add_token()));
           ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-            this->token().data(), this->token().length(),
+            this->token(this->token_size() - 1).data(),
+            this->token(this->token_size() - 1).length(),
             ::google::protobuf::internal::WireFormat::PARSE,
             "token");
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(10)) goto parse_token;
         if (input->ExpectTag(16)) goto parse_expire;
         break;
       }
 
-      // required int64 expire = 2;
+      // repeated int64 expire = 2;
       case 2: {
         if (tag == 16) {
          parse_expire:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &expire_)));
-          set_has_expire();
+                 1, 16, input, this->mutable_expire())));
+        } else if (tag == 18) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, this->mutable_expire())));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(16)) goto parse_expire;
         if (input->ExpectTag(26)) goto parse_address;
         break;
       }
 
-      // required string address = 3;
+      // repeated string address = 3;
       case 3: {
         if (tag == 26) {
          parse_address:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_address()));
+                input, this->add_address()));
           ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-            this->address().data(), this->address().length(),
+            this->address(this->address_size() - 1).data(),
+            this->address(this->address_size() - 1).length(),
             ::google::protobuf::internal::WireFormat::PARSE,
             "address");
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(26)) goto parse_address;
         if (input->ExpectTag(32)) goto parse_port;
         break;
       }
 
-      // required int32 port = 4;
+      // repeated int32 port = 4;
       case 4: {
         if (tag == 32) {
          parse_port:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &port_)));
-          set_has_port();
+                 1, 32, input, this->mutable_port())));
+        } else if (tag == 34) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, this->mutable_port())));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(40)) goto parse_offset;
+        if (input->ExpectTag(32)) goto parse_port;
+        if (input->ExpectTag(40)) goto parse_block_id;
         break;
       }
 
-      // required int64 offset = 5;
+      // repeated int64 block_id = 5;
       case 5: {
         if (tag == 40) {
-         parse_offset:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+         parse_block_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &offset_)));
-          set_has_offset();
+                 1, 40, input, this->mutable_block_id())));
+        } else if (tag == 42) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, this->mutable_block_id())));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(40)) goto parse_block_id;
+        if (input->ExpectTag(48)) goto parse_index;
+        break;
+      }
+
+      // repeated int64 index = 6;
+      case 6: {
+        if (tag == 48) {
+         parse_index:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 1, 48, input, this->mutable_index())));
+        } else if (tag == 50) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, this->mutable_index())));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(48)) goto parse_index;
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -317,39 +323,48 @@ failure:
 void MessageToken::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:MessageToken)
-  // required string token = 1;
-  if (has_token()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->token().data(), this->token().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "token");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->token(), output);
+  // repeated string token = 1;
+  for (int i = 0; i < this->token_size(); i++) {
+  ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+    this->token(i).data(), this->token(i).length(),
+    ::google::protobuf::internal::WireFormat::SERIALIZE,
+    "token");
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      1, this->token(i), output);
   }
 
-  // required int64 expire = 2;
-  if (has_expire()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->expire(), output);
+  // repeated int64 expire = 2;
+  for (int i = 0; i < this->expire_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(
+      2, this->expire(i), output);
   }
 
-  // required string address = 3;
-  if (has_address()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->address().data(), this->address().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "address");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->address(), output);
+  // repeated string address = 3;
+  for (int i = 0; i < this->address_size(); i++) {
+  ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+    this->address(i).data(), this->address(i).length(),
+    ::google::protobuf::internal::WireFormat::SERIALIZE,
+    "address");
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      3, this->address(i), output);
   }
 
-  // required int32 port = 4;
-  if (has_port()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->port(), output);
+  // repeated int32 port = 4;
+  for (int i = 0; i < this->port_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(
+      4, this->port(i), output);
   }
 
-  // required int64 offset = 5;
-  if (has_offset()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(5, this->offset(), output);
+  // repeated int64 block_id = 5;
+  for (int i = 0; i < this->block_id_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(
+      5, this->block_id(i), output);
+  }
+
+  // repeated int64 index = 6;
+  for (int i = 0; i < this->index_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(
+      6, this->index(i), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -362,41 +377,48 @@ void MessageToken::SerializeWithCachedSizes(
 ::google::protobuf::uint8* MessageToken::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:MessageToken)
-  // required string token = 1;
-  if (has_token()) {
+  // repeated string token = 1;
+  for (int i = 0; i < this->token_size(); i++) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->token().data(), this->token().length(),
+      this->token(i).data(), this->token(i).length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE,
       "token");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->token(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteStringToArray(1, this->token(i), target);
   }
 
-  // required int64 expire = 2;
-  if (has_expire()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->expire(), target);
+  // repeated int64 expire = 2;
+  for (int i = 0; i < this->expire_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteInt64ToArray(2, this->expire(i), target);
   }
 
-  // required string address = 3;
-  if (has_address()) {
+  // repeated string address = 3;
+  for (int i = 0; i < this->address_size(); i++) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->address().data(), this->address().length(),
+      this->address(i).data(), this->address(i).length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE,
       "address");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->address(), target);
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteStringToArray(3, this->address(i), target);
   }
 
-  // required int32 port = 4;
-  if (has_port()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->port(), target);
+  // repeated int32 port = 4;
+  for (int i = 0; i < this->port_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteInt32ToArray(4, this->port(i), target);
   }
 
-  // required int64 offset = 5;
-  if (has_offset()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(5, this->offset(), target);
+  // repeated int64 block_id = 5;
+  for (int i = 0; i < this->block_id_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteInt64ToArray(5, this->block_id(i), target);
+  }
+
+  // repeated int64 index = 6;
+  for (int i = 0; i < this->index_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteInt64ToArray(6, this->index(i), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -410,43 +432,60 @@ void MessageToken::SerializeWithCachedSizes(
 int MessageToken::ByteSize() const {
   int total_size = 0;
 
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required string token = 1;
-    if (has_token()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->token());
-    }
-
-    // required int64 expire = 2;
-    if (has_expire()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int64Size(
-          this->expire());
-    }
-
-    // required string address = 3;
-    if (has_address()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->address());
-    }
-
-    // required int32 port = 4;
-    if (has_port()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->port());
-    }
-
-    // required int64 offset = 5;
-    if (has_offset()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int64Size(
-          this->offset());
-    }
-
+  // repeated string token = 1;
+  total_size += 1 * this->token_size();
+  for (int i = 0; i < this->token_size(); i++) {
+    total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
+      this->token(i));
   }
+
+  // repeated int64 expire = 2;
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->expire_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        Int64Size(this->expire(i));
+    }
+    total_size += 1 * this->expire_size() + data_size;
+  }
+
+  // repeated string address = 3;
+  total_size += 1 * this->address_size();
+  for (int i = 0; i < this->address_size(); i++) {
+    total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
+      this->address(i));
+  }
+
+  // repeated int32 port = 4;
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->port_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        Int32Size(this->port(i));
+    }
+    total_size += 1 * this->port_size() + data_size;
+  }
+
+  // repeated int64 block_id = 5;
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->block_id_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        Int64Size(this->block_id(i));
+    }
+    total_size += 1 * this->block_id_size() + data_size;
+  }
+
+  // repeated int64 index = 6;
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->index_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        Int64Size(this->index(i));
+    }
+    total_size += 1 * this->index_size() + data_size;
+  }
+
   if (!unknown_fields().empty()) {
     total_size +=
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
@@ -472,23 +511,12 @@ void MessageToken::MergeFrom(const ::google::protobuf::Message& from) {
 
 void MessageToken::MergeFrom(const MessageToken& from) {
   GOOGLE_CHECK_NE(&from, this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_token()) {
-      set_token(from.token());
-    }
-    if (from.has_expire()) {
-      set_expire(from.expire());
-    }
-    if (from.has_address()) {
-      set_address(from.address());
-    }
-    if (from.has_port()) {
-      set_port(from.port());
-    }
-    if (from.has_offset()) {
-      set_offset(from.offset());
-    }
-  }
+  token_.MergeFrom(from.token_);
+  expire_.MergeFrom(from.expire_);
+  address_.MergeFrom(from.address_);
+  port_.MergeFrom(from.port_);
+  block_id_.MergeFrom(from.block_id_);
+  index_.MergeFrom(from.index_);
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
@@ -505,18 +533,18 @@ void MessageToken::CopyFrom(const MessageToken& from) {
 }
 
 bool MessageToken::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000001f) != 0x0000001f) return false;
 
   return true;
 }
 
 void MessageToken::Swap(MessageToken* other) {
   if (other != this) {
-    std::swap(token_, other->token_);
-    std::swap(expire_, other->expire_);
-    std::swap(address_, other->address_);
-    std::swap(port_, other->port_);
-    std::swap(offset_, other->offset_);
+    token_.Swap(&other->token_);
+    expire_.Swap(&other->expire_);
+    address_.Swap(&other->address_);
+    port_.Swap(&other->port_);
+    block_id_.Swap(&other->block_id_);
+    index_.Swap(&other->index_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

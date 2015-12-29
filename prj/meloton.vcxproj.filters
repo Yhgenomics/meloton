@@ -55,39 +55,6 @@
     <ClCompile Include="..\src\MasterHTTPSession.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\message\MessageAccept.pb.cc">
-      <Filter>message</Filter>
-    </ClCompile>
-    <ClCompile Include="..\message\MessageAlive.pb.cc">
-      <Filter>message</Filter>
-    </ClCompile>
-    <ClCompile Include="..\message\MessageAliveACK.pb.cc">
-      <Filter>message</Filter>
-    </ClCompile>
-    <ClCompile Include="..\message\MessageBlockData.pb.cc">
-      <Filter>message</Filter>
-    </ClCompile>
-    <ClCompile Include="..\message\MessageGet.pb.cc">
-      <Filter>message</Filter>
-    </ClCompile>
-    <ClCompile Include="..\message\MessageGetTokenACK.pb.cc">
-      <Filter>message</Filter>
-    </ClCompile>
-    <ClCompile Include="..\message\MessagePut.pb.cc">
-      <Filter>message</Filter>
-    </ClCompile>
-    <ClCompile Include="..\message\MessagePutTokenACK.pb.cc">
-      <Filter>message</Filter>
-    </ClCompile>
-    <ClCompile Include="..\message\MessageRegister.pb.cc">
-      <Filter>message</Filter>
-    </ClCompile>
-    <ClCompile Include="..\message\MessageToken.pb.cc">
-      <Filter>message</Filter>
-    </ClCompile>
-    <ClCompile Include="..\message\MessageUpdateBlock.pb.cc">
-      <Filter>message</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Path.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -109,14 +76,59 @@
     <ClCompile Include="..\src\FS.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\BlockDistributer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\RequestTokenTable.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\message\MessageAccept.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
     <ClCompile Include="..\message\MessageActionError.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\message\MessageAlive.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\message\MessageBlockData.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\message\MessageGet.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\message\MessageGetTokenACK.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\message\MessagePut.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\message\MessagePutTokenACK.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\message\MessageRegister.pb.cc">
       <Filter>message</Filter>
     </ClCompile>
     <ClCompile Include="..\message\MessageRequestGet.pb.cc">
       <Filter>message</Filter>
     </ClCompile>
+    <ClCompile Include="..\message\MessageRequestGetToken.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
     <ClCompile Include="..\message\MessageRequestPut.pb.cc">
       <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\message\MessageRequestPutToken.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\message\MessageToken.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\message\MessageUpdateBlock.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\BlockTable.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -164,39 +176,6 @@
     </ClInclude>
     <ClInclude Include="..\inc\MasterHTTPSession.h">
       <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\message\MessageAccept.pb.h">
-      <Filter>message</Filter>
-    </ClInclude>
-    <ClInclude Include="..\message\MessageAlive.pb.h">
-      <Filter>message</Filter>
-    </ClInclude>
-    <ClInclude Include="..\message\MessageAliveACK.pb.h">
-      <Filter>message</Filter>
-    </ClInclude>
-    <ClInclude Include="..\message\MessageBlockData.pb.h">
-      <Filter>message</Filter>
-    </ClInclude>
-    <ClInclude Include="..\message\MessageGet.pb.h">
-      <Filter>message</Filter>
-    </ClInclude>
-    <ClInclude Include="..\message\MessageGetTokenACK.pb.h">
-      <Filter>message</Filter>
-    </ClInclude>
-    <ClInclude Include="..\message\MessagePut.pb.h">
-      <Filter>message</Filter>
-    </ClInclude>
-    <ClInclude Include="..\message\MessagePutTokenACK.pb.h">
-      <Filter>message</Filter>
-    </ClInclude>
-    <ClInclude Include="..\message\MessageRegister.pb.h">
-      <Filter>message</Filter>
-    </ClInclude>
-    <ClInclude Include="..\message\MessageToken.pb.h">
-      <Filter>message</Filter>
-    </ClInclude>
-    <ClInclude Include="..\message\MessageUpdateBlock.pb.h">
-      <Filter>message</Filter>
     </ClInclude>
     <ClInclude Include="..\handler\MessageAcceptHandler.h">
       <Filter>handler</Filter>
@@ -255,15 +234,6 @@
     <ClInclude Include="..\inc\FS.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\message\MessageActionError.pb.h">
-      <Filter>message</Filter>
-    </ClInclude>
-    <ClInclude Include="..\message\MessageRequestGet.pb.h">
-      <Filter>message</Filter>
-    </ClInclude>
-    <ClInclude Include="..\message\MessageRequestPut.pb.h">
-      <Filter>message</Filter>
-    </ClInclude>
     <ClInclude Include="..\handler\MessageRequestGetHandler.h">
       <Filter>handler</Filter>
     </ClInclude>
@@ -271,6 +241,72 @@
       <Filter>handler</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\ErrDef.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\BlockDistributer.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\handler\MessageRequestGetTokenHandler.h">
+      <Filter>handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\RequestTokenTable.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\handler\MessageActionErrorHandler.h">
+      <Filter>handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\handler\MessageRequestPutTokenHandler.h">
+      <Filter>handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageAccept.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageActionError.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageAlive.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageBlockData.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageGet.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageGetTokenACK.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessagePut.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessagePutTokenACK.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageRegister.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageRequestGet.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageRequestGetToken.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageRequestPut.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageRequestPutToken.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageToken.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageUpdateBlock.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\BlockTable.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\BlockIndex.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>

@@ -25,7 +25,7 @@ public:
 
     sptr<BlockMeta> get_block( size_t id );
 
-    PP_DEF( size_t , size )
+    PP_DEF( int , size )
     PP_DEF( std::vector<sptr<BlockMeta>> , blocks );
 
     void add_block( sptr<BlockMeta> block );

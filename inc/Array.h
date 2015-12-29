@@ -27,8 +27,10 @@ public:
     void    remove( sptr<T> element );
     void    remove_at( size_t index );
     sptr<T> get( size_t index );
+    void    set( size_t index , sptr<T> instance );
     sptr<T> operator[]( size_t index );
     sptr<T> find( find_callback_t callback );
+    void    swap( size_t p1 , size_t p2 );
     size_t  size( );
 
 private:
@@ -107,8 +109,14 @@ inline void Array<T>::remove_at( size_t index )
 template<class T>
 inline sptr<T> Array<T>::get( size_t index )
 {
-    if ( index > cur_ )return nullptr;
+    if ( index > cur_ ) return nullptr;
     return array_[index];
+}
+template<class T>
+inline void Array<T>::set( size_t index , sptr<T> instance )
+{
+    if ( index > cur_ ) return nullptr;
+    array_[index] = instance;
 }
 template<class T>
 inline sptr<T> Array<T>::operator[]( size_t index )
@@ -131,6 +139,13 @@ inline sptr<T> Array<T>::find( find_callback_t callback )
     }
 
     return nullptr;
+}
+template<class T>
+inline void Array<T>::swap( size_t p1 , size_t p2 )
+{
+    auto v1 = this->array_[p1];
+    this->array_[p1] = this->array_[p2];
+    this->array_[p2] = v1;
 }
 template<class T>
 inline size_t Array<T>::size( )

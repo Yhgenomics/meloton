@@ -88,73 +88,99 @@ class MessageToken : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required string token = 1;
-  inline bool has_token() const;
+  // repeated string token = 1;
+  inline int token_size() const;
   inline void clear_token();
   static const int kTokenFieldNumber = 1;
-  inline const ::std::string& token() const;
-  inline void set_token(const ::std::string& value);
-  inline void set_token(const char* value);
-  inline void set_token(const char* value, size_t size);
-  inline ::std::string* mutable_token();
-  inline ::std::string* release_token();
-  inline void set_allocated_token(::std::string* token);
+  inline const ::std::string& token(int index) const;
+  inline ::std::string* mutable_token(int index);
+  inline void set_token(int index, const ::std::string& value);
+  inline void set_token(int index, const char* value);
+  inline void set_token(int index, const char* value, size_t size);
+  inline ::std::string* add_token();
+  inline void add_token(const ::std::string& value);
+  inline void add_token(const char* value);
+  inline void add_token(const char* value, size_t size);
+  inline const ::google::protobuf::RepeatedPtrField< ::std::string>& token() const;
+  inline ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_token();
 
-  // required int64 expire = 2;
-  inline bool has_expire() const;
+  // repeated int64 expire = 2;
+  inline int expire_size() const;
   inline void clear_expire();
   static const int kExpireFieldNumber = 2;
-  inline ::google::protobuf::int64 expire() const;
-  inline void set_expire(::google::protobuf::int64 value);
+  inline ::google::protobuf::int64 expire(int index) const;
+  inline void set_expire(int index, ::google::protobuf::int64 value);
+  inline void add_expire(::google::protobuf::int64 value);
+  inline const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+      expire() const;
+  inline ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+      mutable_expire();
 
-  // required string address = 3;
-  inline bool has_address() const;
+  // repeated string address = 3;
+  inline int address_size() const;
   inline void clear_address();
   static const int kAddressFieldNumber = 3;
-  inline const ::std::string& address() const;
-  inline void set_address(const ::std::string& value);
-  inline void set_address(const char* value);
-  inline void set_address(const char* value, size_t size);
-  inline ::std::string* mutable_address();
-  inline ::std::string* release_address();
-  inline void set_allocated_address(::std::string* address);
+  inline const ::std::string& address(int index) const;
+  inline ::std::string* mutable_address(int index);
+  inline void set_address(int index, const ::std::string& value);
+  inline void set_address(int index, const char* value);
+  inline void set_address(int index, const char* value, size_t size);
+  inline ::std::string* add_address();
+  inline void add_address(const ::std::string& value);
+  inline void add_address(const char* value);
+  inline void add_address(const char* value, size_t size);
+  inline const ::google::protobuf::RepeatedPtrField< ::std::string>& address() const;
+  inline ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_address();
 
-  // required int32 port = 4;
-  inline bool has_port() const;
+  // repeated int32 port = 4;
+  inline int port_size() const;
   inline void clear_port();
   static const int kPortFieldNumber = 4;
-  inline ::google::protobuf::int32 port() const;
-  inline void set_port(::google::protobuf::int32 value);
+  inline ::google::protobuf::int32 port(int index) const;
+  inline void set_port(int index, ::google::protobuf::int32 value);
+  inline void add_port(::google::protobuf::int32 value);
+  inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+      port() const;
+  inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+      mutable_port();
 
-  // required int64 offset = 5;
-  inline bool has_offset() const;
-  inline void clear_offset();
-  static const int kOffsetFieldNumber = 5;
-  inline ::google::protobuf::int64 offset() const;
-  inline void set_offset(::google::protobuf::int64 value);
+  // repeated int64 block_id = 5;
+  inline int block_id_size() const;
+  inline void clear_block_id();
+  static const int kBlockIdFieldNumber = 5;
+  inline ::google::protobuf::int64 block_id(int index) const;
+  inline void set_block_id(int index, ::google::protobuf::int64 value);
+  inline void add_block_id(::google::protobuf::int64 value);
+  inline const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+      block_id() const;
+  inline ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+      mutable_block_id();
+
+  // repeated int64 index = 6;
+  inline int index_size() const;
+  inline void clear_index();
+  static const int kIndexFieldNumber = 6;
+  inline ::google::protobuf::int64 index(int index) const;
+  inline void set_index(int index, ::google::protobuf::int64 value);
+  inline void add_index(::google::protobuf::int64 value);
+  inline const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+      index() const;
+  inline ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+      mutable_index();
 
   // @@protoc_insertion_point(class_scope:MessageToken)
  private:
-  inline void set_has_token();
-  inline void clear_has_token();
-  inline void set_has_expire();
-  inline void clear_has_expire();
-  inline void set_has_address();
-  inline void clear_has_address();
-  inline void set_has_port();
-  inline void clear_has_port();
-  inline void set_has_offset();
-  inline void clear_has_offset();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::std::string* token_;
-  ::google::protobuf::int64 expire_;
-  ::std::string* address_;
-  ::google::protobuf::int64 offset_;
-  ::google::protobuf::int32 port_;
+  ::google::protobuf::RepeatedPtrField< ::std::string> token_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int64 > expire_;
+  ::google::protobuf::RepeatedPtrField< ::std::string> address_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 > port_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int64 > block_id_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int64 > index_;
   friend void  protobuf_AddDesc_MessageToken_2eproto();
   friend void protobuf_AssignDesc_MessageToken_2eproto();
   friend void protobuf_ShutdownFile_MessageToken_2eproto();
@@ -169,228 +195,232 @@ class MessageToken : public ::google::protobuf::Message {
 
 // MessageToken
 
-// required string token = 1;
-inline bool MessageToken::has_token() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void MessageToken::set_has_token() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void MessageToken::clear_has_token() {
-  _has_bits_[0] &= ~0x00000001u;
+// repeated string token = 1;
+inline int MessageToken::token_size() const {
+  return token_.size();
 }
 inline void MessageToken::clear_token() {
-  if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    token_->clear();
-  }
-  clear_has_token();
+  token_.Clear();
 }
-inline const ::std::string& MessageToken::token() const {
+inline const ::std::string& MessageToken::token(int index) const {
   // @@protoc_insertion_point(field_get:MessageToken.token)
-  return *token_;
+  return token_.Get(index);
 }
-inline void MessageToken::set_token(const ::std::string& value) {
-  set_has_token();
-  if (token_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    token_ = new ::std::string;
-  }
-  token_->assign(value);
+inline ::std::string* MessageToken::mutable_token(int index) {
+  // @@protoc_insertion_point(field_mutable:MessageToken.token)
+  return token_.Mutable(index);
+}
+inline void MessageToken::set_token(int index, const ::std::string& value) {
   // @@protoc_insertion_point(field_set:MessageToken.token)
+  token_.Mutable(index)->assign(value);
 }
-inline void MessageToken::set_token(const char* value) {
-  set_has_token();
-  if (token_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    token_ = new ::std::string;
-  }
-  token_->assign(value);
+inline void MessageToken::set_token(int index, const char* value) {
+  token_.Mutable(index)->assign(value);
   // @@protoc_insertion_point(field_set_char:MessageToken.token)
 }
-inline void MessageToken::set_token(const char* value, size_t size) {
-  set_has_token();
-  if (token_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    token_ = new ::std::string;
-  }
-  token_->assign(reinterpret_cast<const char*>(value), size);
+inline void MessageToken::set_token(int index, const char* value, size_t size) {
+  token_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
   // @@protoc_insertion_point(field_set_pointer:MessageToken.token)
 }
-inline ::std::string* MessageToken::mutable_token() {
-  set_has_token();
-  if (token_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    token_ = new ::std::string;
-  }
-  // @@protoc_insertion_point(field_mutable:MessageToken.token)
+inline ::std::string* MessageToken::add_token() {
+  return token_.Add();
+}
+inline void MessageToken::add_token(const ::std::string& value) {
+  token_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:MessageToken.token)
+}
+inline void MessageToken::add_token(const char* value) {
+  token_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:MessageToken.token)
+}
+inline void MessageToken::add_token(const char* value, size_t size) {
+  token_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:MessageToken.token)
+}
+inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
+MessageToken::token() const {
+  // @@protoc_insertion_point(field_list:MessageToken.token)
   return token_;
 }
-inline ::std::string* MessageToken::release_token() {
-  clear_has_token();
-  if (token_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    return NULL;
-  } else {
-    ::std::string* temp = token_;
-    token_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-    return temp;
-  }
-}
-inline void MessageToken::set_allocated_token(::std::string* token) {
-  if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete token_;
-  }
-  if (token) {
-    set_has_token();
-    token_ = token;
-  } else {
-    clear_has_token();
-    token_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-  // @@protoc_insertion_point(field_set_allocated:MessageToken.token)
+inline ::google::protobuf::RepeatedPtrField< ::std::string>*
+MessageToken::mutable_token() {
+  // @@protoc_insertion_point(field_mutable_list:MessageToken.token)
+  return &token_;
 }
 
-// required int64 expire = 2;
-inline bool MessageToken::has_expire() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void MessageToken::set_has_expire() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void MessageToken::clear_has_expire() {
-  _has_bits_[0] &= ~0x00000002u;
+// repeated int64 expire = 2;
+inline int MessageToken::expire_size() const {
+  return expire_.size();
 }
 inline void MessageToken::clear_expire() {
-  expire_ = GOOGLE_LONGLONG(0);
-  clear_has_expire();
+  expire_.Clear();
 }
-inline ::google::protobuf::int64 MessageToken::expire() const {
+inline ::google::protobuf::int64 MessageToken::expire(int index) const {
   // @@protoc_insertion_point(field_get:MessageToken.expire)
-  return expire_;
+  return expire_.Get(index);
 }
-inline void MessageToken::set_expire(::google::protobuf::int64 value) {
-  set_has_expire();
-  expire_ = value;
+inline void MessageToken::set_expire(int index, ::google::protobuf::int64 value) {
+  expire_.Set(index, value);
   // @@protoc_insertion_point(field_set:MessageToken.expire)
 }
+inline void MessageToken::add_expire(::google::protobuf::int64 value) {
+  expire_.Add(value);
+  // @@protoc_insertion_point(field_add:MessageToken.expire)
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+MessageToken::expire() const {
+  // @@protoc_insertion_point(field_list:MessageToken.expire)
+  return expire_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+MessageToken::mutable_expire() {
+  // @@protoc_insertion_point(field_mutable_list:MessageToken.expire)
+  return &expire_;
+}
 
-// required string address = 3;
-inline bool MessageToken::has_address() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void MessageToken::set_has_address() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void MessageToken::clear_has_address() {
-  _has_bits_[0] &= ~0x00000004u;
+// repeated string address = 3;
+inline int MessageToken::address_size() const {
+  return address_.size();
 }
 inline void MessageToken::clear_address() {
-  if (address_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    address_->clear();
-  }
-  clear_has_address();
+  address_.Clear();
 }
-inline const ::std::string& MessageToken::address() const {
+inline const ::std::string& MessageToken::address(int index) const {
   // @@protoc_insertion_point(field_get:MessageToken.address)
-  return *address_;
+  return address_.Get(index);
 }
-inline void MessageToken::set_address(const ::std::string& value) {
-  set_has_address();
-  if (address_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    address_ = new ::std::string;
-  }
-  address_->assign(value);
+inline ::std::string* MessageToken::mutable_address(int index) {
+  // @@protoc_insertion_point(field_mutable:MessageToken.address)
+  return address_.Mutable(index);
+}
+inline void MessageToken::set_address(int index, const ::std::string& value) {
   // @@protoc_insertion_point(field_set:MessageToken.address)
+  address_.Mutable(index)->assign(value);
 }
-inline void MessageToken::set_address(const char* value) {
-  set_has_address();
-  if (address_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    address_ = new ::std::string;
-  }
-  address_->assign(value);
+inline void MessageToken::set_address(int index, const char* value) {
+  address_.Mutable(index)->assign(value);
   // @@protoc_insertion_point(field_set_char:MessageToken.address)
 }
-inline void MessageToken::set_address(const char* value, size_t size) {
-  set_has_address();
-  if (address_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    address_ = new ::std::string;
-  }
-  address_->assign(reinterpret_cast<const char*>(value), size);
+inline void MessageToken::set_address(int index, const char* value, size_t size) {
+  address_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
   // @@protoc_insertion_point(field_set_pointer:MessageToken.address)
 }
-inline ::std::string* MessageToken::mutable_address() {
-  set_has_address();
-  if (address_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    address_ = new ::std::string;
-  }
-  // @@protoc_insertion_point(field_mutable:MessageToken.address)
+inline ::std::string* MessageToken::add_address() {
+  return address_.Add();
+}
+inline void MessageToken::add_address(const ::std::string& value) {
+  address_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:MessageToken.address)
+}
+inline void MessageToken::add_address(const char* value) {
+  address_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:MessageToken.address)
+}
+inline void MessageToken::add_address(const char* value, size_t size) {
+  address_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:MessageToken.address)
+}
+inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
+MessageToken::address() const {
+  // @@protoc_insertion_point(field_list:MessageToken.address)
   return address_;
 }
-inline ::std::string* MessageToken::release_address() {
-  clear_has_address();
-  if (address_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    return NULL;
-  } else {
-    ::std::string* temp = address_;
-    address_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-    return temp;
-  }
-}
-inline void MessageToken::set_allocated_address(::std::string* address) {
-  if (address_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete address_;
-  }
-  if (address) {
-    set_has_address();
-    address_ = address;
-  } else {
-    clear_has_address();
-    address_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-  // @@protoc_insertion_point(field_set_allocated:MessageToken.address)
+inline ::google::protobuf::RepeatedPtrField< ::std::string>*
+MessageToken::mutable_address() {
+  // @@protoc_insertion_point(field_mutable_list:MessageToken.address)
+  return &address_;
 }
 
-// required int32 port = 4;
-inline bool MessageToken::has_port() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-inline void MessageToken::set_has_port() {
-  _has_bits_[0] |= 0x00000008u;
-}
-inline void MessageToken::clear_has_port() {
-  _has_bits_[0] &= ~0x00000008u;
+// repeated int32 port = 4;
+inline int MessageToken::port_size() const {
+  return port_.size();
 }
 inline void MessageToken::clear_port() {
-  port_ = 0;
-  clear_has_port();
+  port_.Clear();
 }
-inline ::google::protobuf::int32 MessageToken::port() const {
+inline ::google::protobuf::int32 MessageToken::port(int index) const {
   // @@protoc_insertion_point(field_get:MessageToken.port)
-  return port_;
+  return port_.Get(index);
 }
-inline void MessageToken::set_port(::google::protobuf::int32 value) {
-  set_has_port();
-  port_ = value;
+inline void MessageToken::set_port(int index, ::google::protobuf::int32 value) {
+  port_.Set(index, value);
   // @@protoc_insertion_point(field_set:MessageToken.port)
 }
+inline void MessageToken::add_port(::google::protobuf::int32 value) {
+  port_.Add(value);
+  // @@protoc_insertion_point(field_add:MessageToken.port)
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+MessageToken::port() const {
+  // @@protoc_insertion_point(field_list:MessageToken.port)
+  return port_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+MessageToken::mutable_port() {
+  // @@protoc_insertion_point(field_mutable_list:MessageToken.port)
+  return &port_;
+}
 
-// required int64 offset = 5;
-inline bool MessageToken::has_offset() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
+// repeated int64 block_id = 5;
+inline int MessageToken::block_id_size() const {
+  return block_id_.size();
 }
-inline void MessageToken::set_has_offset() {
-  _has_bits_[0] |= 0x00000010u;
+inline void MessageToken::clear_block_id() {
+  block_id_.Clear();
 }
-inline void MessageToken::clear_has_offset() {
-  _has_bits_[0] &= ~0x00000010u;
+inline ::google::protobuf::int64 MessageToken::block_id(int index) const {
+  // @@protoc_insertion_point(field_get:MessageToken.block_id)
+  return block_id_.Get(index);
 }
-inline void MessageToken::clear_offset() {
-  offset_ = GOOGLE_LONGLONG(0);
-  clear_has_offset();
+inline void MessageToken::set_block_id(int index, ::google::protobuf::int64 value) {
+  block_id_.Set(index, value);
+  // @@protoc_insertion_point(field_set:MessageToken.block_id)
 }
-inline ::google::protobuf::int64 MessageToken::offset() const {
-  // @@protoc_insertion_point(field_get:MessageToken.offset)
-  return offset_;
+inline void MessageToken::add_block_id(::google::protobuf::int64 value) {
+  block_id_.Add(value);
+  // @@protoc_insertion_point(field_add:MessageToken.block_id)
 }
-inline void MessageToken::set_offset(::google::protobuf::int64 value) {
-  set_has_offset();
-  offset_ = value;
-  // @@protoc_insertion_point(field_set:MessageToken.offset)
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+MessageToken::block_id() const {
+  // @@protoc_insertion_point(field_list:MessageToken.block_id)
+  return block_id_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+MessageToken::mutable_block_id() {
+  // @@protoc_insertion_point(field_mutable_list:MessageToken.block_id)
+  return &block_id_;
+}
+
+// repeated int64 index = 6;
+inline int MessageToken::index_size() const {
+  return index_.size();
+}
+inline void MessageToken::clear_index() {
+  index_.Clear();
+}
+inline ::google::protobuf::int64 MessageToken::index(int index) const {
+  // @@protoc_insertion_point(field_get:MessageToken.index)
+  return index_.Get(index);
+}
+inline void MessageToken::set_index(int index, ::google::protobuf::int64 value) {
+  index_.Set(index, value);
+  // @@protoc_insertion_point(field_set:MessageToken.index)
+}
+inline void MessageToken::add_index(::google::protobuf::int64 value) {
+  index_.Add(value);
+  // @@protoc_insertion_point(field_add:MessageToken.index)
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+MessageToken::index() const {
+  // @@protoc_insertion_point(field_list:MessageToken.index)
+  return index_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+MessageToken::mutable_index() {
+  // @@protoc_insertion_point(field_mutable_list:MessageToken.index)
+  return &index_;
 }
 
 

@@ -32,10 +32,12 @@ void protobuf_AssignDesc_MessageRegister_2eproto() {
       "MessageRegister.proto");
   GOOGLE_CHECK(file != NULL);
   MessageRegister_descriptor_ = file->message_type(0);
-  static const int MessageRegister_offsets_[3] = {
+  static const int MessageRegister_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageRegister, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageRegister, disk_space_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageRegister, block_num_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageRegister, data_addr_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageRegister, data_port_),
   };
   MessageRegister_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -78,9 +80,10 @@ void protobuf_AddDesc_MessageRegister_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\025MessageRegister.proto\"D\n\017MessageRegist"
+    "\n\025MessageRegister.proto\"j\n\017MessageRegist"
     "er\022\n\n\002id\030\001 \002(\t\022\022\n\ndisk_space\030\002 \002(\003\022\021\n\tbl"
-    "ock_num\030\003 \002(\003", 93);
+    "ock_num\030\003 \002(\003\022\021\n\tdata_addr\030\004 \002(\t\022\021\n\tdata"
+    "_port\030\005 \002(\005", 131);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessageRegister.proto", &protobuf_RegisterTypes);
   MessageRegister::default_instance_ = new MessageRegister();
@@ -101,6 +104,8 @@ struct StaticDescriptorInitializer_MessageRegister_2eproto {
 const int MessageRegister::kIdFieldNumber;
 const int MessageRegister::kDiskSpaceFieldNumber;
 const int MessageRegister::kBlockNumFieldNumber;
+const int MessageRegister::kDataAddrFieldNumber;
+const int MessageRegister::kDataPortFieldNumber;
 #endif  // !_MSC_VER
 
 MessageRegister::MessageRegister()
@@ -125,6 +130,8 @@ void MessageRegister::SharedCtor() {
   id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   disk_space_ = GOOGLE_LONGLONG(0);
   block_num_ = GOOGLE_LONGLONG(0);
+  data_addr_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  data_port_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -136,6 +143,9 @@ MessageRegister::~MessageRegister() {
 void MessageRegister::SharedDtor() {
   if (id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete id_;
+  }
+  if (data_addr_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete data_addr_;
   }
   if (this != default_instance_) {
   }
@@ -173,13 +183,19 @@ void MessageRegister::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 7) {
+  if (_has_bits_[0 / 32] & 31) {
     ZR_(disk_space_, block_num_);
     if (has_id()) {
       if (id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         id_->clear();
       }
     }
+    if (has_data_addr()) {
+      if (data_addr_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        data_addr_->clear();
+      }
+    }
+    data_port_ = 0;
   }
 
 #undef OFFSET_OF_FIELD_
@@ -241,6 +257,38 @@ bool MessageRegister::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(34)) goto parse_data_addr;
+        break;
+      }
+
+      // required string data_addr = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_data_addr:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_data_addr()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->data_addr().data(), this->data_addr().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "data_addr");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(40)) goto parse_data_port;
+        break;
+      }
+
+      // required int32 data_port = 5;
+      case 5: {
+        if (tag == 40) {
+         parse_data_port:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &data_port_)));
+          set_has_data_port();
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -290,6 +338,21 @@ void MessageRegister::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt64(3, this->block_num(), output);
   }
 
+  // required string data_addr = 4;
+  if (has_data_addr()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->data_addr().data(), this->data_addr().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "data_addr");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      4, this->data_addr(), output);
+  }
+
+  // required int32 data_port = 5;
+  if (has_data_port()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->data_port(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -319,6 +382,22 @@ void MessageRegister::SerializeWithCachedSizes(
   // required int64 block_num = 3;
   if (has_block_num()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(3, this->block_num(), target);
+  }
+
+  // required string data_addr = 4;
+  if (has_data_addr()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->data_addr().data(), this->data_addr().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "data_addr");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->data_addr(), target);
+  }
+
+  // required int32 data_port = 5;
+  if (has_data_port()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->data_port(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -352,6 +431,20 @@ int MessageRegister::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int64Size(
           this->block_num());
+    }
+
+    // required string data_addr = 4;
+    if (has_data_addr()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->data_addr());
+    }
+
+    // required int32 data_port = 5;
+    if (has_data_port()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->data_port());
     }
 
   }
@@ -390,6 +483,12 @@ void MessageRegister::MergeFrom(const MessageRegister& from) {
     if (from.has_block_num()) {
       set_block_num(from.block_num());
     }
+    if (from.has_data_addr()) {
+      set_data_addr(from.data_addr());
+    }
+    if (from.has_data_port()) {
+      set_data_port(from.data_port());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -407,7 +506,7 @@ void MessageRegister::CopyFrom(const MessageRegister& from) {
 }
 
 bool MessageRegister::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
+  if ((_has_bits_[0] & 0x0000001f) != 0x0000001f) return false;
 
   return true;
 }
@@ -417,6 +516,8 @@ void MessageRegister::Swap(MessageRegister* other) {
     std::swap(id_, other->id_);
     std::swap(disk_space_, other->disk_space_);
     std::swap(block_num_, other->block_num_);
+    std::swap(data_addr_, other->data_addr_);
+    std::swap(data_port_, other->data_port_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

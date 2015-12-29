@@ -114,6 +114,25 @@ class MessageRegister : public ::google::protobuf::Message {
   inline ::google::protobuf::int64 block_num() const;
   inline void set_block_num(::google::protobuf::int64 value);
 
+  // required string data_addr = 4;
+  inline bool has_data_addr() const;
+  inline void clear_data_addr();
+  static const int kDataAddrFieldNumber = 4;
+  inline const ::std::string& data_addr() const;
+  inline void set_data_addr(const ::std::string& value);
+  inline void set_data_addr(const char* value);
+  inline void set_data_addr(const char* value, size_t size);
+  inline ::std::string* mutable_data_addr();
+  inline ::std::string* release_data_addr();
+  inline void set_allocated_data_addr(::std::string* data_addr);
+
+  // required int32 data_port = 5;
+  inline bool has_data_port() const;
+  inline void clear_data_port();
+  static const int kDataPortFieldNumber = 5;
+  inline ::google::protobuf::int32 data_port() const;
+  inline void set_data_port(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:MessageRegister)
  private:
   inline void set_has_id();
@@ -122,6 +141,10 @@ class MessageRegister : public ::google::protobuf::Message {
   inline void clear_has_disk_space();
   inline void set_has_block_num();
   inline void clear_has_block_num();
+  inline void set_has_data_addr();
+  inline void clear_has_data_addr();
+  inline void set_has_data_port();
+  inline void clear_has_data_port();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -130,6 +153,8 @@ class MessageRegister : public ::google::protobuf::Message {
   ::std::string* id_;
   ::google::protobuf::int64 disk_space_;
   ::google::protobuf::int64 block_num_;
+  ::std::string* data_addr_;
+  ::google::protobuf::int32 data_port_;
   friend void  protobuf_AddDesc_MessageRegister_2eproto();
   friend void protobuf_AssignDesc_MessageRegister_2eproto();
   friend void protobuf_ShutdownFile_MessageRegister_2eproto();
@@ -266,6 +291,106 @@ inline void MessageRegister::set_block_num(::google::protobuf::int64 value) {
   set_has_block_num();
   block_num_ = value;
   // @@protoc_insertion_point(field_set:MessageRegister.block_num)
+}
+
+// required string data_addr = 4;
+inline bool MessageRegister::has_data_addr() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void MessageRegister::set_has_data_addr() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void MessageRegister::clear_has_data_addr() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void MessageRegister::clear_data_addr() {
+  if (data_addr_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    data_addr_->clear();
+  }
+  clear_has_data_addr();
+}
+inline const ::std::string& MessageRegister::data_addr() const {
+  // @@protoc_insertion_point(field_get:MessageRegister.data_addr)
+  return *data_addr_;
+}
+inline void MessageRegister::set_data_addr(const ::std::string& value) {
+  set_has_data_addr();
+  if (data_addr_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    data_addr_ = new ::std::string;
+  }
+  data_addr_->assign(value);
+  // @@protoc_insertion_point(field_set:MessageRegister.data_addr)
+}
+inline void MessageRegister::set_data_addr(const char* value) {
+  set_has_data_addr();
+  if (data_addr_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    data_addr_ = new ::std::string;
+  }
+  data_addr_->assign(value);
+  // @@protoc_insertion_point(field_set_char:MessageRegister.data_addr)
+}
+inline void MessageRegister::set_data_addr(const char* value, size_t size) {
+  set_has_data_addr();
+  if (data_addr_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    data_addr_ = new ::std::string;
+  }
+  data_addr_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:MessageRegister.data_addr)
+}
+inline ::std::string* MessageRegister::mutable_data_addr() {
+  set_has_data_addr();
+  if (data_addr_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    data_addr_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:MessageRegister.data_addr)
+  return data_addr_;
+}
+inline ::std::string* MessageRegister::release_data_addr() {
+  clear_has_data_addr();
+  if (data_addr_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = data_addr_;
+    data_addr_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void MessageRegister::set_allocated_data_addr(::std::string* data_addr) {
+  if (data_addr_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete data_addr_;
+  }
+  if (data_addr) {
+    set_has_data_addr();
+    data_addr_ = data_addr;
+  } else {
+    clear_has_data_addr();
+    data_addr_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:MessageRegister.data_addr)
+}
+
+// required int32 data_port = 5;
+inline bool MessageRegister::has_data_port() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void MessageRegister::set_has_data_port() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void MessageRegister::clear_has_data_port() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void MessageRegister::clear_data_port() {
+  data_port_ = 0;
+  clear_has_data_port();
+}
+inline ::google::protobuf::int32 MessageRegister::data_port() const {
+  // @@protoc_insertion_point(field_get:MessageRegister.data_port)
+  return data_port_;
+}
+inline void MessageRegister::set_data_port(::google::protobuf::int32 value) {
+  set_has_data_port();
+  data_port_ = value;
+  // @@protoc_insertion_point(field_set:MessageRegister.data_port)
 }
 
 

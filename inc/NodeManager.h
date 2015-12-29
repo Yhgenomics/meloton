@@ -21,6 +21,10 @@ class NodeManager
 public:
     
     typedef std::function<bool( sptr<NodeSession> instance)> find_callback_t;
+
+    // Check if n1 is greater than n2
+    typedef std::function<bool( sptr<NodeSession> n1 , 
+                                sptr<NodeSession> n2)> compare_callback_t;
     typedef std::function<void( sptr<NodeSession> instance)> all_callback_t;
    
     SINGLETON( NodeManager );
@@ -31,12 +35,14 @@ public:
     void                remove_node ( sptr<NodeSession> session );
     sptr<NodeSession>   find_node   ( find_callback_t callback );
     void                all_node    ( all_callback_t callback );
+    void                sort        ( compare_callback_t callback );
 
 private:
 
     NodeManager( );
 
     uptr<Array<NodeSession>> node_array_ = nullptr;
+    void quick_sort( size_t i , size_t j , compare_callback_t compare );
 };
 
 #endif // !NODE_MANAGER_H_

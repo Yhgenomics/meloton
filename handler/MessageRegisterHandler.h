@@ -29,10 +29,11 @@ static int MessageRegisterHandler( ClusterSession * session , uptr<MessageRegist
 
     instance->block_num( msg->block_num( ) );
     instance->disk_space( msg->disk_space( ) );
+    instance->data_ip( msg->data_addr( ) );
+    instance->data_port( msg->data_port( ) );
 
     auto reply = make_uptr( MessageAccept );
     reply->set_session_id( instance->id( ) );
-    
     instance->send_message( move_ptr( reply ) );
 
     return 0;

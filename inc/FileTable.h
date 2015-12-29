@@ -75,11 +75,11 @@ private:
     struct FileIndex
     {
         char    file_name[248]  = { 0 };
+        size_t  file_name_hash  = 0;
         size_t  part_size       = 0;
         size_t  part_id         = 0;
         size_t  offset          = 0;
         size_t  index           = 0;
-        size_t  file_name_hash  = 0;
     };
 
     FileTable( );

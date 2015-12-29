@@ -20,6 +20,8 @@
 #include "ErrDef.h"
 #include <MessageActionError.pb.h>
 
+#include "BlockDistributer.h"
+
 static int MessageRequestGetHandler( ClusterSession * session , uptr<MessageRequestGet> msg )
 {
     auto path = msg->path( );
@@ -36,6 +38,9 @@ static int MessageRequestGetHandler( ClusterSession * session , uptr<MessageRequ
         session->close( );
         return 0;
     }
+
+    BlockDistributer distributer;
+    distributer.get_file( file , session , move_ptr( msg ) );
 
     return 0;
 }

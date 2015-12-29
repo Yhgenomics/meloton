@@ -16,7 +16,7 @@ NodeManager::NodeManager( )
 
         return false;
     } , nullptr , nullptr );
-}
+} 
 
 NodeManager::~NodeManager( )
 {
@@ -54,4 +54,52 @@ void NodeManager::all_node( all_callback_t callback )
             callback( t );
         }
     }
+}
+
+void NodeManager::sort( compare_callback_t callback )
+{
+    quick_sort( 0 , this->node_array_->size( ) - 1, callback );
+}
+
+void NodeManager::quick_sort( size_t l , size_t r , compare_callback_t compare )
+{ 
+    if (l < r)  
+    {        
+        size_t i = l , j = r;
+        auto x = this->node_array_->get(l);  
+        while (i < j)  
+        {  
+            auto nj = this->node_array_->get(j);  
+            while ( i < j && compare(nj,x) ) // s[j]>= x
+            {
+                j--;   
+            } 
+
+            if ( i < j )
+            { 
+                //s[i++] = s[j];  
+                this->node_array_->swap( i , j );
+                i++;
+            }
+
+            auto ni = this->node_array_->get(i);  
+            while ( i < j && compare(x , ni) ) //s[i] < x
+            {
+                i++;
+            }
+
+            if ( i < j )
+            {
+                //s[j--] = s[i];
+                this->node_array_->swap( j , i );
+                j--;
+            }
+        } 
+        
+        this->node_array_->set( i , x );
+        //s[i] = x;  
+        
+        quick_sort(l, i - 1 , compare); // µÝ¹éµ÷ÓÃ  
+        quick_sort(i + 1, r , compare);  
+    }  
 }

@@ -54,13 +54,4 @@ bool Error::success( )
 {
     return this->code_ == 0;
 }
-
-std::string Error::message( )
-{
-    return this->msg_;
-}
-
-int Error::code( )
-{
-    return this->code_;
-}
+  

@@ -49,7 +49,7 @@ public:
         this->nodes_.push_back( move_ptr( node ) );
     };
 
-    PP_DEF( size_t , size )
+    PP_DEF( int , size )
 
 private:
 

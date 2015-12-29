@@ -114,12 +114,17 @@ class MessagePutTokenACK : public ::google::protobuf::Message {
   inline ::google::protobuf::int64 block_id() const;
   inline void set_block_id(::google::protobuf::int64 value);
 
-  // required int64 client_id = 4;
-  inline bool has_client_id() const;
-  inline void clear_client_id();
-  static const int kClientIdFieldNumber = 4;
-  inline ::google::protobuf::int64 client_id() const;
-  inline void set_client_id(::google::protobuf::int64 value);
+  // required string request_id = 4;
+  inline bool has_request_id() const;
+  inline void clear_request_id();
+  static const int kRequestIdFieldNumber = 4;
+  inline const ::std::string& request_id() const;
+  inline void set_request_id(const ::std::string& value);
+  inline void set_request_id(const char* value);
+  inline void set_request_id(const char* value, size_t size);
+  inline ::std::string* mutable_request_id();
+  inline ::std::string* release_request_id();
+  inline void set_allocated_request_id(::std::string* request_id);
 
   // @@protoc_insertion_point(class_scope:MessagePutTokenACK)
  private:
@@ -129,8 +134,8 @@ class MessagePutTokenACK : public ::google::protobuf::Message {
   inline void clear_has_expire();
   inline void set_has_block_id();
   inline void clear_has_block_id();
-  inline void set_has_client_id();
-  inline void clear_has_client_id();
+  inline void set_has_request_id();
+  inline void clear_has_request_id();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -139,7 +144,7 @@ class MessagePutTokenACK : public ::google::protobuf::Message {
   ::std::string* token_;
   ::google::protobuf::int64 expire_;
   ::google::protobuf::int64 block_id_;
-  ::google::protobuf::int64 client_id_;
+  ::std::string* request_id_;
   friend void  protobuf_AddDesc_MessagePutTokenACK_2eproto();
   friend void protobuf_AssignDesc_MessagePutTokenACK_2eproto();
   friend void protobuf_ShutdownFile_MessagePutTokenACK_2eproto();
@@ -278,28 +283,80 @@ inline void MessagePutTokenACK::set_block_id(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:MessagePutTokenACK.block_id)
 }
 
-// required int64 client_id = 4;
-inline bool MessagePutTokenACK::has_client_id() const {
+// required string request_id = 4;
+inline bool MessagePutTokenACK::has_request_id() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
-inline void MessagePutTokenACK::set_has_client_id() {
+inline void MessagePutTokenACK::set_has_request_id() {
   _has_bits_[0] |= 0x00000008u;
 }
-inline void MessagePutTokenACK::clear_has_client_id() {
+inline void MessagePutTokenACK::clear_has_request_id() {
   _has_bits_[0] &= ~0x00000008u;
 }
-inline void MessagePutTokenACK::clear_client_id() {
-  client_id_ = GOOGLE_LONGLONG(0);
-  clear_has_client_id();
+inline void MessagePutTokenACK::clear_request_id() {
+  if (request_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    request_id_->clear();
+  }
+  clear_has_request_id();
 }
-inline ::google::protobuf::int64 MessagePutTokenACK::client_id() const {
-  // @@protoc_insertion_point(field_get:MessagePutTokenACK.client_id)
-  return client_id_;
+inline const ::std::string& MessagePutTokenACK::request_id() const {
+  // @@protoc_insertion_point(field_get:MessagePutTokenACK.request_id)
+  return *request_id_;
 }
-inline void MessagePutTokenACK::set_client_id(::google::protobuf::int64 value) {
-  set_has_client_id();
-  client_id_ = value;
-  // @@protoc_insertion_point(field_set:MessagePutTokenACK.client_id)
+inline void MessagePutTokenACK::set_request_id(const ::std::string& value) {
+  set_has_request_id();
+  if (request_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    request_id_ = new ::std::string;
+  }
+  request_id_->assign(value);
+  // @@protoc_insertion_point(field_set:MessagePutTokenACK.request_id)
+}
+inline void MessagePutTokenACK::set_request_id(const char* value) {
+  set_has_request_id();
+  if (request_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    request_id_ = new ::std::string;
+  }
+  request_id_->assign(value);
+  // @@protoc_insertion_point(field_set_char:MessagePutTokenACK.request_id)
+}
+inline void MessagePutTokenACK::set_request_id(const char* value, size_t size) {
+  set_has_request_id();
+  if (request_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    request_id_ = new ::std::string;
+  }
+  request_id_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:MessagePutTokenACK.request_id)
+}
+inline ::std::string* MessagePutTokenACK::mutable_request_id() {
+  set_has_request_id();
+  if (request_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    request_id_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:MessagePutTokenACK.request_id)
+  return request_id_;
+}
+inline ::std::string* MessagePutTokenACK::release_request_id() {
+  clear_has_request_id();
+  if (request_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = request_id_;
+    request_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void MessagePutTokenACK::set_allocated_request_id(::std::string* request_id) {
+  if (request_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete request_id_;
+  }
+  if (request_id) {
+    set_has_request_id();
+    request_id_ = request_id;
+  } else {
+    clear_has_request_id();
+    request_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:MessagePutTokenACK.request_id)
 }
 
 
