@@ -31,6 +31,8 @@ public:
 
     ~NodeManager( );
     NodeSession*        create_node ( );
+    sptr<NodeSession>   get_node    ( size_t index );
+    size_t              count       ( );
     void                push_node   ( sptr<NodeSession> session );
     void                remove_node ( sptr<NodeSession> session );
     sptr<NodeSession>   find_node   ( find_callback_t callback );

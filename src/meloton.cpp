@@ -6,13 +6,11 @@
 #include "Array.h"
 #include "NodeSession.h"
 #include "NodeManager.h"
-#include "FileTable.h"
 #include <time.h>
 
 void test_file_table( )
 {
     size_t data_size = 1024;
-    FileTable::instance( )->initial( );
     char read_tmp_data[512] = { 0 };
     auto tim = time( 0 );
 
@@ -32,8 +30,8 @@ void test_file_table( )
         itoa( (i+1) , buf , 10 );
         std::string id ( buf );
         std::string name = "FILE_" + id;
-        auto f = FileTable::instance( )->create_file( name , 1 , data_size );
-        FileTable::instance( )->write_file( f , write_data , data_size );
+        //auto f = FileTable::instance( )->create_file( name , 1 , data_size );
+        //FileTable::instance( )->write_file( f , write_data , data_size );
     }
 
     auto deltaTime = time( 0 ) - tim;

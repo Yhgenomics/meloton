@@ -26,7 +26,7 @@ void BlockTable::load_from_file( )
 
     load_index( this->pfile_index_ );
 
-    for ( size_t i = 0; i < this->block_num; i++ )
+    for ( size_t i = 0; i < this->block_num_; i++ )
     {
         LOG_DEBUG( "[%lld] %s" , 
                    i , 
@@ -38,7 +38,7 @@ void BlockTable::load_from_file( )
 void BlockTable::load_index( FILE * pfile )
 {
     size_t total_file_num  = 0;
-    this->block_num = 0;
+    this->block_num_ = 0;
 
     while ( true )
     {
@@ -52,14 +52,14 @@ void BlockTable::load_index( FILE * pfile )
         }
 
         auto p_index = sptr<BlockIndex>( idx );
-        this->block_index_list_[block_num] = p_index;
+        this->block_index_list_[this->block_num_] = p_index;
        
         if ( !idx->is_used )
         {
             this->block_idle_list_.push_back( p_index );
         }
 
-        block_num++;
+        this->block_num_++;
     }
 
 }
@@ -87,7 +87,9 @@ sptr<BlockIndex> BlockTable::find_block( size_t index )
     return this->block_index_list_[index];
 }
 
-sptr<BlockIndex> BlockTable::create_block( std::string file_name , size_t size )
+sptr<BlockIndex> BlockTable::create_block( std::string file_name , 
+                                           size_t size , 
+                                           size_t block_id)
 {
     if ( file_name.size( ) > MAX_PATH_SIZE )
     {
@@ -111,6 +113,7 @@ sptr<BlockIndex> BlockTable::create_block( std::string file_name , size_t size )
         idx->path_hash  = hash_code( file_name );
         idx->size       = size;
         idx->is_used    = true;
+        idx->block_id   = block_id;
         save_index( this->pfile_index_ , idx->index );
     }
     else
@@ -120,12 +123,13 @@ sptr<BlockIndex> BlockTable::create_block( std::string file_name , size_t size )
         memcpy( idx->path , file_name.c_str( ) , file_name.size( ) );
         
         idx->path_hash  = hash_code( file_name );
-        idx->index      = block_num;
+        idx->index      = this->block_num_;
         idx->is_used    = true;
         idx->size       = size;
+        idx->block_id   = block_id;
         idx->offset     = alloc_data_space( );
         
-        this->block_index_list_[this->block_num++] = idx;
+        this->block_index_list_[this->block_num_++] = idx;
         save_index( this->pfile_index_ , idx->index );
     }
 
@@ -136,6 +140,37 @@ sptr<BlockIndex> BlockTable::create_block( std::string file_name , size_t size )
 sptr<BlockIndex> BlockTable::delete_block( size_t index )
 {
     return sptr<BlockIndex>( );
+}
+
+uptr<MRT::Buffer> BlockTable::read_block( sptr<BlockIndex> block , 
+                                          size_t offset , 
+                                          size_t size  )
+{
+    if ( (offset + size) > block->size )
+    {
+        return nullptr;
+    }
+
+    uptr<MRT::Buffer> buffer = make_uptr( MRT::Buffer , size );
+    fseek( this->pfile_data_ , block->offset + offset , SEEK_SET );
+    fread( buffer->data( ) , 1 , size , this->pfile_data_ );
+    return buffer;
+}
+
+size_t BlockTable::write_block( sptr<BlockIndex> block,
+                                   const char * data ,
+                                   size_t size ,
+                                   size_t offset )
+{
+    if ( (offset + size) > block->size )
+    {
+        return 0;
+    }
+
+    fseek( this->pfile_data_ , block->offset + offset , SEEK_SET );
+    fwrite( data , 1 , size , this->pfile_data_ );
+
+    return size;
 }
 
 BlockTable::~BlockTable( )

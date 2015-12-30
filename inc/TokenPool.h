@@ -1,29 +1,25 @@
 /* * * * * * * * * * * * * * * *
 * YHGenomics Inc.
 * Author     : yang shubo
-* Date       : 2015-12-25
+* Date       : 2015-12-30
 * Description:
 * * * * * * * * * * * * * * * */
 
-#ifndef IO_H_
-#define IO_H_
+#ifndef TOKEN_POOL_H_
+#define TOKEN_POOL_H_
 
 #include "MRT.h"
 #include "meloton.h"
 
-class IO
+class TokenPool
 {
 public:
 
-    SINGLETON( IO );
-    ~IO( );
-
-
+    
 
 private:
 
-    IO( );
 
 };
 
-#endif // !IO_H_
+#endif // !TOKEN_POOL_H_

@@ -32,11 +32,12 @@ void protobuf_AssignDesc_MessagePutTokenACK_2eproto() {
       "MessagePutTokenACK.proto");
   GOOGLE_CHECK(file != NULL);
   MessagePutTokenACK_descriptor_ = file->message_type(0);
-  static const int MessagePutTokenACK_offsets_[4] = {
+  static const int MessagePutTokenACK_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePutTokenACK, token_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePutTokenACK, expire_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePutTokenACK, block_id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePutTokenACK, request_id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePutTokenACK, index_),
   };
   MessagePutTokenACK_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -79,9 +80,10 @@ void protobuf_AddDesc_MessagePutTokenACK_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\030MessagePutTokenACK.proto\"Y\n\022MessagePut"
+    "\n\030MessagePutTokenACK.proto\"h\n\022MessagePut"
     "TokenACK\022\r\n\005token\030\001 \002(\t\022\016\n\006expire\030\002 \002(\003\022"
-    "\020\n\010block_id\030\003 \002(\003\022\022\n\nrequest_id\030\004 \002(\t", 117);
+    "\020\n\010block_id\030\003 \002(\003\022\022\n\nrequest_id\030\004 \002(\t\022\r\n"
+    "\005index\030\005 \002(\003", 132);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessagePutTokenACK.proto", &protobuf_RegisterTypes);
   MessagePutTokenACK::default_instance_ = new MessagePutTokenACK();
@@ -103,6 +105,7 @@ const int MessagePutTokenACK::kTokenFieldNumber;
 const int MessagePutTokenACK::kExpireFieldNumber;
 const int MessagePutTokenACK::kBlockIdFieldNumber;
 const int MessagePutTokenACK::kRequestIdFieldNumber;
+const int MessagePutTokenACK::kIndexFieldNumber;
 #endif  // !_MSC_VER
 
 MessagePutTokenACK::MessagePutTokenACK()
@@ -128,6 +131,7 @@ void MessagePutTokenACK::SharedCtor() {
   expire_ = GOOGLE_LONGLONG(0);
   block_id_ = GOOGLE_LONGLONG(0);
   request_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  index_ = GOOGLE_LONGLONG(0);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -179,7 +183,7 @@ void MessagePutTokenACK::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 15) {
+  if (_has_bits_[0 / 32] & 31) {
     ZR_(expire_, block_id_);
     if (has_token()) {
       if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
@@ -191,6 +195,7 @@ void MessagePutTokenACK::Clear() {
         request_id_->clear();
       }
     }
+    index_ = GOOGLE_LONGLONG(0);
   }
 
 #undef OFFSET_OF_FIELD_
@@ -269,6 +274,21 @@ bool MessagePutTokenACK::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(40)) goto parse_index;
+        break;
+      }
+
+      // required int64 index = 5;
+      case 5: {
+        if (tag == 40) {
+         parse_index:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &index_)));
+          set_has_index();
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -328,6 +348,11 @@ void MessagePutTokenACK::SerializeWithCachedSizes(
       4, this->request_id(), output);
   }
 
+  // required int64 index = 5;
+  if (has_index()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(5, this->index(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -370,6 +395,11 @@ void MessagePutTokenACK::SerializeWithCachedSizes(
         4, this->request_id(), target);
   }
 
+  // required int64 index = 5;
+  if (has_index()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(5, this->index(), target);
+  }
+
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -408,6 +438,13 @@ int MessagePutTokenACK::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->request_id());
+    }
+
+    // required int64 index = 5;
+    if (has_index()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->index());
     }
 
   }
@@ -449,6 +486,9 @@ void MessagePutTokenACK::MergeFrom(const MessagePutTokenACK& from) {
     if (from.has_request_id()) {
       set_request_id(from.request_id());
     }
+    if (from.has_index()) {
+      set_index(from.index());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -466,7 +506,7 @@ void MessagePutTokenACK::CopyFrom(const MessagePutTokenACK& from) {
 }
 
 bool MessagePutTokenACK::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
+  if ((_has_bits_[0] & 0x0000001f) != 0x0000001f) return false;
 
   return true;
 }
@@ -477,6 +517,7 @@ void MessagePutTokenACK::Swap(MessagePutTokenACK* other) {
     std::swap(expire_, other->expire_);
     std::swap(block_id_, other->block_id_);
     std::swap(request_id_, other->request_id_);
+    std::swap(index_, other->index_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

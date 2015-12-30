@@ -1,9 +1,11 @@
 #include "BlockDistributer.h"
 #include <tuple>
 #include "NodeManager.h"
-#include <MessageRequestGetToken.pb.h>
 #include <meloton.h>
 #include <RequestTokenTable.h>
+#include <MessageRequestGetToken.pb.h>
+#include <MessageRequestPutToken.pb.h>
+#include <math.h>
 
 BlockDistributer::BlockDistributer( )
 {
@@ -63,15 +65,49 @@ void BlockDistributer::put_file( size_t file_size ,
                                  ClusterSession * session ,
                                  uptr<MessageRequestPut> msg )
 {
-    //size_t block_num = file_size / BLOCK_SIZE + 1;
+    auto size_left = file_size;
 
-    //NodeManager::instance( )->sort( [ ] ( sptr<NodeSession> n1 , sptr<NodeSession> n2)
+    size_t block_num = (size_t)ceil( (double)file_size / (double)BLOCK_SIZE );
+    size_t max_block_num = 0;
+
+    NodeManager::instance( )->sort( [ ] ( sptr<NodeSession> n1 , sptr<NodeSession> n2)
+    { 
+        return n1->block_num( ) > n2->block_num( );
+    } );
+
+    //NodeManager::instance( )->all_node( [ &max_block_num ] ( sptr<NodeSession> node )
     //{ 
-    //    return n1->block_num( ) > n2->block_num( );
+    //    if ( node->block_num( ) > max_block_num )
+    //    {
+    //        max_block_num = node->block_num( );
+    //    }
     //} );
 
-    //for ( size_t i = 0; i < block_num; i++ )
-    //{
+    sptr<RequestTokenCollection> token = 
+        RequestTokenTable::instance( )->create( sptr<ClusterSession>( session ) , 
+                                                msg->request_id( ) ,
+                                                block_num );
 
-    //}
+    for ( size_t i = 0; i <= block_num; i++ )
+    {
+        if ( size_left == 0 ) break;
+
+        auto c_size = size_left > BLOCK_SIZE ? BLOCK_SIZE : size_left;
+
+        uptr<MessageRequestPutToken> req = make_uptr( MessageRequestPutToken );
+        req->set_block_id( i );
+        req->set_request_id( msg->request_id( ) );
+        req->set_size( c_size );
+
+        auto n = NodeManager::instance( )->get_node( i % NodeManager::instance( )->count( ) );
+        
+        if ( n == nullptr )
+        {
+            break;
+        }
+
+        n->send_message( move_ptr( req ) );
+
+        size_left -= c_size;
+    }
 }

@@ -29,6 +29,16 @@ NodeSession * NodeManager::create_node( )
     return session.get( );
 }
 
+sptr<NodeSession> NodeManager::get_node( size_t index )
+{
+    return this->node_array_->get( index );
+}
+
+size_t NodeManager::count( )
+{
+    return this->node_array_->size( );
+}
+
 void NodeManager::push_node( sptr<NodeSession> session )
 {
     this->node_array_->push( session );

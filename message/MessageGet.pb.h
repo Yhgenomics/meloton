@@ -88,28 +88,58 @@ class MessageGet : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required string request_id = 1;
-  inline bool has_request_id() const;
-  inline void clear_request_id();
-  static const int kRequestIdFieldNumber = 1;
-  inline const ::std::string& request_id() const;
-  inline void set_request_id(const ::std::string& value);
-  inline void set_request_id(const char* value);
-  inline void set_request_id(const char* value, size_t size);
-  inline ::std::string* mutable_request_id();
-  inline ::std::string* release_request_id();
-  inline void set_allocated_request_id(::std::string* request_id);
+  // required int64 index = 1;
+  inline bool has_index() const;
+  inline void clear_index();
+  static const int kIndexFieldNumber = 1;
+  inline ::google::protobuf::int64 index() const;
+  inline void set_index(::google::protobuf::int64 value);
+
+  // required string token = 2;
+  inline bool has_token() const;
+  inline void clear_token();
+  static const int kTokenFieldNumber = 2;
+  inline const ::std::string& token() const;
+  inline void set_token(const ::std::string& value);
+  inline void set_token(const char* value);
+  inline void set_token(const char* value, size_t size);
+  inline ::std::string* mutable_token();
+  inline ::std::string* release_token();
+  inline void set_allocated_token(::std::string* token);
+
+  // required int64 size = 3;
+  inline bool has_size() const;
+  inline void clear_size();
+  static const int kSizeFieldNumber = 3;
+  inline ::google::protobuf::int64 size() const;
+  inline void set_size(::google::protobuf::int64 value);
+
+  // required int64 offset = 4;
+  inline bool has_offset() const;
+  inline void clear_offset();
+  static const int kOffsetFieldNumber = 4;
+  inline ::google::protobuf::int64 offset() const;
+  inline void set_offset(::google::protobuf::int64 value);
 
   // @@protoc_insertion_point(class_scope:MessageGet)
  private:
-  inline void set_has_request_id();
-  inline void clear_has_request_id();
+  inline void set_has_index();
+  inline void clear_has_index();
+  inline void set_has_token();
+  inline void clear_has_token();
+  inline void set_has_size();
+  inline void clear_has_size();
+  inline void set_has_offset();
+  inline void clear_has_offset();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::std::string* request_id_;
+  ::google::protobuf::int64 index_;
+  ::std::string* token_;
+  ::google::protobuf::int64 size_;
+  ::google::protobuf::int64 offset_;
   friend void  protobuf_AddDesc_MessageGet_2eproto();
   friend void protobuf_AssignDesc_MessageGet_2eproto();
   friend void protobuf_ShutdownFile_MessageGet_2eproto();
@@ -124,80 +154,152 @@ class MessageGet : public ::google::protobuf::Message {
 
 // MessageGet
 
-// required string request_id = 1;
-inline bool MessageGet::has_request_id() const {
+// required int64 index = 1;
+inline bool MessageGet::has_index() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void MessageGet::set_has_request_id() {
+inline void MessageGet::set_has_index() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void MessageGet::clear_has_request_id() {
+inline void MessageGet::clear_has_index() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void MessageGet::clear_request_id() {
-  if (request_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    request_id_->clear();
+inline void MessageGet::clear_index() {
+  index_ = GOOGLE_LONGLONG(0);
+  clear_has_index();
+}
+inline ::google::protobuf::int64 MessageGet::index() const {
+  // @@protoc_insertion_point(field_get:MessageGet.index)
+  return index_;
+}
+inline void MessageGet::set_index(::google::protobuf::int64 value) {
+  set_has_index();
+  index_ = value;
+  // @@protoc_insertion_point(field_set:MessageGet.index)
+}
+
+// required string token = 2;
+inline bool MessageGet::has_token() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void MessageGet::set_has_token() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void MessageGet::clear_has_token() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void MessageGet::clear_token() {
+  if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    token_->clear();
   }
-  clear_has_request_id();
+  clear_has_token();
 }
-inline const ::std::string& MessageGet::request_id() const {
-  // @@protoc_insertion_point(field_get:MessageGet.request_id)
-  return *request_id_;
+inline const ::std::string& MessageGet::token() const {
+  // @@protoc_insertion_point(field_get:MessageGet.token)
+  return *token_;
 }
-inline void MessageGet::set_request_id(const ::std::string& value) {
-  set_has_request_id();
-  if (request_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    request_id_ = new ::std::string;
+inline void MessageGet::set_token(const ::std::string& value) {
+  set_has_token();
+  if (token_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    token_ = new ::std::string;
   }
-  request_id_->assign(value);
-  // @@protoc_insertion_point(field_set:MessageGet.request_id)
+  token_->assign(value);
+  // @@protoc_insertion_point(field_set:MessageGet.token)
 }
-inline void MessageGet::set_request_id(const char* value) {
-  set_has_request_id();
-  if (request_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    request_id_ = new ::std::string;
+inline void MessageGet::set_token(const char* value) {
+  set_has_token();
+  if (token_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    token_ = new ::std::string;
   }
-  request_id_->assign(value);
-  // @@protoc_insertion_point(field_set_char:MessageGet.request_id)
+  token_->assign(value);
+  // @@protoc_insertion_point(field_set_char:MessageGet.token)
 }
-inline void MessageGet::set_request_id(const char* value, size_t size) {
-  set_has_request_id();
-  if (request_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    request_id_ = new ::std::string;
+inline void MessageGet::set_token(const char* value, size_t size) {
+  set_has_token();
+  if (token_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    token_ = new ::std::string;
   }
-  request_id_->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:MessageGet.request_id)
+  token_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:MessageGet.token)
 }
-inline ::std::string* MessageGet::mutable_request_id() {
-  set_has_request_id();
-  if (request_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    request_id_ = new ::std::string;
+inline ::std::string* MessageGet::mutable_token() {
+  set_has_token();
+  if (token_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    token_ = new ::std::string;
   }
-  // @@protoc_insertion_point(field_mutable:MessageGet.request_id)
-  return request_id_;
+  // @@protoc_insertion_point(field_mutable:MessageGet.token)
+  return token_;
 }
-inline ::std::string* MessageGet::release_request_id() {
-  clear_has_request_id();
-  if (request_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+inline ::std::string* MessageGet::release_token() {
+  clear_has_token();
+  if (token_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     return NULL;
   } else {
-    ::std::string* temp = request_id_;
-    request_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    ::std::string* temp = token_;
+    token_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
     return temp;
   }
 }
-inline void MessageGet::set_allocated_request_id(::std::string* request_id) {
-  if (request_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete request_id_;
+inline void MessageGet::set_allocated_token(::std::string* token) {
+  if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete token_;
   }
-  if (request_id) {
-    set_has_request_id();
-    request_id_ = request_id;
+  if (token) {
+    set_has_token();
+    token_ = token;
   } else {
-    clear_has_request_id();
-    request_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    clear_has_token();
+    token_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
-  // @@protoc_insertion_point(field_set_allocated:MessageGet.request_id)
+  // @@protoc_insertion_point(field_set_allocated:MessageGet.token)
+}
+
+// required int64 size = 3;
+inline bool MessageGet::has_size() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void MessageGet::set_has_size() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void MessageGet::clear_has_size() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void MessageGet::clear_size() {
+  size_ = GOOGLE_LONGLONG(0);
+  clear_has_size();
+}
+inline ::google::protobuf::int64 MessageGet::size() const {
+  // @@protoc_insertion_point(field_get:MessageGet.size)
+  return size_;
+}
+inline void MessageGet::set_size(::google::protobuf::int64 value) {
+  set_has_size();
+  size_ = value;
+  // @@protoc_insertion_point(field_set:MessageGet.size)
+}
+
+// required int64 offset = 4;
+inline bool MessageGet::has_offset() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void MessageGet::set_has_offset() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void MessageGet::clear_has_offset() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void MessageGet::clear_offset() {
+  offset_ = GOOGLE_LONGLONG(0);
+  clear_has_offset();
+}
+inline ::google::protobuf::int64 MessageGet::offset() const {
+  // @@protoc_insertion_point(field_get:MessageGet.offset)
+  return offset_;
+}
+inline void MessageGet::set_offset(::google::protobuf::int64 value) {
+  set_has_offset();
+  offset_ = value;
+  // @@protoc_insertion_point(field_set:MessageGet.offset)
 }
 
 

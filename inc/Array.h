@@ -115,7 +115,7 @@ inline sptr<T> Array<T>::get( size_t index )
 template<class T>
 inline void Array<T>::set( size_t index , sptr<T> instance )
 {
-    if ( index > cur_ ) return nullptr;
+    if ( index > cur_ ) return;
     array_[index] = instance;
 }
 template<class T>

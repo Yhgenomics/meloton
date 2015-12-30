@@ -46,9 +46,6 @@
     <ClCompile Include="..\src\Array.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\FileTable.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\MasterHTTPListener.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -163,9 +160,6 @@
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\Array.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\inc\FileTable.h">
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\MasterConfig.h">
@@ -307,6 +301,9 @@
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\BlockIndex.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\TokenPool.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>

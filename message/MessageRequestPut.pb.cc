@@ -33,9 +33,9 @@ void protobuf_AssignDesc_MessageRequestPut_2eproto() {
   GOOGLE_CHECK(file != NULL);
   MessageRequestPut_descriptor_ = file->message_type(0);
   static const int MessageRequestPut_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageRequestPut, status_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageRequestPut, block_id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageRequestPut, path_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageRequestPut, size_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageRequestPut, request_id_),
   };
   MessageRequestPut_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -79,8 +79,8 @@ void protobuf_AddDesc_MessageRequestPut_2eproto() {
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\027MessageRequestPut.proto\"C\n\021MessageRequ"
-    "estPut\022\016\n\006status\030\001 \002(\003\022\020\n\010block_id\030\002 \002(\003"
-    "\022\014\n\004path\030\003 \002(\t", 94);
+    "estPut\022\014\n\004path\030\001 \002(\t\022\014\n\004size\030\002 \002(\003\022\022\n\nre"
+    "quest_id\030\003 \002(\t", 94);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessageRequestPut.proto", &protobuf_RegisterTypes);
   MessageRequestPut::default_instance_ = new MessageRequestPut();
@@ -98,9 +98,9 @@ struct StaticDescriptorInitializer_MessageRequestPut_2eproto {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int MessageRequestPut::kStatusFieldNumber;
-const int MessageRequestPut::kBlockIdFieldNumber;
 const int MessageRequestPut::kPathFieldNumber;
+const int MessageRequestPut::kSizeFieldNumber;
+const int MessageRequestPut::kRequestIdFieldNumber;
 #endif  // !_MSC_VER
 
 MessageRequestPut::MessageRequestPut()
@@ -122,9 +122,9 @@ MessageRequestPut::MessageRequestPut(const MessageRequestPut& from)
 void MessageRequestPut::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
-  status_ = GOOGLE_LONGLONG(0);
-  block_id_ = GOOGLE_LONGLONG(0);
   path_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  size_ = GOOGLE_LONGLONG(0);
+  request_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -136,6 +136,9 @@ MessageRequestPut::~MessageRequestPut() {
 void MessageRequestPut::SharedDtor() {
   if (path_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete path_;
+  }
+  if (request_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete request_id_;
   }
   if (this != default_instance_) {
   }
@@ -163,28 +166,19 @@ MessageRequestPut* MessageRequestPut::New() const {
 }
 
 void MessageRequestPut::Clear() {
-#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
-  &reinterpret_cast<MessageRequestPut*>(16)->f) - \
-   reinterpret_cast<char*>(16))
-
-#define ZR_(first, last) do {                              \
-    size_t f = OFFSET_OF_FIELD_(first);                    \
-    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
-    ::memset(&first, 0, n);                                \
-  } while (0)
-
   if (_has_bits_[0 / 32] & 7) {
-    ZR_(status_, block_id_);
     if (has_path()) {
       if (path_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         path_->clear();
       }
     }
+    size_ = GOOGLE_LONGLONG(0);
+    if (has_request_id()) {
+      if (request_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        request_id_->clear();
+      }
+    }
   }
-
-#undef OFFSET_OF_FIELD_
-#undef ZR_
-
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -199,45 +193,47 @@ bool MessageRequestPut::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required int64 status = 1;
+      // required string path = 1;
       case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &status_)));
-          set_has_status();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(16)) goto parse_block_id;
-        break;
-      }
-
-      // required int64 block_id = 2;
-      case 2: {
-        if (tag == 16) {
-         parse_block_id:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &block_id_)));
-          set_has_block_id();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_path;
-        break;
-      }
-
-      // required string path = 3;
-      case 3: {
-        if (tag == 26) {
-         parse_path:
+        if (tag == 10) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_path()));
           ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
             this->path().data(), this->path().length(),
             ::google::protobuf::internal::WireFormat::PARSE,
             "path");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_size;
+        break;
+      }
+
+      // required int64 size = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_size:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &size_)));
+          set_has_size();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_request_id;
+        break;
+      }
+
+      // required string request_id = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_request_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_request_id()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->request_id().data(), this->request_id().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "request_id");
         } else {
           goto handle_unusual;
         }
@@ -270,24 +266,29 @@ failure:
 void MessageRequestPut::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:MessageRequestPut)
-  // required int64 status = 1;
-  if (has_status()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->status(), output);
-  }
-
-  // required int64 block_id = 2;
-  if (has_block_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->block_id(), output);
-  }
-
-  // required string path = 3;
+  // required string path = 1;
   if (has_path()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->path().data(), this->path().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE,
       "path");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->path(), output);
+      1, this->path(), output);
+  }
+
+  // required int64 size = 2;
+  if (has_size()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->size(), output);
+  }
+
+  // required string request_id = 3;
+  if (has_request_id()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->request_id().data(), this->request_id().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "request_id");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->request_id(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -300,17 +301,7 @@ void MessageRequestPut::SerializeWithCachedSizes(
 ::google::protobuf::uint8* MessageRequestPut::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:MessageRequestPut)
-  // required int64 status = 1;
-  if (has_status()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->status(), target);
-  }
-
-  // required int64 block_id = 2;
-  if (has_block_id()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->block_id(), target);
-  }
-
-  // required string path = 3;
+  // required string path = 1;
   if (has_path()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->path().data(), this->path().length(),
@@ -318,7 +309,23 @@ void MessageRequestPut::SerializeWithCachedSizes(
       "path");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->path(), target);
+        1, this->path(), target);
+  }
+
+  // required int64 size = 2;
+  if (has_size()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->size(), target);
+  }
+
+  // required string request_id = 3;
+  if (has_request_id()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->request_id().data(), this->request_id().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "request_id");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->request_id(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -333,25 +340,25 @@ int MessageRequestPut::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required int64 status = 1;
-    if (has_status()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int64Size(
-          this->status());
-    }
-
-    // required int64 block_id = 2;
-    if (has_block_id()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int64Size(
-          this->block_id());
-    }
-
-    // required string path = 3;
+    // required string path = 1;
     if (has_path()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->path());
+    }
+
+    // required int64 size = 2;
+    if (has_size()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->size());
+    }
+
+    // required string request_id = 3;
+    if (has_request_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->request_id());
     }
 
   }
@@ -381,14 +388,14 @@ void MessageRequestPut::MergeFrom(const ::google::protobuf::Message& from) {
 void MessageRequestPut::MergeFrom(const MessageRequestPut& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_status()) {
-      set_status(from.status());
-    }
-    if (from.has_block_id()) {
-      set_block_id(from.block_id());
-    }
     if (from.has_path()) {
       set_path(from.path());
+    }
+    if (from.has_size()) {
+      set_size(from.size());
+    }
+    if (from.has_request_id()) {
+      set_request_id(from.request_id());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -414,9 +421,9 @@ bool MessageRequestPut::IsInitialized() const {
 
 void MessageRequestPut::Swap(MessageRequestPut* other) {
   if (other != this) {
-    std::swap(status_, other->status_);
-    std::swap(block_id_, other->block_id_);
     std::swap(path_, other->path_);
+    std::swap(size_, other->size_);
+    std::swap(request_id_, other->request_id_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

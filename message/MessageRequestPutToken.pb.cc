@@ -32,9 +32,11 @@ void protobuf_AssignDesc_MessageRequestPutToken_2eproto() {
       "MessageRequestPutToken.proto");
   GOOGLE_CHECK(file != NULL);
   MessageRequestPutToken_descriptor_ = file->message_type(0);
-  static const int MessageRequestPutToken_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageRequestPutToken, index_),
+  static const int MessageRequestPutToken_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageRequestPutToken, request_id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageRequestPutToken, block_id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageRequestPutToken, size_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageRequestPutToken, file_name_),
   };
   MessageRequestPutToken_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -77,9 +79,10 @@ void protobuf_AddDesc_MessageRequestPutToken_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\034MessageRequestPutToken.proto\";\n\026Messag"
-    "eRequestPutToken\022\r\n\005index\030\001 \002(\003\022\022\n\nreque"
-    "st_id\030\002 \002(\t", 91);
+    "\n\034MessageRequestPutToken.proto\"_\n\026Messag"
+    "eRequestPutToken\022\022\n\nrequest_id\030\001 \002(\t\022\020\n\010"
+    "block_id\030\002 \002(\003\022\014\n\004size\030\003 \002(\003\022\021\n\tfile_nam"
+    "e\030\004 \002(\t", 127);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessageRequestPutToken.proto", &protobuf_RegisterTypes);
   MessageRequestPutToken::default_instance_ = new MessageRequestPutToken();
@@ -97,8 +100,10 @@ struct StaticDescriptorInitializer_MessageRequestPutToken_2eproto {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int MessageRequestPutToken::kIndexFieldNumber;
 const int MessageRequestPutToken::kRequestIdFieldNumber;
+const int MessageRequestPutToken::kBlockIdFieldNumber;
+const int MessageRequestPutToken::kSizeFieldNumber;
+const int MessageRequestPutToken::kFileNameFieldNumber;
 #endif  // !_MSC_VER
 
 MessageRequestPutToken::MessageRequestPutToken()
@@ -120,8 +125,10 @@ MessageRequestPutToken::MessageRequestPutToken(const MessageRequestPutToken& fro
 void MessageRequestPutToken::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
-  index_ = GOOGLE_LONGLONG(0);
   request_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  block_id_ = GOOGLE_LONGLONG(0);
+  size_ = GOOGLE_LONGLONG(0);
+  file_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -133,6 +140,9 @@ MessageRequestPutToken::~MessageRequestPutToken() {
 void MessageRequestPutToken::SharedDtor() {
   if (request_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete request_id_;
+  }
+  if (file_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete file_name_;
   }
   if (this != default_instance_) {
   }
@@ -160,14 +170,33 @@ MessageRequestPutToken* MessageRequestPutToken::New() const {
 }
 
 void MessageRequestPutToken::Clear() {
-  if (_has_bits_[0 / 32] & 3) {
-    index_ = GOOGLE_LONGLONG(0);
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<MessageRequestPutToken*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  if (_has_bits_[0 / 32] & 15) {
+    ZR_(block_id_, size_);
     if (has_request_id()) {
       if (request_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         request_id_->clear();
       }
     }
+    if (has_file_name()) {
+      if (file_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        file_name_->clear();
+      }
+    }
   }
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -182,30 +211,62 @@ bool MessageRequestPutToken::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required int64 index = 1;
+      // required string request_id = 1;
       case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &index_)));
-          set_has_index();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_request_id;
-        break;
-      }
-
-      // required string request_id = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_request_id:
+        if (tag == 10) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_request_id()));
           ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
             this->request_id().data(), this->request_id().length(),
             ::google::protobuf::internal::WireFormat::PARSE,
             "request_id");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_block_id;
+        break;
+      }
+
+      // required int64 block_id = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_block_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &block_id_)));
+          set_has_block_id();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_size;
+        break;
+      }
+
+      // required int64 size = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_size:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &size_)));
+          set_has_size();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_file_name;
+        break;
+      }
+
+      // required string file_name = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_file_name:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_file_name()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->file_name().data(), this->file_name().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "file_name");
         } else {
           goto handle_unusual;
         }
@@ -238,19 +299,34 @@ failure:
 void MessageRequestPutToken::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:MessageRequestPutToken)
-  // required int64 index = 1;
-  if (has_index()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->index(), output);
-  }
-
-  // required string request_id = 2;
+  // required string request_id = 1;
   if (has_request_id()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->request_id().data(), this->request_id().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE,
       "request_id");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->request_id(), output);
+      1, this->request_id(), output);
+  }
+
+  // required int64 block_id = 2;
+  if (has_block_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->block_id(), output);
+  }
+
+  // required int64 size = 3;
+  if (has_size()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(3, this->size(), output);
+  }
+
+  // required string file_name = 4;
+  if (has_file_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->file_name().data(), this->file_name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "file_name");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      4, this->file_name(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -263,12 +339,7 @@ void MessageRequestPutToken::SerializeWithCachedSizes(
 ::google::protobuf::uint8* MessageRequestPutToken::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:MessageRequestPutToken)
-  // required int64 index = 1;
-  if (has_index()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->index(), target);
-  }
-
-  // required string request_id = 2;
+  // required string request_id = 1;
   if (has_request_id()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->request_id().data(), this->request_id().length(),
@@ -276,7 +347,28 @@ void MessageRequestPutToken::SerializeWithCachedSizes(
       "request_id");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->request_id(), target);
+        1, this->request_id(), target);
+  }
+
+  // required int64 block_id = 2;
+  if (has_block_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->block_id(), target);
+  }
+
+  // required int64 size = 3;
+  if (has_size()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(3, this->size(), target);
+  }
+
+  // required string file_name = 4;
+  if (has_file_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->file_name().data(), this->file_name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "file_name");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->file_name(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -291,18 +383,32 @@ int MessageRequestPutToken::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required int64 index = 1;
-    if (has_index()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int64Size(
-          this->index());
-    }
-
-    // required string request_id = 2;
+    // required string request_id = 1;
     if (has_request_id()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->request_id());
+    }
+
+    // required int64 block_id = 2;
+    if (has_block_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->block_id());
+    }
+
+    // required int64 size = 3;
+    if (has_size()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->size());
+    }
+
+    // required string file_name = 4;
+    if (has_file_name()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->file_name());
     }
 
   }
@@ -332,11 +438,17 @@ void MessageRequestPutToken::MergeFrom(const ::google::protobuf::Message& from) 
 void MessageRequestPutToken::MergeFrom(const MessageRequestPutToken& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_index()) {
-      set_index(from.index());
-    }
     if (from.has_request_id()) {
       set_request_id(from.request_id());
+    }
+    if (from.has_block_id()) {
+      set_block_id(from.block_id());
+    }
+    if (from.has_size()) {
+      set_size(from.size());
+    }
+    if (from.has_file_name()) {
+      set_file_name(from.file_name());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -355,15 +467,17 @@ void MessageRequestPutToken::CopyFrom(const MessageRequestPutToken& from) {
 }
 
 bool MessageRequestPutToken::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
 
   return true;
 }
 
 void MessageRequestPutToken::Swap(MessageRequestPutToken* other) {
   if (other != this) {
-    std::swap(index_, other->index_);
     std::swap(request_id_, other->request_id_);
+    std::swap(block_id_, other->block_id_);
+    std::swap(size_, other->size_);
+    std::swap(file_name_, other->file_name_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

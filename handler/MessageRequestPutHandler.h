@@ -18,6 +18,26 @@
 
 static int MessageRequestPutHandler( ClusterSession * session , uptr<MessageRequestPut> msg )
 {
+    auto path = msg->path( );
+    auto uuid = msg->request_id( );
+    auto file = FS::instance( )->get_file( path );
+
+    if ( file == nullptr )
+    {
+        uptr<MessageActionError> result = make_uptr( MessageActionError );
+        result->set_action_id( uuid );
+        result->set_code( ERR_FILE_NOT_EXIST );
+        result->set_message( ERR_FILE_NOT_EXIST_STR );
+        session->send_message( move_ptr( result ) );
+        session->close( );
+        return 0;
+    }
+
+    BlockDistributer distributer;
+    distributer.put_file( msg->size( ) , session , move_ptr( msg ) );
+    //distributer.get_file( file , session , move_ptr( msg ) );
+
+
     return 0;
 }
 

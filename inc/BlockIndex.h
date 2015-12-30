@@ -18,6 +18,7 @@ struct BlockIndex
     size_t      path_hash;
     size_t      size = 0;
     size_t      offset = 0;
+    size_t      block_id = 0;
     bool        is_used = false;
 };
 

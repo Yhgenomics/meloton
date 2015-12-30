@@ -18,6 +18,24 @@
 
 static int MessagePutTokenACKHandler( ClusterSession * session , uptr<MessagePutTokenACK> msg )
 {
+    auto token_collection = RequestTokenTable::instance( )->find( msg->request_id( ) );
+
+    if ( token_collection == nullptr )
+    {
+        return 0;
+    }
+    
+    token_collection->add_token( sptr<NodeSession>( scast<NodeSession*>( session ) ) ,
+                                 msg->token( ) ,
+                                 msg->index( ) ,
+                                 msg->block_id( ) );
+
+    if ( token_collection->is_full( ) )
+    {
+        token_collection->reply_token( );
+        RequestTokenTable::instance( )->remove( token_collection->request_id( ) );
+    }
+    
     return 0;
 }
 

@@ -119,12 +119,12 @@ class MessageBlockData : public ::google::protobuf::Message {
   inline ::std::string* release_data();
   inline void set_allocated_data(::std::string* data);
 
-  // required int64 left = 4;
-  inline bool has_left() const;
-  inline void clear_left();
-  static const int kLeftFieldNumber = 4;
-  inline ::google::protobuf::int64 left() const;
-  inline void set_left(::google::protobuf::int64 value);
+  // required int64 offset = 4;
+  inline bool has_offset() const;
+  inline void clear_offset();
+  static const int kOffsetFieldNumber = 4;
+  inline ::google::protobuf::int64 offset() const;
+  inline void set_offset(::google::protobuf::int64 value);
 
   // @@protoc_insertion_point(class_scope:MessageBlockData)
  private:
@@ -134,8 +134,8 @@ class MessageBlockData : public ::google::protobuf::Message {
   inline void clear_has_size();
   inline void set_has_data();
   inline void clear_has_data();
-  inline void set_has_left();
-  inline void clear_has_left();
+  inline void set_has_offset();
+  inline void clear_has_offset();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -144,7 +144,7 @@ class MessageBlockData : public ::google::protobuf::Message {
   ::std::string* token_;
   ::google::protobuf::int64 size_;
   ::std::string* data_;
-  ::google::protobuf::int64 left_;
+  ::google::protobuf::int64 offset_;
   friend void  protobuf_AddDesc_MessageBlockData_2eproto();
   friend void protobuf_AssignDesc_MessageBlockData_2eproto();
   friend void protobuf_ShutdownFile_MessageBlockData_2eproto();
@@ -335,28 +335,28 @@ inline void MessageBlockData::set_allocated_data(::std::string* data) {
   // @@protoc_insertion_point(field_set_allocated:MessageBlockData.data)
 }
 
-// required int64 left = 4;
-inline bool MessageBlockData::has_left() const {
+// required int64 offset = 4;
+inline bool MessageBlockData::has_offset() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
-inline void MessageBlockData::set_has_left() {
+inline void MessageBlockData::set_has_offset() {
   _has_bits_[0] |= 0x00000008u;
 }
-inline void MessageBlockData::clear_has_left() {
+inline void MessageBlockData::clear_has_offset() {
   _has_bits_[0] &= ~0x00000008u;
 }
-inline void MessageBlockData::clear_left() {
-  left_ = GOOGLE_LONGLONG(0);
-  clear_has_left();
+inline void MessageBlockData::clear_offset() {
+  offset_ = GOOGLE_LONGLONG(0);
+  clear_has_offset();
 }
-inline ::google::protobuf::int64 MessageBlockData::left() const {
-  // @@protoc_insertion_point(field_get:MessageBlockData.left)
-  return left_;
+inline ::google::protobuf::int64 MessageBlockData::offset() const {
+  // @@protoc_insertion_point(field_get:MessageBlockData.offset)
+  return offset_;
 }
-inline void MessageBlockData::set_left(::google::protobuf::int64 value) {
-  set_has_left();
-  left_ = value;
-  // @@protoc_insertion_point(field_set:MessageBlockData.left)
+inline void MessageBlockData::set_offset(::google::protobuf::int64 value) {
+  set_has_offset();
+  offset_ = value;
+  // @@protoc_insertion_point(field_set:MessageBlockData.offset)
 }
 
 

@@ -88,24 +88,10 @@ class MessageRequestPut : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required int64 status = 1;
-  inline bool has_status() const;
-  inline void clear_status();
-  static const int kStatusFieldNumber = 1;
-  inline ::google::protobuf::int64 status() const;
-  inline void set_status(::google::protobuf::int64 value);
-
-  // required int64 block_id = 2;
-  inline bool has_block_id() const;
-  inline void clear_block_id();
-  static const int kBlockIdFieldNumber = 2;
-  inline ::google::protobuf::int64 block_id() const;
-  inline void set_block_id(::google::protobuf::int64 value);
-
-  // required string path = 3;
+  // required string path = 1;
   inline bool has_path() const;
   inline void clear_path();
-  static const int kPathFieldNumber = 3;
+  static const int kPathFieldNumber = 1;
   inline const ::std::string& path() const;
   inline void set_path(const ::std::string& value);
   inline void set_path(const char* value);
@@ -114,22 +100,41 @@ class MessageRequestPut : public ::google::protobuf::Message {
   inline ::std::string* release_path();
   inline void set_allocated_path(::std::string* path);
 
+  // required int64 size = 2;
+  inline bool has_size() const;
+  inline void clear_size();
+  static const int kSizeFieldNumber = 2;
+  inline ::google::protobuf::int64 size() const;
+  inline void set_size(::google::protobuf::int64 value);
+
+  // required string request_id = 3;
+  inline bool has_request_id() const;
+  inline void clear_request_id();
+  static const int kRequestIdFieldNumber = 3;
+  inline const ::std::string& request_id() const;
+  inline void set_request_id(const ::std::string& value);
+  inline void set_request_id(const char* value);
+  inline void set_request_id(const char* value, size_t size);
+  inline ::std::string* mutable_request_id();
+  inline ::std::string* release_request_id();
+  inline void set_allocated_request_id(::std::string* request_id);
+
   // @@protoc_insertion_point(class_scope:MessageRequestPut)
  private:
-  inline void set_has_status();
-  inline void clear_has_status();
-  inline void set_has_block_id();
-  inline void clear_has_block_id();
   inline void set_has_path();
   inline void clear_has_path();
+  inline void set_has_size();
+  inline void clear_has_size();
+  inline void set_has_request_id();
+  inline void clear_has_request_id();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::google::protobuf::int64 status_;
-  ::google::protobuf::int64 block_id_;
   ::std::string* path_;
+  ::google::protobuf::int64 size_;
+  ::std::string* request_id_;
   friend void  protobuf_AddDesc_MessageRequestPut_2eproto();
   friend void protobuf_AssignDesc_MessageRequestPut_2eproto();
   friend void protobuf_ShutdownFile_MessageRequestPut_2eproto();
@@ -144,63 +149,15 @@ class MessageRequestPut : public ::google::protobuf::Message {
 
 // MessageRequestPut
 
-// required int64 status = 1;
-inline bool MessageRequestPut::has_status() const {
+// required string path = 1;
+inline bool MessageRequestPut::has_path() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void MessageRequestPut::set_has_status() {
+inline void MessageRequestPut::set_has_path() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void MessageRequestPut::clear_has_status() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void MessageRequestPut::clear_status() {
-  status_ = GOOGLE_LONGLONG(0);
-  clear_has_status();
-}
-inline ::google::protobuf::int64 MessageRequestPut::status() const {
-  // @@protoc_insertion_point(field_get:MessageRequestPut.status)
-  return status_;
-}
-inline void MessageRequestPut::set_status(::google::protobuf::int64 value) {
-  set_has_status();
-  status_ = value;
-  // @@protoc_insertion_point(field_set:MessageRequestPut.status)
-}
-
-// required int64 block_id = 2;
-inline bool MessageRequestPut::has_block_id() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void MessageRequestPut::set_has_block_id() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void MessageRequestPut::clear_has_block_id() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void MessageRequestPut::clear_block_id() {
-  block_id_ = GOOGLE_LONGLONG(0);
-  clear_has_block_id();
-}
-inline ::google::protobuf::int64 MessageRequestPut::block_id() const {
-  // @@protoc_insertion_point(field_get:MessageRequestPut.block_id)
-  return block_id_;
-}
-inline void MessageRequestPut::set_block_id(::google::protobuf::int64 value) {
-  set_has_block_id();
-  block_id_ = value;
-  // @@protoc_insertion_point(field_set:MessageRequestPut.block_id)
-}
-
-// required string path = 3;
-inline bool MessageRequestPut::has_path() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void MessageRequestPut::set_has_path() {
-  _has_bits_[0] |= 0x00000004u;
-}
 inline void MessageRequestPut::clear_has_path() {
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000001u;
 }
 inline void MessageRequestPut::clear_path() {
   if (path_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
@@ -266,6 +223,106 @@ inline void MessageRequestPut::set_allocated_path(::std::string* path) {
     path_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
   // @@protoc_insertion_point(field_set_allocated:MessageRequestPut.path)
+}
+
+// required int64 size = 2;
+inline bool MessageRequestPut::has_size() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void MessageRequestPut::set_has_size() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void MessageRequestPut::clear_has_size() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void MessageRequestPut::clear_size() {
+  size_ = GOOGLE_LONGLONG(0);
+  clear_has_size();
+}
+inline ::google::protobuf::int64 MessageRequestPut::size() const {
+  // @@protoc_insertion_point(field_get:MessageRequestPut.size)
+  return size_;
+}
+inline void MessageRequestPut::set_size(::google::protobuf::int64 value) {
+  set_has_size();
+  size_ = value;
+  // @@protoc_insertion_point(field_set:MessageRequestPut.size)
+}
+
+// required string request_id = 3;
+inline bool MessageRequestPut::has_request_id() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void MessageRequestPut::set_has_request_id() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void MessageRequestPut::clear_has_request_id() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void MessageRequestPut::clear_request_id() {
+  if (request_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    request_id_->clear();
+  }
+  clear_has_request_id();
+}
+inline const ::std::string& MessageRequestPut::request_id() const {
+  // @@protoc_insertion_point(field_get:MessageRequestPut.request_id)
+  return *request_id_;
+}
+inline void MessageRequestPut::set_request_id(const ::std::string& value) {
+  set_has_request_id();
+  if (request_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    request_id_ = new ::std::string;
+  }
+  request_id_->assign(value);
+  // @@protoc_insertion_point(field_set:MessageRequestPut.request_id)
+}
+inline void MessageRequestPut::set_request_id(const char* value) {
+  set_has_request_id();
+  if (request_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    request_id_ = new ::std::string;
+  }
+  request_id_->assign(value);
+  // @@protoc_insertion_point(field_set_char:MessageRequestPut.request_id)
+}
+inline void MessageRequestPut::set_request_id(const char* value, size_t size) {
+  set_has_request_id();
+  if (request_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    request_id_ = new ::std::string;
+  }
+  request_id_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:MessageRequestPut.request_id)
+}
+inline ::std::string* MessageRequestPut::mutable_request_id() {
+  set_has_request_id();
+  if (request_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    request_id_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:MessageRequestPut.request_id)
+  return request_id_;
+}
+inline ::std::string* MessageRequestPut::release_request_id() {
+  clear_has_request_id();
+  if (request_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = request_id_;
+    request_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void MessageRequestPut::set_allocated_request_id(::std::string* request_id) {
+  if (request_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete request_id_;
+  }
+  if (request_id) {
+    set_has_request_id();
+    request_id_ = request_id;
+  } else {
+    clear_has_request_id();
+    request_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:MessageRequestPut.request_id)
 }
 
 

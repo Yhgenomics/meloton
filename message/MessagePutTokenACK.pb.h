@@ -126,6 +126,13 @@ class MessagePutTokenACK : public ::google::protobuf::Message {
   inline ::std::string* release_request_id();
   inline void set_allocated_request_id(::std::string* request_id);
 
+  // required int64 index = 5;
+  inline bool has_index() const;
+  inline void clear_index();
+  static const int kIndexFieldNumber = 5;
+  inline ::google::protobuf::int64 index() const;
+  inline void set_index(::google::protobuf::int64 value);
+
   // @@protoc_insertion_point(class_scope:MessagePutTokenACK)
  private:
   inline void set_has_token();
@@ -136,6 +143,8 @@ class MessagePutTokenACK : public ::google::protobuf::Message {
   inline void clear_has_block_id();
   inline void set_has_request_id();
   inline void clear_has_request_id();
+  inline void set_has_index();
+  inline void clear_has_index();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -145,6 +154,7 @@ class MessagePutTokenACK : public ::google::protobuf::Message {
   ::google::protobuf::int64 expire_;
   ::google::protobuf::int64 block_id_;
   ::std::string* request_id_;
+  ::google::protobuf::int64 index_;
   friend void  protobuf_AddDesc_MessagePutTokenACK_2eproto();
   friend void protobuf_AssignDesc_MessagePutTokenACK_2eproto();
   friend void protobuf_ShutdownFile_MessagePutTokenACK_2eproto();
@@ -357,6 +367,30 @@ inline void MessagePutTokenACK::set_allocated_request_id(::std::string* request_
     request_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
   // @@protoc_insertion_point(field_set_allocated:MessagePutTokenACK.request_id)
+}
+
+// required int64 index = 5;
+inline bool MessagePutTokenACK::has_index() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void MessagePutTokenACK::set_has_index() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void MessagePutTokenACK::clear_has_index() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void MessagePutTokenACK::clear_index() {
+  index_ = GOOGLE_LONGLONG(0);
+  clear_has_index();
+}
+inline ::google::protobuf::int64 MessagePutTokenACK::index() const {
+  // @@protoc_insertion_point(field_get:MessagePutTokenACK.index)
+  return index_;
+}
+inline void MessagePutTokenACK::set_index(::google::protobuf::int64 value) {
+  set_has_index();
+  index_ = value;
+  // @@protoc_insertion_point(field_set:MessagePutTokenACK.index)
 }
 
 

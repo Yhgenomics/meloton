@@ -88,17 +88,10 @@ class MessageRequestPutToken : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required int64 index = 1;
-  inline bool has_index() const;
-  inline void clear_index();
-  static const int kIndexFieldNumber = 1;
-  inline ::google::protobuf::int64 index() const;
-  inline void set_index(::google::protobuf::int64 value);
-
-  // required string request_id = 2;
+  // required string request_id = 1;
   inline bool has_request_id() const;
   inline void clear_request_id();
-  static const int kRequestIdFieldNumber = 2;
+  static const int kRequestIdFieldNumber = 1;
   inline const ::std::string& request_id() const;
   inline void set_request_id(const ::std::string& value);
   inline void set_request_id(const char* value);
@@ -107,19 +100,51 @@ class MessageRequestPutToken : public ::google::protobuf::Message {
   inline ::std::string* release_request_id();
   inline void set_allocated_request_id(::std::string* request_id);
 
+  // required int64 block_id = 2;
+  inline bool has_block_id() const;
+  inline void clear_block_id();
+  static const int kBlockIdFieldNumber = 2;
+  inline ::google::protobuf::int64 block_id() const;
+  inline void set_block_id(::google::protobuf::int64 value);
+
+  // required int64 size = 3;
+  inline bool has_size() const;
+  inline void clear_size();
+  static const int kSizeFieldNumber = 3;
+  inline ::google::protobuf::int64 size() const;
+  inline void set_size(::google::protobuf::int64 value);
+
+  // required string file_name = 4;
+  inline bool has_file_name() const;
+  inline void clear_file_name();
+  static const int kFileNameFieldNumber = 4;
+  inline const ::std::string& file_name() const;
+  inline void set_file_name(const ::std::string& value);
+  inline void set_file_name(const char* value);
+  inline void set_file_name(const char* value, size_t size);
+  inline ::std::string* mutable_file_name();
+  inline ::std::string* release_file_name();
+  inline void set_allocated_file_name(::std::string* file_name);
+
   // @@protoc_insertion_point(class_scope:MessageRequestPutToken)
  private:
-  inline void set_has_index();
-  inline void clear_has_index();
   inline void set_has_request_id();
   inline void clear_has_request_id();
+  inline void set_has_block_id();
+  inline void clear_has_block_id();
+  inline void set_has_size();
+  inline void clear_has_size();
+  inline void set_has_file_name();
+  inline void clear_has_file_name();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::google::protobuf::int64 index_;
   ::std::string* request_id_;
+  ::google::protobuf::int64 block_id_;
+  ::google::protobuf::int64 size_;
+  ::std::string* file_name_;
   friend void  protobuf_AddDesc_MessageRequestPutToken_2eproto();
   friend void protobuf_AssignDesc_MessageRequestPutToken_2eproto();
   friend void protobuf_ShutdownFile_MessageRequestPutToken_2eproto();
@@ -134,39 +159,15 @@ class MessageRequestPutToken : public ::google::protobuf::Message {
 
 // MessageRequestPutToken
 
-// required int64 index = 1;
-inline bool MessageRequestPutToken::has_index() const {
+// required string request_id = 1;
+inline bool MessageRequestPutToken::has_request_id() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void MessageRequestPutToken::set_has_index() {
+inline void MessageRequestPutToken::set_has_request_id() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void MessageRequestPutToken::clear_has_index() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void MessageRequestPutToken::clear_index() {
-  index_ = GOOGLE_LONGLONG(0);
-  clear_has_index();
-}
-inline ::google::protobuf::int64 MessageRequestPutToken::index() const {
-  // @@protoc_insertion_point(field_get:MessageRequestPutToken.index)
-  return index_;
-}
-inline void MessageRequestPutToken::set_index(::google::protobuf::int64 value) {
-  set_has_index();
-  index_ = value;
-  // @@protoc_insertion_point(field_set:MessageRequestPutToken.index)
-}
-
-// required string request_id = 2;
-inline bool MessageRequestPutToken::has_request_id() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void MessageRequestPutToken::set_has_request_id() {
-  _has_bits_[0] |= 0x00000002u;
-}
 inline void MessageRequestPutToken::clear_has_request_id() {
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000001u;
 }
 inline void MessageRequestPutToken::clear_request_id() {
   if (request_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
@@ -232,6 +233,130 @@ inline void MessageRequestPutToken::set_allocated_request_id(::std::string* requ
     request_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
   // @@protoc_insertion_point(field_set_allocated:MessageRequestPutToken.request_id)
+}
+
+// required int64 block_id = 2;
+inline bool MessageRequestPutToken::has_block_id() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void MessageRequestPutToken::set_has_block_id() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void MessageRequestPutToken::clear_has_block_id() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void MessageRequestPutToken::clear_block_id() {
+  block_id_ = GOOGLE_LONGLONG(0);
+  clear_has_block_id();
+}
+inline ::google::protobuf::int64 MessageRequestPutToken::block_id() const {
+  // @@protoc_insertion_point(field_get:MessageRequestPutToken.block_id)
+  return block_id_;
+}
+inline void MessageRequestPutToken::set_block_id(::google::protobuf::int64 value) {
+  set_has_block_id();
+  block_id_ = value;
+  // @@protoc_insertion_point(field_set:MessageRequestPutToken.block_id)
+}
+
+// required int64 size = 3;
+inline bool MessageRequestPutToken::has_size() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void MessageRequestPutToken::set_has_size() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void MessageRequestPutToken::clear_has_size() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void MessageRequestPutToken::clear_size() {
+  size_ = GOOGLE_LONGLONG(0);
+  clear_has_size();
+}
+inline ::google::protobuf::int64 MessageRequestPutToken::size() const {
+  // @@protoc_insertion_point(field_get:MessageRequestPutToken.size)
+  return size_;
+}
+inline void MessageRequestPutToken::set_size(::google::protobuf::int64 value) {
+  set_has_size();
+  size_ = value;
+  // @@protoc_insertion_point(field_set:MessageRequestPutToken.size)
+}
+
+// required string file_name = 4;
+inline bool MessageRequestPutToken::has_file_name() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void MessageRequestPutToken::set_has_file_name() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void MessageRequestPutToken::clear_has_file_name() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void MessageRequestPutToken::clear_file_name() {
+  if (file_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    file_name_->clear();
+  }
+  clear_has_file_name();
+}
+inline const ::std::string& MessageRequestPutToken::file_name() const {
+  // @@protoc_insertion_point(field_get:MessageRequestPutToken.file_name)
+  return *file_name_;
+}
+inline void MessageRequestPutToken::set_file_name(const ::std::string& value) {
+  set_has_file_name();
+  if (file_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    file_name_ = new ::std::string;
+  }
+  file_name_->assign(value);
+  // @@protoc_insertion_point(field_set:MessageRequestPutToken.file_name)
+}
+inline void MessageRequestPutToken::set_file_name(const char* value) {
+  set_has_file_name();
+  if (file_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    file_name_ = new ::std::string;
+  }
+  file_name_->assign(value);
+  // @@protoc_insertion_point(field_set_char:MessageRequestPutToken.file_name)
+}
+inline void MessageRequestPutToken::set_file_name(const char* value, size_t size) {
+  set_has_file_name();
+  if (file_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    file_name_ = new ::std::string;
+  }
+  file_name_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:MessageRequestPutToken.file_name)
+}
+inline ::std::string* MessageRequestPutToken::mutable_file_name() {
+  set_has_file_name();
+  if (file_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    file_name_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:MessageRequestPutToken.file_name)
+  return file_name_;
+}
+inline ::std::string* MessageRequestPutToken::release_file_name() {
+  clear_has_file_name();
+  if (file_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = file_name_;
+    file_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void MessageRequestPutToken::set_allocated_file_name(::std::string* file_name) {
+  if (file_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete file_name_;
+  }
+  if (file_name) {
+    set_has_file_name();
+    file_name_ = file_name;
+  } else {
+    clear_has_file_name();
+    file_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:MessageRequestPutToken.file_name)
 }
 
 

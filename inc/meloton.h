@@ -23,6 +23,7 @@
 #define FILE_DATA_NAME      "file.data"
 #define MAX_BLOCK_NUM       1024 * 1024 * 10
 #define MAX_PATH_SIZE       255
+#define SIZE_PER_MESSAGE    1024*5
 
 #define SINGLETON(__type__) \
     static __type__ * instance( ) \

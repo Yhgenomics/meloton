@@ -32,9 +32,12 @@ void protobuf_AssignDesc_MessagePut_2eproto() {
       "MessagePut.proto");
   GOOGLE_CHECK(file != NULL);
   MessagePut_descriptor_ = file->message_type(0);
-  static const int MessagePut_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePut, path_),
+  static const int MessagePut_offsets_[5] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePut, index_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePut, size_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePut, offset_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePut, data_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagePut, token_),
   };
   MessagePut_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -77,8 +80,9 @@ void protobuf_AddDesc_MessagePut_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\020MessagePut.proto\"(\n\nMessagePut\022\014\n\004path"
-    "\030\001 \002(\t\022\014\n\004size\030\002 \002(\003", 60);
+    "\n\020MessagePut.proto\"V\n\nMessagePut\022\r\n\005inde"
+    "x\030\001 \002(\003\022\014\n\004size\030\002 \002(\003\022\016\n\006offset\030\003 \002(\003\022\014\n"
+    "\004data\030\004 \002(\014\022\r\n\005token\030\005 \002(\t", 106);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessagePut.proto", &protobuf_RegisterTypes);
   MessagePut::default_instance_ = new MessagePut();
@@ -96,8 +100,11 @@ struct StaticDescriptorInitializer_MessagePut_2eproto {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int MessagePut::kPathFieldNumber;
+const int MessagePut::kIndexFieldNumber;
 const int MessagePut::kSizeFieldNumber;
+const int MessagePut::kOffsetFieldNumber;
+const int MessagePut::kDataFieldNumber;
+const int MessagePut::kTokenFieldNumber;
 #endif  // !_MSC_VER
 
 MessagePut::MessagePut()
@@ -119,8 +126,11 @@ MessagePut::MessagePut(const MessagePut& from)
 void MessagePut::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
-  path_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  index_ = GOOGLE_LONGLONG(0);
   size_ = GOOGLE_LONGLONG(0);
+  offset_ = GOOGLE_LONGLONG(0);
+  data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  token_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -130,8 +140,11 @@ MessagePut::~MessagePut() {
 }
 
 void MessagePut::SharedDtor() {
-  if (path_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete path_;
+  if (data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete data_;
+  }
+  if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete token_;
   }
   if (this != default_instance_) {
   }
@@ -159,14 +172,33 @@ MessagePut* MessagePut::New() const {
 }
 
 void MessagePut::Clear() {
-  if (_has_bits_[0 / 32] & 3) {
-    if (has_path()) {
-      if (path_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-        path_->clear();
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<MessagePut*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  if (_has_bits_[0 / 32] & 31) {
+    ZR_(index_, offset_);
+    if (has_data()) {
+      if (data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        data_->clear();
       }
     }
-    size_ = GOOGLE_LONGLONG(0);
+    if (has_token()) {
+      if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        token_->clear();
+      }
+    }
   }
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -181,15 +213,13 @@ bool MessagePut::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required string path = 1;
+      // required int64 index = 1;
       case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_path()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-            this->path().data(), this->path().length(),
-            ::google::protobuf::internal::WireFormat::PARSE,
-            "path");
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &index_)));
+          set_has_index();
         } else {
           goto handle_unusual;
         }
@@ -205,6 +235,51 @@ bool MessagePut::MergePartialFromCodedStream(
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
                  input, &size_)));
           set_has_size();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_offset;
+        break;
+      }
+
+      // required int64 offset = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_offset:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &offset_)));
+          set_has_offset();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_data;
+        break;
+      }
+
+      // required bytes data = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_data:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+                input, this->mutable_data()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_token;
+        break;
+      }
+
+      // required string token = 5;
+      case 5: {
+        if (tag == 42) {
+         parse_token:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_token()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->token().data(), this->token().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "token");
         } else {
           goto handle_unusual;
         }
@@ -237,19 +312,35 @@ failure:
 void MessagePut::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:MessagePut)
-  // required string path = 1;
-  if (has_path()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->path().data(), this->path().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "path");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->path(), output);
+  // required int64 index = 1;
+  if (has_index()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->index(), output);
   }
 
   // required int64 size = 2;
   if (has_size()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->size(), output);
+  }
+
+  // required int64 offset = 3;
+  if (has_offset()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(3, this->offset(), output);
+  }
+
+  // required bytes data = 4;
+  if (has_data()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
+      4, this->data(), output);
+  }
+
+  // required string token = 5;
+  if (has_token()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->token().data(), this->token().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "token");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      5, this->token(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -262,20 +353,37 @@ void MessagePut::SerializeWithCachedSizes(
 ::google::protobuf::uint8* MessagePut::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:MessagePut)
-  // required string path = 1;
-  if (has_path()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->path().data(), this->path().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "path");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->path(), target);
+  // required int64 index = 1;
+  if (has_index()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->index(), target);
   }
 
   // required int64 size = 2;
   if (has_size()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->size(), target);
+  }
+
+  // required int64 offset = 3;
+  if (has_offset()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(3, this->offset(), target);
+  }
+
+  // required bytes data = 4;
+  if (has_data()) {
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
+        4, this->data(), target);
+  }
+
+  // required string token = 5;
+  if (has_token()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->token().data(), this->token().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "token");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        5, this->token(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -290,11 +398,11 @@ int MessagePut::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required string path = 1;
-    if (has_path()) {
+    // required int64 index = 1;
+    if (has_index()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->path());
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->index());
     }
 
     // required int64 size = 2;
@@ -302,6 +410,27 @@ int MessagePut::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int64Size(
           this->size());
+    }
+
+    // required int64 offset = 3;
+    if (has_offset()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->offset());
+    }
+
+    // required bytes data = 4;
+    if (has_data()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::BytesSize(
+          this->data());
+    }
+
+    // required string token = 5;
+    if (has_token()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->token());
     }
 
   }
@@ -331,11 +460,20 @@ void MessagePut::MergeFrom(const ::google::protobuf::Message& from) {
 void MessagePut::MergeFrom(const MessagePut& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_path()) {
-      set_path(from.path());
+    if (from.has_index()) {
+      set_index(from.index());
     }
     if (from.has_size()) {
       set_size(from.size());
+    }
+    if (from.has_offset()) {
+      set_offset(from.offset());
+    }
+    if (from.has_data()) {
+      set_data(from.data());
+    }
+    if (from.has_token()) {
+      set_token(from.token());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -354,15 +492,18 @@ void MessagePut::CopyFrom(const MessagePut& from) {
 }
 
 bool MessagePut::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  if ((_has_bits_[0] & 0x0000001f) != 0x0000001f) return false;
 
   return true;
 }
 
 void MessagePut::Swap(MessagePut* other) {
   if (other != this) {
-    std::swap(path_, other->path_);
+    std::swap(index_, other->index_);
     std::swap(size_, other->size_);
+    std::swap(offset_, other->offset_);
+    std::swap(data_, other->data_);
+    std::swap(token_, other->token_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

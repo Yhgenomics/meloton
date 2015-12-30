@@ -36,7 +36,7 @@ void protobuf_AssignDesc_MessageBlockData_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageBlockData, token_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageBlockData, size_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageBlockData, data_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageBlockData, left_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageBlockData, offset_),
   };
   MessageBlockData_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -79,9 +79,9 @@ void protobuf_AddDesc_MessageBlockData_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\026MessageBlockData.proto\"K\n\020MessageBlock"
+    "\n\026MessageBlockData.proto\"M\n\020MessageBlock"
     "Data\022\r\n\005token\030\001 \002(\t\022\014\n\004size\030\002 \002(\003\022\014\n\004dat"
-    "a\030\003 \002(\014\022\014\n\004left\030\004 \002(\003", 101);
+    "a\030\003 \002(\014\022\016\n\006offset\030\004 \002(\003", 103);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessageBlockData.proto", &protobuf_RegisterTypes);
   MessageBlockData::default_instance_ = new MessageBlockData();
@@ -102,7 +102,7 @@ struct StaticDescriptorInitializer_MessageBlockData_2eproto {
 const int MessageBlockData::kTokenFieldNumber;
 const int MessageBlockData::kSizeFieldNumber;
 const int MessageBlockData::kDataFieldNumber;
-const int MessageBlockData::kLeftFieldNumber;
+const int MessageBlockData::kOffsetFieldNumber;
 #endif  // !_MSC_VER
 
 MessageBlockData::MessageBlockData()
@@ -127,7 +127,7 @@ void MessageBlockData::SharedCtor() {
   token_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   size_ = GOOGLE_LONGLONG(0);
   data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  left_ = GOOGLE_LONGLONG(0);
+  offset_ = GOOGLE_LONGLONG(0);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -181,7 +181,7 @@ void MessageBlockData::Clear() {
         data_->clear();
       }
     }
-    left_ = GOOGLE_LONGLONG(0);
+    offset_ = GOOGLE_LONGLONG(0);
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -237,18 +237,18 @@ bool MessageBlockData::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(32)) goto parse_left;
+        if (input->ExpectTag(32)) goto parse_offset;
         break;
       }
 
-      // required int64 left = 4;
+      // required int64 offset = 4;
       case 4: {
         if (tag == 32) {
-         parse_left:
+         parse_offset:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &left_)));
-          set_has_left();
+                 input, &offset_)));
+          set_has_offset();
         } else {
           goto handle_unusual;
         }
@@ -302,9 +302,9 @@ void MessageBlockData::SerializeWithCachedSizes(
       3, this->data(), output);
   }
 
-  // required int64 left = 4;
-  if (has_left()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(4, this->left(), output);
+  // required int64 offset = 4;
+  if (has_offset()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(4, this->offset(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -340,9 +340,9 @@ void MessageBlockData::SerializeWithCachedSizes(
         3, this->data(), target);
   }
 
-  // required int64 left = 4;
-  if (has_left()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(4, this->left(), target);
+  // required int64 offset = 4;
+  if (has_offset()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(4, this->offset(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -378,11 +378,11 @@ int MessageBlockData::ByteSize() const {
           this->data());
     }
 
-    // required int64 left = 4;
-    if (has_left()) {
+    // required int64 offset = 4;
+    if (has_offset()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int64Size(
-          this->left());
+          this->offset());
     }
 
   }
@@ -421,8 +421,8 @@ void MessageBlockData::MergeFrom(const MessageBlockData& from) {
     if (from.has_data()) {
       set_data(from.data());
     }
-    if (from.has_left()) {
-      set_left(from.left());
+    if (from.has_offset()) {
+      set_offset(from.offset());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -451,7 +451,7 @@ void MessageBlockData::Swap(MessageBlockData* other) {
     std::swap(token_, other->token_);
     std::swap(size_, other->size_);
     std::swap(data_, other->data_);
-    std::swap(left_, other->left_);
+    std::swap(offset_, other->offset_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

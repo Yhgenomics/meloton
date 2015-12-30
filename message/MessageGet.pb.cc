@@ -32,8 +32,11 @@ void protobuf_AssignDesc_MessageGet_2eproto() {
       "MessageGet.proto");
   GOOGLE_CHECK(file != NULL);
   MessageGet_descriptor_ = file->message_type(0);
-  static const int MessageGet_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageGet, request_id_),
+  static const int MessageGet_offsets_[4] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageGet, index_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageGet, token_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageGet, size_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageGet, offset_),
   };
   MessageGet_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -76,8 +79,9 @@ void protobuf_AddDesc_MessageGet_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\020MessageGet.proto\" \n\nMessageGet\022\022\n\nrequ"
-    "est_id\030\001 \002(\t", 52);
+    "\n\020MessageGet.proto\"H\n\nMessageGet\022\r\n\005inde"
+    "x\030\001 \002(\003\022\r\n\005token\030\002 \002(\t\022\014\n\004size\030\003 \002(\003\022\016\n\006"
+    "offset\030\004 \002(\003", 92);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessageGet.proto", &protobuf_RegisterTypes);
   MessageGet::default_instance_ = new MessageGet();
@@ -95,7 +99,10 @@ struct StaticDescriptorInitializer_MessageGet_2eproto {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int MessageGet::kRequestIdFieldNumber;
+const int MessageGet::kIndexFieldNumber;
+const int MessageGet::kTokenFieldNumber;
+const int MessageGet::kSizeFieldNumber;
+const int MessageGet::kOffsetFieldNumber;
 #endif  // !_MSC_VER
 
 MessageGet::MessageGet()
@@ -117,7 +124,10 @@ MessageGet::MessageGet(const MessageGet& from)
 void MessageGet::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
-  request_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  index_ = GOOGLE_LONGLONG(0);
+  token_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  size_ = GOOGLE_LONGLONG(0);
+  offset_ = GOOGLE_LONGLONG(0);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -127,8 +137,8 @@ MessageGet::~MessageGet() {
 }
 
 void MessageGet::SharedDtor() {
-  if (request_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete request_id_;
+  if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete token_;
   }
   if (this != default_instance_) {
   }
@@ -156,11 +166,29 @@ MessageGet* MessageGet::New() const {
 }
 
 void MessageGet::Clear() {
-  if (has_request_id()) {
-    if (request_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-      request_id_->clear();
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<MessageGet*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  if (_has_bits_[0 / 32] & 15) {
+    ZR_(size_, offset_);
+    index_ = GOOGLE_LONGLONG(0);
+    if (has_token()) {
+      if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        token_->clear();
+      }
     }
   }
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -175,15 +203,60 @@ bool MessageGet::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required string request_id = 1;
+      // required int64 index = 1;
       case 1: {
-        if (tag == 10) {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &index_)));
+          set_has_index();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_token;
+        break;
+      }
+
+      // required string token = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_token:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_request_id()));
+                input, this->mutable_token()));
           ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-            this->request_id().data(), this->request_id().length(),
+            this->token().data(), this->token().length(),
             ::google::protobuf::internal::WireFormat::PARSE,
-            "request_id");
+            "token");
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_size;
+        break;
+      }
+
+      // required int64 size = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_size:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &size_)));
+          set_has_size();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(32)) goto parse_offset;
+        break;
+      }
+
+      // required int64 offset = 4;
+      case 4: {
+        if (tag == 32) {
+         parse_offset:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &offset_)));
+          set_has_offset();
         } else {
           goto handle_unusual;
         }
@@ -216,14 +289,29 @@ failure:
 void MessageGet::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:MessageGet)
-  // required string request_id = 1;
-  if (has_request_id()) {
+  // required int64 index = 1;
+  if (has_index()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->index(), output);
+  }
+
+  // required string token = 2;
+  if (has_token()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->request_id().data(), this->request_id().length(),
+      this->token().data(), this->token().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "request_id");
+      "token");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->request_id(), output);
+      2, this->token(), output);
+  }
+
+  // required int64 size = 3;
+  if (has_size()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(3, this->size(), output);
+  }
+
+  // required int64 offset = 4;
+  if (has_offset()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(4, this->offset(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -236,15 +324,30 @@ void MessageGet::SerializeWithCachedSizes(
 ::google::protobuf::uint8* MessageGet::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:MessageGet)
-  // required string request_id = 1;
-  if (has_request_id()) {
+  // required int64 index = 1;
+  if (has_index()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->index(), target);
+  }
+
+  // required string token = 2;
+  if (has_token()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->request_id().data(), this->request_id().length(),
+      this->token().data(), this->token().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "request_id");
+      "token");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->request_id(), target);
+        2, this->token(), target);
+  }
+
+  // required int64 size = 3;
+  if (has_size()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(3, this->size(), target);
+  }
+
+  // required int64 offset = 4;
+  if (has_offset()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(4, this->offset(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -259,11 +362,32 @@ int MessageGet::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required string request_id = 1;
-    if (has_request_id()) {
+    // required int64 index = 1;
+    if (has_index()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->index());
+    }
+
+    // required string token = 2;
+    if (has_token()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->request_id());
+          this->token());
+    }
+
+    // required int64 size = 3;
+    if (has_size()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->size());
+    }
+
+    // required int64 offset = 4;
+    if (has_offset()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->offset());
     }
 
   }
@@ -293,8 +417,17 @@ void MessageGet::MergeFrom(const ::google::protobuf::Message& from) {
 void MessageGet::MergeFrom(const MessageGet& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_request_id()) {
-      set_request_id(from.request_id());
+    if (from.has_index()) {
+      set_index(from.index());
+    }
+    if (from.has_token()) {
+      set_token(from.token());
+    }
+    if (from.has_size()) {
+      set_size(from.size());
+    }
+    if (from.has_offset()) {
+      set_offset(from.offset());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -313,14 +446,17 @@ void MessageGet::CopyFrom(const MessageGet& from) {
 }
 
 bool MessageGet::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
 
   return true;
 }
 
 void MessageGet::Swap(MessageGet* other) {
   if (other != this) {
-    std::swap(request_id_, other->request_id_);
+    std::swap(index_, other->index_);
+    std::swap(token_, other->token_);
+    std::swap(size_, other->size_);
+    std::swap(offset_, other->offset_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

@@ -172,7 +172,6 @@
     <ClCompile Include="..\src\DirectoryMeta.cpp" />
     <ClCompile Include="..\src\Error.cpp" />
     <ClCompile Include="..\src\FileMeta.cpp" />
-    <ClCompile Include="..\src\FileTable.cpp" />
     <ClCompile Include="..\src\FS.cpp" />
     <ClCompile Include="..\src\MasterConnector.cpp" />
     <ClCompile Include="..\src\MasterHTTPListener.cpp" />
@@ -218,7 +217,6 @@
     <ClInclude Include="..\inc\FileMeta.h" />
     <ClInclude Include="..\inc\FS.h" />
     <ClInclude Include="..\inc\MasterConfig.h" />
-    <ClInclude Include="..\inc\FileTable.h" />
     <ClInclude Include="..\inc\MasterConnector.h" />
     <ClInclude Include="..\inc\MasterHTTPListener.h" />
     <ClInclude Include="..\inc\MasterHTTPSession.h" />
@@ -231,6 +229,7 @@
     <ClInclude Include="..\inc\NodeSession.h" />
     <ClInclude Include="..\inc\Path.h" />
     <ClInclude Include="..\inc\RequestTokenTable.h" />
+    <ClInclude Include="..\inc\TokenPool.h" />
     <ClInclude Include="..\inc\Utils.h" />
     <ClInclude Include="..\inc\Variable.h" />
     <ClInclude Include="..\message\MessageAccept.pb.h" />
