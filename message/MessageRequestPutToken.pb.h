@@ -126,6 +126,13 @@ class MessageRequestPutToken : public ::google::protobuf::Message {
   inline ::std::string* release_file_name();
   inline void set_allocated_file_name(::std::string* file_name);
 
+  // required int64 client_id = 5;
+  inline bool has_client_id() const;
+  inline void clear_client_id();
+  static const int kClientIdFieldNumber = 5;
+  inline ::google::protobuf::int64 client_id() const;
+  inline void set_client_id(::google::protobuf::int64 value);
+
   // @@protoc_insertion_point(class_scope:MessageRequestPutToken)
  private:
   inline void set_has_request_id();
@@ -136,6 +143,8 @@ class MessageRequestPutToken : public ::google::protobuf::Message {
   inline void clear_has_size();
   inline void set_has_file_name();
   inline void clear_has_file_name();
+  inline void set_has_client_id();
+  inline void clear_has_client_id();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -145,6 +154,7 @@ class MessageRequestPutToken : public ::google::protobuf::Message {
   ::google::protobuf::int64 block_id_;
   ::google::protobuf::int64 size_;
   ::std::string* file_name_;
+  ::google::protobuf::int64 client_id_;
   friend void  protobuf_AddDesc_MessageRequestPutToken_2eproto();
   friend void protobuf_AssignDesc_MessageRequestPutToken_2eproto();
   friend void protobuf_ShutdownFile_MessageRequestPutToken_2eproto();
@@ -357,6 +367,30 @@ inline void MessageRequestPutToken::set_allocated_file_name(::std::string* file_
     file_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
   // @@protoc_insertion_point(field_set_allocated:MessageRequestPutToken.file_name)
+}
+
+// required int64 client_id = 5;
+inline bool MessageRequestPutToken::has_client_id() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void MessageRequestPutToken::set_has_client_id() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void MessageRequestPutToken::clear_has_client_id() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void MessageRequestPutToken::clear_client_id() {
+  client_id_ = GOOGLE_LONGLONG(0);
+  clear_has_client_id();
+}
+inline ::google::protobuf::int64 MessageRequestPutToken::client_id() const {
+  // @@protoc_insertion_point(field_get:MessageRequestPutToken.client_id)
+  return client_id_;
+}
+inline void MessageRequestPutToken::set_client_id(::google::protobuf::int64 value) {
+  set_has_client_id();
+  client_id_ = value;
+  // @@protoc_insertion_point(field_set:MessageRequestPutToken.client_id)
 }
 
 

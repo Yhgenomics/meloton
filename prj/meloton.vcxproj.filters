@@ -79,6 +79,15 @@
     <ClCompile Include="..\src\RequestTokenTable.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\BlockTable.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ClientListener.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ClientManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="..\message\MessageAccept.pb.cc">
       <Filter>message</Filter>
     </ClCompile>
@@ -94,13 +103,7 @@
     <ClCompile Include="..\message\MessageGet.pb.cc">
       <Filter>message</Filter>
     </ClCompile>
-    <ClCompile Include="..\message\MessageGetTokenACK.pb.cc">
-      <Filter>message</Filter>
-    </ClCompile>
     <ClCompile Include="..\message\MessagePut.pb.cc">
-      <Filter>message</Filter>
-    </ClCompile>
-    <ClCompile Include="..\message\MessagePutTokenACK.pb.cc">
       <Filter>message</Filter>
     </ClCompile>
     <ClCompile Include="..\message\MessageRegister.pb.cc">
@@ -121,10 +124,16 @@
     <ClCompile Include="..\message\MessageToken.pb.cc">
       <Filter>message</Filter>
     </ClCompile>
+    <ClCompile Include="..\message\MessageTokenACK.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
     <ClCompile Include="..\message\MessageUpdateBlock.pb.cc">
       <Filter>message</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\BlockTable.cpp">
+    <ClCompile Include="..\src\TokenPool.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ClientSession.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -183,13 +192,7 @@
     <ClInclude Include="..\handler\MessageGetHandler.h">
       <Filter>handler</Filter>
     </ClInclude>
-    <ClInclude Include="..\handler\MessageGetTokenACKHandler.h">
-      <Filter>handler</Filter>
-    </ClInclude>
     <ClInclude Include="..\handler\MessagePutHandler.h">
-      <Filter>handler</Filter>
-    </ClInclude>
-    <ClInclude Include="..\handler\MessagePutTokenACKHandler.h">
       <Filter>handler</Filter>
     </ClInclude>
     <ClInclude Include="..\handler\MessageRegisterHandler.h">
@@ -252,6 +255,30 @@
     <ClInclude Include="..\handler\MessageRequestPutTokenHandler.h">
       <Filter>handler</Filter>
     </ClInclude>
+    <ClInclude Include="..\inc\BlockTable.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\BlockIndex.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\TokenPool.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\ClientListener.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\ClientSession.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Manager.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\ClientManager.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\handler\MessageTokenACKHandler.h">
+      <Filter>handler</Filter>
+    </ClInclude>
     <ClInclude Include="..\message\MessageAccept.pb.h">
       <Filter>message</Filter>
     </ClInclude>
@@ -267,13 +294,7 @@
     <ClInclude Include="..\message\MessageGet.pb.h">
       <Filter>message</Filter>
     </ClInclude>
-    <ClInclude Include="..\message\MessageGetTokenACK.pb.h">
-      <Filter>message</Filter>
-    </ClInclude>
     <ClInclude Include="..\message\MessagePut.pb.h">
-      <Filter>message</Filter>
-    </ClInclude>
-    <ClInclude Include="..\message\MessagePutTokenACK.pb.h">
       <Filter>message</Filter>
     </ClInclude>
     <ClInclude Include="..\message\MessageRegister.pb.h">
@@ -294,16 +315,13 @@
     <ClInclude Include="..\message\MessageToken.pb.h">
       <Filter>message</Filter>
     </ClInclude>
+    <ClInclude Include="..\message\MessageTokenACK.pb.h">
+      <Filter>message</Filter>
+    </ClInclude>
     <ClInclude Include="..\message\MessageUpdateBlock.pb.h">
       <Filter>message</Filter>
     </ClInclude>
-    <ClInclude Include="..\inc\BlockTable.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\inc\BlockIndex.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\inc\TokenPool.h">
+    <ClInclude Include="..\inc\TokenMeta.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>

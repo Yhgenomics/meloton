@@ -16,8 +16,6 @@
 
 class NodeManager
 {
-   
-
 public:
     
     typedef std::function<bool( sptr<NodeSession> instance)> find_callback_t;

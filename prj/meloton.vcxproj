@@ -153,20 +153,22 @@
     <ClCompile Include="..\message\MessageAlive.pb.cc" />
     <ClCompile Include="..\message\MessageBlockData.pb.cc" />
     <ClCompile Include="..\message\MessageGet.pb.cc" />
-    <ClCompile Include="..\message\MessageGetTokenACK.pb.cc" />
     <ClCompile Include="..\message\MessagePut.pb.cc" />
-    <ClCompile Include="..\message\MessagePutTokenACK.pb.cc" />
     <ClCompile Include="..\message\MessageRegister.pb.cc" />
     <ClCompile Include="..\message\MessageRequestGet.pb.cc" />
     <ClCompile Include="..\message\MessageRequestGetToken.pb.cc" />
     <ClCompile Include="..\message\MessageRequestPut.pb.cc" />
     <ClCompile Include="..\message\MessageRequestPutToken.pb.cc" />
     <ClCompile Include="..\message\MessageToken.pb.cc" />
+    <ClCompile Include="..\message\MessageTokenACK.pb.cc" />
     <ClCompile Include="..\message\MessageUpdateBlock.pb.cc" />
     <ClCompile Include="..\src\Array.cpp" />
     <ClCompile Include="..\src\BlockDistributer.cpp" />
     <ClCompile Include="..\src\BlockMeta.cpp" />
     <ClCompile Include="..\src\BlockTable.cpp" />
+    <ClCompile Include="..\src\ClientListener.cpp" />
+    <ClCompile Include="..\src\ClientManager.cpp" />
+    <ClCompile Include="..\src\ClientSession.cpp" />
     <ClCompile Include="..\src\ClusterSession.cpp" />
     <ClCompile Include="..\src\CMDParameter.cpp" />
     <ClCompile Include="..\src\DirectoryMeta.cpp" />
@@ -185,6 +187,7 @@
     <ClCompile Include="..\src\NodeSession.cpp" />
     <ClCompile Include="..\src\Path.cpp" />
     <ClCompile Include="..\src\RequestTokenTable.cpp" />
+    <ClCompile Include="..\src\TokenPool.cpp" />
     <ClCompile Include="..\src\Variable.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -193,14 +196,13 @@
     <ClInclude Include="..\handler\MessageAliveHandler.h" />
     <ClInclude Include="..\handler\MessageBlockDataHandler.h" />
     <ClInclude Include="..\handler\MessageGetHandler.h" />
-    <ClInclude Include="..\handler\MessageGetTokenACKHandler.h" />
     <ClInclude Include="..\handler\MessagePutHandler.h" />
-    <ClInclude Include="..\handler\MessagePutTokenACKHandler.h" />
     <ClInclude Include="..\handler\MessageRegisterHandler.h" />
     <ClInclude Include="..\handler\MessageRequestGetHandler.h" />
     <ClInclude Include="..\handler\MessageRequestGetTokenHandler.h" />
     <ClInclude Include="..\handler\MessageRequestPutHandler.h" />
     <ClInclude Include="..\handler\MessageRequestPutTokenHandler.h" />
+    <ClInclude Include="..\handler\MessageTokenACKHandler.h" />
     <ClInclude Include="..\handler\MessageTokenHandler.h" />
     <ClInclude Include="..\handler\MessageUpdateBlockHandler.h" />
     <ClInclude Include="..\handler\MessageUtils.h" />
@@ -209,6 +211,9 @@
     <ClInclude Include="..\inc\BlockDistributer.h" />
     <ClInclude Include="..\inc\BlockMeta.h" />
     <ClInclude Include="..\inc\BlockTable.h" />
+    <ClInclude Include="..\inc\ClientListener.h" />
+    <ClInclude Include="..\inc\ClientManager.h" />
+    <ClInclude Include="..\inc\ClientSession.h" />
     <ClInclude Include="..\inc\ClusterSession.h" />
     <ClInclude Include="..\inc\CMDParameter.h" />
     <ClInclude Include="..\inc\DirectoryMeta.h" />
@@ -216,6 +221,7 @@
     <ClInclude Include="..\inc\Error.h" />
     <ClInclude Include="..\inc\FileMeta.h" />
     <ClInclude Include="..\inc\FS.h" />
+    <ClInclude Include="..\inc\Manager.h" />
     <ClInclude Include="..\inc\MasterConfig.h" />
     <ClInclude Include="..\inc\MasterConnector.h" />
     <ClInclude Include="..\inc\MasterHTTPListener.h" />
@@ -229,6 +235,7 @@
     <ClInclude Include="..\inc\NodeSession.h" />
     <ClInclude Include="..\inc\Path.h" />
     <ClInclude Include="..\inc\RequestTokenTable.h" />
+    <ClInclude Include="..\inc\TokenMeta.h" />
     <ClInclude Include="..\inc\TokenPool.h" />
     <ClInclude Include="..\inc\Utils.h" />
     <ClInclude Include="..\inc\Variable.h" />
@@ -237,15 +244,14 @@
     <ClInclude Include="..\message\MessageAlive.pb.h" />
     <ClInclude Include="..\message\MessageBlockData.pb.h" />
     <ClInclude Include="..\message\MessageGet.pb.h" />
-    <ClInclude Include="..\message\MessageGetTokenACK.pb.h" />
     <ClInclude Include="..\message\MessagePut.pb.h" />
-    <ClInclude Include="..\message\MessagePutTokenACK.pb.h" />
     <ClInclude Include="..\message\MessageRegister.pb.h" />
     <ClInclude Include="..\message\MessageRequestGet.pb.h" />
     <ClInclude Include="..\message\MessageRequestGetToken.pb.h" />
     <ClInclude Include="..\message\MessageRequestPut.pb.h" />
     <ClInclude Include="..\message\MessageRequestPutToken.pb.h" />
     <ClInclude Include="..\message\MessageToken.pb.h" />
+    <ClInclude Include="..\message\MessageTokenACK.pb.h" />
     <ClInclude Include="..\message\MessageUpdateBlock.pb.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

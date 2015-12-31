@@ -16,11 +16,18 @@
 #include <google/protobuf/message.h>
 #include <MessageRequestPut.pb.h>
 
+#include <ClientManager.h>
+
 static int MessageRequestPutHandler( ClusterSession * session , uptr<MessageRequestPut> msg )
 {
+    auto client = ClientManager::instance( )->find_session( session->id( ) );
+
+    if ( client == nullptr ) return -1;
+
     auto path = msg->path( );
     auto uuid = msg->request_id( );
     auto file = FS::instance( )->get_file( path );
+
 
     if ( file == nullptr )
     {
@@ -34,7 +41,7 @@ static int MessageRequestPutHandler( ClusterSession * session , uptr<MessageRequ
     }
 
     BlockDistributer distributer;
-    distributer.put_file( msg->size( ) , session , move_ptr( msg ) );
+    distributer.put_file( msg->size( ) , client , move_ptr( msg ) );
     //distributer.get_file( file , session , move_ptr( msg ) );
 
 

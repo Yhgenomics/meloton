@@ -114,6 +114,13 @@ class MessageRequestGetToken : public ::google::protobuf::Message {
   inline ::google::protobuf::int64 block_id() const;
   inline void set_block_id(::google::protobuf::int64 value);
 
+  // required int64 client_id = 4;
+  inline bool has_client_id() const;
+  inline void clear_client_id();
+  static const int kClientIdFieldNumber = 4;
+  inline ::google::protobuf::int64 client_id() const;
+  inline void set_client_id(::google::protobuf::int64 value);
+
   // @@protoc_insertion_point(class_scope:MessageRequestGetToken)
  private:
   inline void set_has_index();
@@ -122,6 +129,8 @@ class MessageRequestGetToken : public ::google::protobuf::Message {
   inline void clear_has_request_id();
   inline void set_has_block_id();
   inline void clear_has_block_id();
+  inline void set_has_client_id();
+  inline void clear_has_client_id();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -130,6 +139,7 @@ class MessageRequestGetToken : public ::google::protobuf::Message {
   ::google::protobuf::int64 index_;
   ::std::string* request_id_;
   ::google::protobuf::int64 block_id_;
+  ::google::protobuf::int64 client_id_;
   friend void  protobuf_AddDesc_MessageRequestGetToken_2eproto();
   friend void protobuf_AssignDesc_MessageRequestGetToken_2eproto();
   friend void protobuf_ShutdownFile_MessageRequestGetToken_2eproto();
@@ -266,6 +276,30 @@ inline void MessageRequestGetToken::set_block_id(::google::protobuf::int64 value
   set_has_block_id();
   block_id_ = value;
   // @@protoc_insertion_point(field_set:MessageRequestGetToken.block_id)
+}
+
+// required int64 client_id = 4;
+inline bool MessageRequestGetToken::has_client_id() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void MessageRequestGetToken::set_has_client_id() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void MessageRequestGetToken::clear_has_client_id() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void MessageRequestGetToken::clear_client_id() {
+  client_id_ = GOOGLE_LONGLONG(0);
+  clear_has_client_id();
+}
+inline ::google::protobuf::int64 MessageRequestGetToken::client_id() const {
+  // @@protoc_insertion_point(field_get:MessageRequestGetToken.client_id)
+  return client_id_;
+}
+inline void MessageRequestGetToken::set_client_id(::google::protobuf::int64 value) {
+  set_has_client_id();
+  client_id_ = value;
+  // @@protoc_insertion_point(field_set:MessageRequestGetToken.client_id)
 }
 
 

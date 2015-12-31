@@ -2,7 +2,7 @@
 
 NodeManager::NodeManager( )
 {
-    this->node_array_ = make_uptr( Array<NodeSession> , 1024 );
+    this->node_array_ = make_uptr( Array<NodeSession> , 1024 * 10 );
 
     MRT::SyncWorker::create( 1000 , [ this ] ( MRT::SyncWorker* worker )
     {

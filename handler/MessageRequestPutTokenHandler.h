@@ -16,8 +16,9 @@
 #include <google/protobuf/message.h>
 #include <MessageRequestPutToken.pb.h>
 
-#include <MessagePutTokenACK.pb.h>
+#include <MessageTokenACK.pb.h>
 #include <BlockTable.h>
+#include <TokenPool.h>
 
 static int MessageRequestPutTokenHandler( ClusterSession * session , uptr<MessageRequestPutToken> msg )
 {
@@ -27,13 +28,14 @@ static int MessageRequestPutTokenHandler( ClusterSession * session , uptr<Messag
 
     if ( block == nullptr ) return -1;
 
-    uptr<MessagePutTokenACK> reply = make_uptr( MessagePutTokenACK );
+    uptr<MessageTokenACK> reply = make_uptr( MessageTokenACK );
 
     reply->set_block_id( block->block_id );
     reply->set_expire ( MAX_SIZE_T );
     reply->set_index( block->index );
     reply->set_request_id( msg->request_id( ) );
-    reply->set_token( MRT::UUID::create( ) );
+    reply->set_token( TokenPool::instance( )->create( ) );
+    reply->set_client_id( msg->client_id( ) );
 
     session->send_message( move_ptr( reply ) );
 
