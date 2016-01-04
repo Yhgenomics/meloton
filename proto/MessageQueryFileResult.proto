@@ -1,9 +1,0 @@
-message MessageQueryFileResult
-{
-    required int64 session_id = 1;
-    required int64 error = 2;
-    required string file_name = 3;
-    repeated int64 file_part_id = 4;
-    repeated int64 file_part_size = 5;
-    required int64 query_id = 6;
-}

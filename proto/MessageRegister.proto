@@ -1,4 +1,8 @@
 message MessageRegister
 {
     required string id = 1;
+    required int64 disk_space = 2;
+    required int64 block_num = 3;
+    required string data_addr = 4;
+    required int32 data_port = 5;
 }

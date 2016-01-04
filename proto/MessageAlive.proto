@@ -2,4 +2,7 @@ message MessageAlive
 {
     required int64 session_id = 1;
     required int64 local_time = 2;
+    required int64 disk_space = 3;
+    required int64 block_num = 4;
+    required int64 token_num = 5;
 }

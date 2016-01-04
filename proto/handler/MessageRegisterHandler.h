@@ -1,7 +1,7 @@
 /* * * * * * * * * * * * * * * *
 * YHGenomics Inc.
 * Author     : yang shubo
-* Date       : 2015-12-08
+* Date       : 2015-12-31
 * Description: handler for MessageRegister
 * * * * * * * * * * * * * * * */
 

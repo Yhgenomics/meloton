@@ -1,0 +1,5 @@
+message MessageRequestGet
+{
+    required string path = 1;
+    required string request_id = 2;
+}

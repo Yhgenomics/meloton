@@ -1,6 +1,0 @@
-message MessageAliveACK
-{
-    required int64 session_id = 1;
-    required int64 local_time = 2;
-    required int64 server_time = 3;
-}

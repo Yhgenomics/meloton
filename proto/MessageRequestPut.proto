@@ -1,0 +1,6 @@
+message MessageRequestPut
+{
+    required string path        = 1;
+    required int64 size         = 2;
+    required string request_id  = 3;
+}

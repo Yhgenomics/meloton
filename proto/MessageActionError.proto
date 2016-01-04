@@ -1,0 +1,6 @@
+message MessageActionError
+{
+    required string action_id = 1;
+    required int32 code = 2;
+    required string message = 3;
+}

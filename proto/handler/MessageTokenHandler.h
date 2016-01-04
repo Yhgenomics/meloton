@@ -1,0 +1,26 @@
+/* * * * * * * * * * * * * * * *
+* YHGenomics Inc.
+* Author     : yang shubo
+* Date       : 2015-12-31
+* Description: handler for MessageToken
+* * * * * * * * * * * * * * * */
+
+#ifndef MESSAGETOKEN_HANDLER_
+#define MESSAGETOKEN_HANDLER_
+
+#include <string>
+#include <memory>
+
+#include <MRT.h>
+#include <ClusterSession.h>
+#include <google/protobuf/message.h>
+#include <MessageToken.pb.h>
+
+static int MessageTokenHandler( ClusterSession * session , uptr<MessageToken> msg )
+{
+    return 0;
+}
+
+#endif
+
+// !MESSAGETOKEN_HANDLER_

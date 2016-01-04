@@ -1,0 +1,8 @@
+message MessageRequestPutToken
+{
+    required string request_id  = 1;
+    required int64 block_id     = 2;
+    required int64 size         = 3;
+    required string file_name   = 4;
+    required int64 client_id    = 5;
+}
