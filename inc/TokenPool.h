@@ -24,6 +24,7 @@ public:
     std::string create( );
     bool        check_token( std::string token );
     void        remove( std::string token );
+    size_t      token_num( );
 
 private:
 

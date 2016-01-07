@@ -140,6 +140,20 @@ class MessageTokenACK : public ::google::protobuf::Message {
   inline ::google::protobuf::int64 client_id() const;
   inline void set_client_id(::google::protobuf::int64 value);
 
+  // required int64 block_size = 7;
+  inline bool has_block_size() const;
+  inline void clear_block_size();
+  static const int kBlockSizeFieldNumber = 7;
+  inline ::google::protobuf::int64 block_size() const;
+  inline void set_block_size(::google::protobuf::int64 value);
+
+  // required int64 offset = 8;
+  inline bool has_offset() const;
+  inline void clear_offset();
+  static const int kOffsetFieldNumber = 8;
+  inline ::google::protobuf::int64 offset() const;
+  inline void set_offset(::google::protobuf::int64 value);
+
   // @@protoc_insertion_point(class_scope:MessageTokenACK)
  private:
   inline void set_has_token();
@@ -154,6 +168,10 @@ class MessageTokenACK : public ::google::protobuf::Message {
   inline void clear_has_block_id();
   inline void set_has_client_id();
   inline void clear_has_client_id();
+  inline void set_has_block_size();
+  inline void clear_has_block_size();
+  inline void set_has_offset();
+  inline void clear_has_offset();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -165,6 +183,8 @@ class MessageTokenACK : public ::google::protobuf::Message {
   ::std::string* request_id_;
   ::google::protobuf::int64 block_id_;
   ::google::protobuf::int64 client_id_;
+  ::google::protobuf::int64 block_size_;
+  ::google::protobuf::int64 offset_;
   friend void  protobuf_AddDesc_MessageTokenACK_2eproto();
   friend void protobuf_AssignDesc_MessageTokenACK_2eproto();
   friend void protobuf_ShutdownFile_MessageTokenACK_2eproto();
@@ -425,6 +445,54 @@ inline void MessageTokenACK::set_client_id(::google::protobuf::int64 value) {
   set_has_client_id();
   client_id_ = value;
   // @@protoc_insertion_point(field_set:MessageTokenACK.client_id)
+}
+
+// required int64 block_size = 7;
+inline bool MessageTokenACK::has_block_size() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void MessageTokenACK::set_has_block_size() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void MessageTokenACK::clear_has_block_size() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void MessageTokenACK::clear_block_size() {
+  block_size_ = GOOGLE_LONGLONG(0);
+  clear_has_block_size();
+}
+inline ::google::protobuf::int64 MessageTokenACK::block_size() const {
+  // @@protoc_insertion_point(field_get:MessageTokenACK.block_size)
+  return block_size_;
+}
+inline void MessageTokenACK::set_block_size(::google::protobuf::int64 value) {
+  set_has_block_size();
+  block_size_ = value;
+  // @@protoc_insertion_point(field_set:MessageTokenACK.block_size)
+}
+
+// required int64 offset = 8;
+inline bool MessageTokenACK::has_offset() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+inline void MessageTokenACK::set_has_offset() {
+  _has_bits_[0] |= 0x00000080u;
+}
+inline void MessageTokenACK::clear_has_offset() {
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline void MessageTokenACK::clear_offset() {
+  offset_ = GOOGLE_LONGLONG(0);
+  clear_has_offset();
+}
+inline ::google::protobuf::int64 MessageTokenACK::offset() const {
+  // @@protoc_insertion_point(field_get:MessageTokenACK.offset)
+  return offset_;
+}
+inline void MessageTokenACK::set_offset(::google::protobuf::int64 value) {
+  set_has_offset();
+  offset_ = value;
+  // @@protoc_insertion_point(field_set:MessageTokenACK.offset)
 }
 
 

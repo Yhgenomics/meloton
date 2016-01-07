@@ -53,6 +53,8 @@ static int MessageUpdateBlockHandler( ClusterSession * session , uptr<MessageUpd
         node->index( msg->index( ) );
     }
 
+    LOG_DEBUG( "[%s] Block[%lld] size: %lld %s" , session->ip_address( ).c_str( ) ,  msg->id( ) , msg->size( ), msg->path( ).c_str( ) );
+
     return 0;
 }
 

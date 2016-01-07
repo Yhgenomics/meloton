@@ -51,12 +51,14 @@ static int MessageGetHandler( ClusterSession * session , uptr<MessageGet> msg )
     reply->set_size( size );
     reply->set_offset( msg->offset( ) );
     reply->set_data( data->data( ) , size );
+    session->send_message( move_ptr( reply ) );
 
     if ( (size_t)( msg->offset( ) + size ) >= block->size )
     {
         // TODO 
         // remove token, finish the transfer
         TokenPool::instance( )->remove( msg->token( ) );
+        session->close( );
     }
 
     return 0;

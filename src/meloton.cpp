@@ -7,6 +7,8 @@
 #include "NodeSession.h"
 #include "NodeManager.h"
 #include <time.h>
+#include <ClientListener.h>
+#include <BlockTable.h>
 
 void test_file_table( )
 {
@@ -38,39 +40,48 @@ void test_file_table( )
 }
 
 int main( int argc , char * argv[] )
-{  
-
+{   
+    //auto t = MRT::UUID::create( );
     if ( !CMDParameter::parse( argc , argv ) )
     {
         return 0;
     }
 
     // Server mode
-    if ( Variable::mode == 0 )
+    if ( Variable::mode == 1 )
     {
         LOG_SYS( "system start in master mode" );
         LOG_SYS( "listen on: %s:%d" , Variable::server_ip , Variable::port );
 
         MRT::Maraton::instance( )->regist( make_uptr( NodeListener , 
-                                           Variable::server_ip , 
-                                           Variable::port));
+                                           "0.0.0.0" , 
+                                           100)); 
 
+        MRT::Maraton::instance( )->regist( make_uptr( ClientListener , 
+                                           "0.0.0.0"  , 
+                                           101));
+        MRT::Maraton::instance( )->loop( );
         LOG_SYS( "system shutdown" );
     }
     // Node mode
-    else if ( Variable::mode == 1 )
+    else if ( Variable::mode == 0 )
     {
         LOG_SYS( "system start in node mode" );
+        LOG_SYS( "load index file" );
+        BlockTable::instance( )->load_from_file( );
         LOG_SYS( "connecting %s:%d" , Variable::server_ip , Variable::port );
+        
+
+        MRT::Maraton::instance( )->regist( make_uptr( ClientListener ,
+                                           "0.0.0.0"  ,
+                                           101 ) );
 
         while ( true )
         {
             MRT::Maraton::instance( )->regist( make_uptr( MasterConnector , 
                                            Variable::server_ip , 
-                                           Variable::port));
-
+                                           100));
             MRT::Maraton::instance( )->loop( );
-
             LOG_SYS( "disconnected to server , reconnecting" );
         }
         

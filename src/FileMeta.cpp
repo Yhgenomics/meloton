@@ -22,7 +22,7 @@ sptr<BlockMeta> FileMeta::get_block( size_t id )
     {
         if ( b->id( ) == id )
         {
-            return b;
+            return sptr<BlockMeta>(b);
         }
     }
     
@@ -31,6 +31,6 @@ sptr<BlockMeta> FileMeta::get_block( size_t id )
 
 void FileMeta::add_block( sptr<BlockMeta> block )
 { 
-    this->blocks_.push_back( move_ptr( block ) );
+    this->blocks_.push_back( sptr<BlockMeta>( block ) );
 }
 

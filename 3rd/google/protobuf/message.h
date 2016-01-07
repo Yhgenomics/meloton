@@ -164,7 +164,8 @@ struct Metadata {
 // the optimize_for option in descriptor.proto.
 class LIBPROTOBUF_EXPORT Message : public MessageLite {
  public:
-  inline Message() {}
+  inline Message() {
+  }
   virtual ~Message();
 
   // Basic Operations ------------------------------------------------

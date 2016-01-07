@@ -30,19 +30,23 @@ public:
 
     typedef std::function<void( AsyncWorker* )> callback_t;
     
-    static void create  ( callback_t acting , 
-                          callback_t finish, 
-                          void* data );
+    static AsyncWorker* create ( callback_t acting , 
+                                 callback_t finish, 
+                                 void* data );
 
-    static void create  ( callback_t acting , 
-                          void* data );
+    static AsyncWorker* create ( callback_t acting , 
+                                 void* data );
+
+    static void         stop   ( AsyncWorker* worker );
 
 
     void data           ( void* value ) { this->data_ = value; };
     void* data          ( ) { return this->data_; };
 
+
 private:
 
+    void stop( );
     AsyncWorker( callback_t acting, callback_t finish );
 
     void start();

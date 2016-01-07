@@ -45,6 +45,8 @@
 #include "MessageTokenACKHandler.h"
 #include "MessageUpdateBlockHandler.h"
 
+#include <MRT.h>
+
 class MessageUtils
 {
 private:
@@ -71,6 +73,7 @@ public:
         *((size_t*)pbuf) = message_id;
         pbuf += sizeof( size_t );
         memcpy(pbuf , body.c_str( ) , body.size( ) );
+
         return make_uptr( MRT::Buffer , buffer );
     }
 
@@ -81,6 +84,7 @@ public:
         message_id = *( (size_t*) data );
         data += sizeof( size_t );
         int msg_len = scast<int>( len - sizeof( size_t ) );
+
         switch( message_id )
         {
             case 0x416567757377676F : 

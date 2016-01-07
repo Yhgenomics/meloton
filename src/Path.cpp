@@ -35,20 +35,21 @@ Error Path::parse( std::string path )
             chr = *( pPath + index );
 
             if ( ( chr == '\\' ||
-                 chr == '/' ) &&
-                 cur_size != 0 )
+                 chr == '/' ))
             {
+                buf[cur_size++] = chr;
                 this->path_list_.push_back( std::string( buf , cur_size ) );
                 cur_size = 0;
             }
             else
             {
-                buf[cur_size] = chr;
-                cur_size++;
+                buf[cur_size++] = chr;
             }
 
             index++;
         }
+
+        this->path_list_.push_back( std::string( buf , cur_size ) );
 
         if ( this->path_list_.size( ) == 0 )
         {

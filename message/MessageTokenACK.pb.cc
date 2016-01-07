@@ -32,13 +32,15 @@ void protobuf_AssignDesc_MessageTokenACK_2eproto() {
       "MessageTokenACK.proto");
   GOOGLE_CHECK(file != NULL);
   MessageTokenACK_descriptor_ = file->message_type(0);
-  static const int MessageTokenACK_offsets_[6] = {
+  static const int MessageTokenACK_offsets_[8] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageTokenACK, token_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageTokenACK, expire_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageTokenACK, index_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageTokenACK, request_id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageTokenACK, block_id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageTokenACK, client_id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageTokenACK, block_size_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageTokenACK, offset_),
   };
   MessageTokenACK_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -81,10 +83,11 @@ void protobuf_AddDesc_MessageTokenACK_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\025MessageTokenACK.proto\"x\n\017MessageTokenA"
-    "CK\022\r\n\005token\030\001 \002(\t\022\016\n\006expire\030\002 \002(\003\022\r\n\005ind"
-    "ex\030\003 \002(\003\022\022\n\nrequest_id\030\004 \002(\t\022\020\n\010block_id"
-    "\030\005 \002(\003\022\021\n\tclient_id\030\006 \002(\003", 145);
+    "\n\025MessageTokenACK.proto\"\234\001\n\017MessageToken"
+    "ACK\022\r\n\005token\030\001 \002(\t\022\016\n\006expire\030\002 \002(\003\022\r\n\005in"
+    "dex\030\003 \002(\003\022\022\n\nrequest_id\030\004 \002(\t\022\020\n\010block_i"
+    "d\030\005 \002(\003\022\021\n\tclient_id\030\006 \002(\003\022\022\n\nblock_size"
+    "\030\007 \002(\003\022\016\n\006offset\030\010 \002(\003", 182);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessageTokenACK.proto", &protobuf_RegisterTypes);
   MessageTokenACK::default_instance_ = new MessageTokenACK();
@@ -108,6 +111,8 @@ const int MessageTokenACK::kIndexFieldNumber;
 const int MessageTokenACK::kRequestIdFieldNumber;
 const int MessageTokenACK::kBlockIdFieldNumber;
 const int MessageTokenACK::kClientIdFieldNumber;
+const int MessageTokenACK::kBlockSizeFieldNumber;
+const int MessageTokenACK::kOffsetFieldNumber;
 #endif  // !_MSC_VER
 
 MessageTokenACK::MessageTokenACK()
@@ -135,6 +140,8 @@ void MessageTokenACK::SharedCtor() {
   request_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   block_id_ = GOOGLE_LONGLONG(0);
   client_id_ = GOOGLE_LONGLONG(0);
+  block_size_ = GOOGLE_LONGLONG(0);
+  offset_ = GOOGLE_LONGLONG(0);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -186,9 +193,9 @@ void MessageTokenACK::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 63) {
+  if (_has_bits_[0 / 32] & 255) {
     ZR_(expire_, index_);
-    ZR_(block_id_, client_id_);
+    ZR_(block_id_, offset_);
     if (has_token()) {
       if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         token_->clear();
@@ -307,6 +314,36 @@ bool MessageTokenACK::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(56)) goto parse_block_size;
+        break;
+      }
+
+      // required int64 block_size = 7;
+      case 7: {
+        if (tag == 56) {
+         parse_block_size:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &block_size_)));
+          set_has_block_size();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(64)) goto parse_offset;
+        break;
+      }
+
+      // required int64 offset = 8;
+      case 8: {
+        if (tag == 64) {
+         parse_offset:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &offset_)));
+          set_has_offset();
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -376,6 +413,16 @@ void MessageTokenACK::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt64(6, this->client_id(), output);
   }
 
+  // required int64 block_size = 7;
+  if (has_block_size()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(7, this->block_size(), output);
+  }
+
+  // required int64 offset = 8;
+  if (has_offset()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(8, this->offset(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -426,6 +473,16 @@ void MessageTokenACK::SerializeWithCachedSizes(
   // required int64 client_id = 6;
   if (has_client_id()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(6, this->client_id(), target);
+  }
+
+  // required int64 block_size = 7;
+  if (has_block_size()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(7, this->block_size(), target);
+  }
+
+  // required int64 offset = 8;
+  if (has_offset()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(8, this->offset(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -482,6 +539,20 @@ int MessageTokenACK::ByteSize() const {
           this->client_id());
     }
 
+    // required int64 block_size = 7;
+    if (has_block_size()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->block_size());
+    }
+
+    // required int64 offset = 8;
+    if (has_offset()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->offset());
+    }
+
   }
   if (!unknown_fields().empty()) {
     total_size +=
@@ -527,6 +598,12 @@ void MessageTokenACK::MergeFrom(const MessageTokenACK& from) {
     if (from.has_client_id()) {
       set_client_id(from.client_id());
     }
+    if (from.has_block_size()) {
+      set_block_size(from.block_size());
+    }
+    if (from.has_offset()) {
+      set_offset(from.offset());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -544,7 +621,7 @@ void MessageTokenACK::CopyFrom(const MessageTokenACK& from) {
 }
 
 bool MessageTokenACK::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000003f) != 0x0000003f) return false;
+  if ((_has_bits_[0] & 0x000000ff) != 0x000000ff) return false;
 
   return true;
 }
@@ -557,6 +634,8 @@ void MessageTokenACK::Swap(MessageTokenACK* other) {
     std::swap(request_id_, other->request_id_);
     std::swap(block_id_, other->block_id_);
     std::swap(client_id_, other->client_id_);
+    std::swap(block_size_, other->block_size_);
+    std::swap(offset_, other->offset_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

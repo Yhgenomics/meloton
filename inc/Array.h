@@ -24,7 +24,9 @@ public:
     ~Array( );
 
     void    push( sptr<T> element );
+    void    push( T* element );
     void    remove( sptr<T> element );
+    void    remove( T* element );
     void    remove_at( size_t index );
     sptr<T> get( size_t index );
     void    set( size_t index , sptr<T> instance );
@@ -45,10 +47,13 @@ template<class T>
 inline Array<T>::Array( size_t initialSize )
 {
     SAFE_DELETE( array_ );
-    array_ = new sptr<T>[initialSize]
+    array_ = new sptr<T>[initialSize];
+
+    for ( size_t i = 0; i < initialSize; i++ )
     {
-        0
-    };
+        array_[i] = nullptr;
+    }
+
     size_ = initialSize;
     cur_ = 0;
 }
@@ -60,17 +65,55 @@ inline Array<T>::~Array( )
 };
 
 template<class T>
+inline void Array<T>::push( T* element )
+{
+    for ( size_t i = 0; i <= cur_; i++ )
+    {
+        if ( array_[i] == nullptr )
+        {
+            array_[i] = sptr<T>(element);
+            if ( i == ( cur_ ) )
+            {
+                ++cur_;
+            }
+            break;
+        }
+    }
+
+
+};
+
+template<class T>
 inline void Array<T>::push( sptr<T> element )
 {
     for ( size_t i = 0; i <= cur_; i++ )
     {
         if ( array_[i] == nullptr )
         {
-            array_[i] = element;
+            array_[i] = sptr<T>(element);
 
             if ( i == ( cur_ ) )
             {
                 ++cur_;
+            }
+            break;
+        }
+    }
+};
+
+template<class T>
+inline void Array<T>::remove( T* element )
+{
+    for ( size_t i = 0; i < cur_; i++ )
+    {
+        if ( array_[i] != nullptr &&
+             array_[i].get() == element )
+        {
+            array_[i] = nullptr;
+
+            if ( i == ( cur_ - 1 ) )
+            {
+                --cur_;
             }
             break;
         }

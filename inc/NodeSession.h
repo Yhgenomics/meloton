@@ -16,8 +16,8 @@ class NodeSession :
 public:
 
     NodeSession( );
-    ~NodeSession( ); 
-
+    ~NodeSession( );
+    
     PP_DEF( size_t , block_num )
     PP_DEF( size_t , disk_space )
     PP_DEF( size_t , token_num )

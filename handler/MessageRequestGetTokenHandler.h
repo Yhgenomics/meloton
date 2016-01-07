@@ -31,13 +31,15 @@ static int MessageRequestGetTokenHandler( ClusterSession * session , uptr<Messag
     }
 
     uptr<MessageTokenACK> reply = make_uptr( MessageTokenACK );
-
+ 
     reply->set_block_id( msg->block_id( ) );
+    reply->set_block_size( block->size );
+    reply->set_client_id( msg->client_id( ) );
     reply->set_expire( MAX_SIZE_T );
     reply->set_index( block->index );
+    reply->set_offset( 0 );
     reply->set_request_id( msg->request_id( ) );
     reply->set_token( TokenPool::instance( )->create( ) );
-    reply->set_client_id( msg->client_id( ) );
 
     session->send_message( move_ptr( reply ) );
     

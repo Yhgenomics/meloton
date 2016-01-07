@@ -21,47 +21,19 @@ public:
 
     static std::string create() 
     {
+        std::string ret = "";
         char buf[UUID_LEN];
         const char *c = "yhgenomics";
-        char *p = buf;
-        int n;
+        char num_buf[8] = { 0 };
 
-        for ( n = 0; n < 16; ++n )
+        for (int n = 0; n < 16; ++n )
         {
             int seed = rand() % 255;
-            switch ( n )
-            {
-            case 6:
-#ifdef _WIN32
-                sprintf_s( p, UUID_LEN , "4%x", seed % 15 );
-#else
-                sprintf( p, "4%x", seed % 15 );
-#endif
-                break;
+            itoa( seed , num_buf , 16 );
+            ret += num_buf;
+        } 
 
-            case 8:
-
-#ifdef _WIN32
-                sprintf_s( p, UUID_LEN ,"%c%x", c[rand() % strlen( c )], seed % 15 );
-#else
-                sprintf( p, "%c%x", c[rand() % strlen( c )], seed % 15 );
-#endif
-                break;
-
-            default:
-#ifdef _WIN32
-                sprintf_s( p, UUID_LEN , "%02x", seed );
-#else
-                sprintf( p, "%02x", seed );
-#endif
-                break;
-            }
-
-            p += 2;
-        }
-
-        *p = 0;
-        return std::string( buf );
+        return ret;
     } 
 
 private:

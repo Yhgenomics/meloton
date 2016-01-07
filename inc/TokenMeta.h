@@ -20,6 +20,8 @@ struct TokenMeta
     std::string request_id;
     size_t block_id;
     size_t client_id;
+    size_t block_size;
+    size_t offset;
 };
 
 #endif // !TOKEN_META_H_

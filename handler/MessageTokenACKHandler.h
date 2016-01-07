@@ -33,14 +33,16 @@ static int MessageTokenACKHandler( ClusterSession * session , uptr<MessageTokenA
     }
 
     sptr<TokenMeta> meta = make_sptr( TokenMeta );
-    meta->address        = node->data_ip( );
-    meta->port           = node->data_port( );
+    meta->address        = node->ip_address( );
+    meta->port           = node->port( );
     meta->block_id       = msg->block_id( );
     meta->client_id      = msg->client_id( );
     meta->expire         = msg->expire( );
     meta->index          = msg->index( );
     meta->request_id     = msg->request_id( );
     meta->token          = msg->token( );
+    meta->block_size     = msg->block_size( );
+    meta->offset         = msg->offset( );
 
     if ( client->add_token( meta ) )
     {
@@ -53,14 +55,16 @@ static int MessageTokenACKHandler( ClusterSession * session , uptr<MessageTokenA
             
             if ( token == nullptr ) return -1;
 
-            reply->set_address( i , token->address );
-            reply->set_block_id( i , token->block_id );
-            reply->set_expire( i , token->expire );
-            reply->set_index( i , token->index );
-            reply->set_port( i , token->port );
-            reply->set_token ( i , token->token );
+            reply->add_address( token->address.c_str( ) , token->address.size( ) );
+            reply->add_block_id( token->block_id );
+            reply->add_expire( token->expire );
+            reply->add_index( token->index );
+            reply->add_port( token->port );
+            reply->add_token ( token->token );
+            reply->add_size( token->block_size );
+            reply->add_offset( token->offset );
         }
-        
+
         client->send_message( move_ptr( reply ) );
         client->close( );
     }

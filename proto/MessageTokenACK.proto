@@ -6,4 +6,6 @@ message MessageTokenACK
     required string request_id  = 4;
     required int64 block_id     = 5;
     required int64 client_id    = 6;
+    required int64 block_size   = 7;
+    required int64 offset       = 8;
 }

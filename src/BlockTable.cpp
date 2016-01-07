@@ -3,9 +3,7 @@
 
 BlockTable::BlockTable( )
 {
-    this->block_index_list_ = scast<sptr<BlockIndex>*>( 
-        malloc( MAX_BLOCK_NUM )
-    );
+    this->block_index_list_ = new sptr<BlockIndex>[MAX_BLOCK_NUM];
 }
 
 
@@ -43,7 +41,7 @@ void BlockTable::load_index( FILE * pfile )
     while ( true )
     {
         auto idx = new BlockIndex( );
-        auto reads = fread( idx , sizeof( BlockIndex ) , 1 , pfile );
+        auto reads = fread( idx , 1 , sizeof( BlockIndex ) , pfile );
         
         if ( reads == 0 )
         {
@@ -70,15 +68,19 @@ void BlockTable::save_index( FILE * pfile , size_t index )
     size_t pos = index* sizeof( BlockIndex );
     fseek( pfile , pos , SEEK_SET );
     fwrite( data.get( ) , sizeof( BlockIndex ) , 1 , pfile );
+    fflush( pfile );
 }
 
 size_t BlockTable::alloc_data_space( )
 {
     size_t pos              = 0;
-    char buf[BLOCK_SIZE]    = { 0 };
+    char* buf = new char[BLOCK_SIZE];
+    memset( buf , 0 , BLOCK_SIZE );
+    //char buf[BLOCK_SIZE]    = { 0 };
     fseek( this->pfile_data_ , 0 , SEEK_END );
     pos = ftell( this->pfile_data_ );
-    fwrite( &buf , BLOCK_SIZE , 1 , this->pfile_data_ ); 
+    fwrite( buf , BLOCK_SIZE , 1 , this->pfile_data_ ); 
+    SAFE_DELETE( buf );
     return pos;
 }
 
@@ -169,7 +171,7 @@ size_t BlockTable::write_block( sptr<BlockIndex> block,
 
     fseek( this->pfile_data_ , block->offset + offset , SEEK_SET );
     fwrite( data , 1 , size , this->pfile_data_ );
-
+    fflush( this->pfile_data_ );
     return size;
 }
 

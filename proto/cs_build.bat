@@ -1,0 +1,1 @@
+for %%i in (*.proto) do CodeGenerator.exe %%i --output cs_message\%%i.cs

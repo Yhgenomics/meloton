@@ -9,12 +9,14 @@
 #define DIRECTORY_META_H_
 
 #include <vector>
+#include <memory>
 
 #include "MRT.h"
 #include "FileMeta.h"
 #include "Path.h"
 
 class DirectoryMeta
+    : public std::enable_shared_from_this<DirectoryMeta>  
 {
 public:
 

@@ -36,6 +36,8 @@ static int MessageRequestPutTokenHandler( ClusterSession * session , uptr<Messag
     reply->set_request_id( msg->request_id( ) );
     reply->set_token( TokenPool::instance( )->create( ) );
     reply->set_client_id( msg->client_id( ) );
+    reply->set_block_size( msg->size( ) );
+    reply->set_offset( msg->offset( ) );
 
     session->send_message( move_ptr( reply ) );
 

@@ -38,6 +38,11 @@ void TokenPool::remove( std::string token )
     }
 }
 
+size_t TokenPool::token_num( )
+{
+    return this->token_list_.size( );
+}
+
 TokenPool::TokenPool( )
 {
 }

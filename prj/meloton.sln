@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "meloton", "meloton.vcxproj"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meloton-handler-generator", "meloton-handler-generator\meloton-handler-generator.csproj", "{176BC663-7959-461A-A0AE-CBDBEB8A1ECF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test-cli", "test-cli\test-cli.csproj", "{1D4ED524-FB6A-4048-B134-68E5B0EB23BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,18 @@ Global
 		{176BC663-7959-461A-A0AE-CBDBEB8A1ECF}.Release|x64.Build.0 = Release|Any CPU
 		{176BC663-7959-461A-A0AE-CBDBEB8A1ECF}.Release|x86.ActiveCfg = Release|Any CPU
 		{176BC663-7959-461A-A0AE-CBDBEB8A1ECF}.Release|x86.Build.0 = Release|Any CPU
+		{1D4ED524-FB6A-4048-B134-68E5B0EB23BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D4ED524-FB6A-4048-B134-68E5B0EB23BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D4ED524-FB6A-4048-B134-68E5B0EB23BA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1D4ED524-FB6A-4048-B134-68E5B0EB23BA}.Debug|x64.Build.0 = Debug|Any CPU
+		{1D4ED524-FB6A-4048-B134-68E5B0EB23BA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1D4ED524-FB6A-4048-B134-68E5B0EB23BA}.Debug|x86.Build.0 = Debug|Any CPU
+		{1D4ED524-FB6A-4048-B134-68E5B0EB23BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D4ED524-FB6A-4048-B134-68E5B0EB23BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D4ED524-FB6A-4048-B134-68E5B0EB23BA}.Release|x64.ActiveCfg = Release|Any CPU
+		{1D4ED524-FB6A-4048-B134-68E5B0EB23BA}.Release|x64.Build.0 = Release|Any CPU
+		{1D4ED524-FB6A-4048-B134-68E5B0EB23BA}.Release|x86.ActiveCfg = Release|Any CPU
+		{1D4ED524-FB6A-4048-B134-68E5B0EB23BA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

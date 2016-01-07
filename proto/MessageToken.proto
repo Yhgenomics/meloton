@@ -1,9 +1,11 @@
 message MessageToken
 {
-    repeated string token = 1;
-    repeated int64 expire = 2;
+    repeated string token   = 1;
+    repeated int64 expire   = 2;
     repeated string address = 3;
-    repeated int32 port = 4;
+    repeated int32 port     = 4;
     repeated int64 block_id = 5;
-    repeated int64 index = 6;
+    repeated int64 index    = 6;
+    repeated int64 size     = 7;
+    repeated int64 offset   = 8;
 }

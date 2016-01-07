@@ -32,12 +32,13 @@ void protobuf_AssignDesc_MessageRequestPutToken_2eproto() {
       "MessageRequestPutToken.proto");
   GOOGLE_CHECK(file != NULL);
   MessageRequestPutToken_descriptor_ = file->message_type(0);
-  static const int MessageRequestPutToken_offsets_[5] = {
+  static const int MessageRequestPutToken_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageRequestPutToken, request_id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageRequestPutToken, block_id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageRequestPutToken, size_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageRequestPutToken, file_name_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageRequestPutToken, client_id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageRequestPutToken, offset_),
   };
   MessageRequestPutToken_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -80,10 +81,11 @@ void protobuf_AddDesc_MessageRequestPutToken_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\034MessageRequestPutToken.proto\"r\n\026Messag"
-    "eRequestPutToken\022\022\n\nrequest_id\030\001 \002(\t\022\020\n\010"
-    "block_id\030\002 \002(\003\022\014\n\004size\030\003 \002(\003\022\021\n\tfile_nam"
-    "e\030\004 \002(\t\022\021\n\tclient_id\030\005 \002(\003", 146);
+    "\n\034MessageRequestPutToken.proto\"\202\001\n\026Messa"
+    "geRequestPutToken\022\022\n\nrequest_id\030\001 \002(\t\022\020\n"
+    "\010block_id\030\002 \002(\003\022\014\n\004size\030\003 \002(\003\022\021\n\tfile_na"
+    "me\030\004 \002(\t\022\021\n\tclient_id\030\005 \002(\003\022\016\n\006offset\030\006 "
+    "\002(\003", 163);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessageRequestPutToken.proto", &protobuf_RegisterTypes);
   MessageRequestPutToken::default_instance_ = new MessageRequestPutToken();
@@ -106,6 +108,7 @@ const int MessageRequestPutToken::kBlockIdFieldNumber;
 const int MessageRequestPutToken::kSizeFieldNumber;
 const int MessageRequestPutToken::kFileNameFieldNumber;
 const int MessageRequestPutToken::kClientIdFieldNumber;
+const int MessageRequestPutToken::kOffsetFieldNumber;
 #endif  // !_MSC_VER
 
 MessageRequestPutToken::MessageRequestPutToken()
@@ -132,6 +135,7 @@ void MessageRequestPutToken::SharedCtor() {
   size_ = GOOGLE_LONGLONG(0);
   file_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   client_id_ = GOOGLE_LONGLONG(0);
+  offset_ = GOOGLE_LONGLONG(0);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -183,8 +187,9 @@ void MessageRequestPutToken::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 31) {
+  if (_has_bits_[0 / 32] & 63) {
     ZR_(block_id_, size_);
+    ZR_(client_id_, offset_);
     if (has_request_id()) {
       if (request_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         request_id_->clear();
@@ -195,7 +200,6 @@ void MessageRequestPutToken::Clear() {
         file_name_->clear();
       }
     }
-    client_id_ = GOOGLE_LONGLONG(0);
   }
 
 #undef OFFSET_OF_FIELD_
@@ -289,6 +293,21 @@ bool MessageRequestPutToken::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(48)) goto parse_offset;
+        break;
+      }
+
+      // required int64 offset = 6;
+      case 6: {
+        if (tag == 48) {
+         parse_offset:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &offset_)));
+          set_has_offset();
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -353,6 +372,11 @@ void MessageRequestPutToken::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt64(5, this->client_id(), output);
   }
 
+  // required int64 offset = 6;
+  if (has_offset()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(6, this->offset(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -398,6 +422,11 @@ void MessageRequestPutToken::SerializeWithCachedSizes(
   // required int64 client_id = 5;
   if (has_client_id()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(5, this->client_id(), target);
+  }
+
+  // required int64 offset = 6;
+  if (has_offset()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(6, this->offset(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -447,6 +476,13 @@ int MessageRequestPutToken::ByteSize() const {
           this->client_id());
     }
 
+    // required int64 offset = 6;
+    if (has_offset()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->offset());
+    }
+
   }
   if (!unknown_fields().empty()) {
     total_size +=
@@ -489,6 +525,9 @@ void MessageRequestPutToken::MergeFrom(const MessageRequestPutToken& from) {
     if (from.has_client_id()) {
       set_client_id(from.client_id());
     }
+    if (from.has_offset()) {
+      set_offset(from.offset());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -506,7 +545,7 @@ void MessageRequestPutToken::CopyFrom(const MessageRequestPutToken& from) {
 }
 
 bool MessageRequestPutToken::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000001f) != 0x0000001f) return false;
+  if ((_has_bits_[0] & 0x0000003f) != 0x0000003f) return false;
 
   return true;
 }
@@ -518,6 +557,7 @@ void MessageRequestPutToken::Swap(MessageRequestPutToken* other) {
     std::swap(size_, other->size_);
     std::swap(file_name_, other->file_name_);
     std::swap(client_id_, other->client_id_);
+    std::swap(offset_, other->offset_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

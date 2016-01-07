@@ -24,6 +24,5 @@ void NodeListener::on_session_open( Session * session )
 
 void NodeListener::on_session_close( Session * session )
 {
-    auto ptr = sptr<NodeSession>( (NodeSession*)session );
-    NodeManager::instance( )->remove_node( ptr );
+    NodeManager::instance( )->remove_node( (NodeSession*)session );
 }

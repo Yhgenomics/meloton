@@ -25,6 +25,9 @@ public:
 
     void close  ( );
 
+    PP_DEF( std::string , ip_address )
+    PP_DEF( int , port )
+
 protected:
     
     Operator* opt_ =  nullptr;
@@ -52,6 +55,8 @@ private:
     };
 
     uv_tcp_t    uv_tcp_         = { 0 };
+    std::string ip_address_     = "";
+    int         port_           = 0;
     
     static void uv_write_callback ( uv_write_t * req, int status );
 

@@ -49,8 +49,8 @@ void CMDParameter::print_help( )
 {
     printf( "YHGenomics Inc.\r\n" );
     printf( "Meloton Distribute File Systrem\r\n" );
-    printf( "Version:   %d.%d\r\n" , VERSIONMAJOR , VERSJONMINOR );
-    printf( "Build Date:%s %s\r\n" , __DATE__ , __TIME__ );
+    printf( "Version:    %d.%d\r\n" , VERSIONMAJOR , VERSJONMINOR );
+    printf( "Build Date: %s %s\r\n" , __DATE__ , __TIME__ );
     printf( "========================================\r\n" );
     printf( "Usage: meloton options ip port\r\n" );
     printf( "   options: \r\n" );

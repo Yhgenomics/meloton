@@ -30,7 +30,9 @@ public:
     sptr<T>             get_node    ( size_t index );
     size_t              count       ( );
     void                push_node   ( sptr<T> session );
+    void                push_node   ( T* session );
     void                remove_node ( sptr<T> session );
+    void                remove_node ( T* session );
     sptr<T>             find_node   ( find_callback_t callback );
     void                all_node    ( all_callback_t callback );
     void                sort        ( compare_callback_t callback );
@@ -40,6 +42,7 @@ protected:
     Manager( size_t element_size );
 
     uptr<Array<T>> node_array_ = nullptr;
+    
     void quick_sort( size_t i , size_t j , compare_callback_t compare );
 }; 
 
@@ -71,11 +74,23 @@ inline size_t Manager<T>::count( )
 template<class T>
 inline void Manager<T>::push_node( sptr<T> session )
 {
-     this->node_array_->push( session );
+     this->node_array_->push( sptr<T>(session) );
+}
+
+template<class T>
+inline void Manager<T>::push_node( T* session )
+{
+    this->node_array_->push( sptr<T>( session ) );
 }
 
 template<class T>
 inline void Manager<T>::remove_node( sptr<T> session )
+{
+    this->node_array_->remove( sptr<T>( session ) );
+}
+
+template<class T>
+inline void Manager<T>::remove_node( T* session )
 {
     this->node_array_->remove( session );
 }

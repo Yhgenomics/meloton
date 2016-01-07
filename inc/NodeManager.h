@@ -33,6 +33,7 @@ public:
     size_t              count       ( );
     void                push_node   ( sptr<NodeSession> session );
     void                remove_node ( sptr<NodeSession> session );
+    void                remove_node ( NodeSession* session );
     sptr<NodeSession>   find_node   ( find_callback_t callback );
     void                all_node    ( all_callback_t callback );
     void                sort        ( compare_callback_t callback );

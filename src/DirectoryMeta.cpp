@@ -18,9 +18,11 @@ sptr<FileMeta> DirectoryMeta::append_file( sptr<FileMeta> meta )
         if ( f->name_hash() == meta->name_hash() && 
              f->name( ) == meta->name() )
         {
-            return nullptr;
+            return sptr<FileMeta>(f);
         }
-    }
+    } 
+
+    this->files_.push_back( sptr<FileMeta>( meta ) );
 
     return meta;
 }
@@ -31,7 +33,7 @@ sptr<FileMeta> DirectoryMeta::get_file( std::string name )
     {
         if ( f->name( ) == name )
         {
-            return f;
+            return sptr<FileMeta> (f);
         }
     }
 
@@ -45,6 +47,7 @@ sptr<FileMeta> DirectoryMeta::get_file( sptr<Path> path )
     if ( dir == nullptr ) return nullptr;
 
     auto result = dir->get_file( path->filename( ) );
+     
     return result;
 }
 
@@ -65,7 +68,7 @@ bool DirectoryMeta::file_exist( std::string name )
 
 sptr<DirectoryMeta> DirectoryMeta::append_dir( sptr<DirectoryMeta> meta )
 {
-    this->children_.push_back( meta );
+    this->children_.push_back( sptr<DirectoryMeta> ( meta ) );
     meta->parent_ = sptr<DirectoryMeta>( this );
     return meta;
 }
@@ -74,12 +77,18 @@ sptr<DirectoryMeta> DirectoryMeta::get_dir( std::string name )
 {
     size_t hash = hash_code( name );
 
+    if ( this->name_hash_ == hash &&
+         this->name_ == name )
+    {
+        return shared_from_this();
+    }
+    
     for ( auto d : this->children_ )
     {
         if ( d->name_hash_ == hash &&
              d->name_ == name )
         {
-            return d;
+            return move_ptr( sptr<DirectoryMeta>( d ) );
         }
     }
 
@@ -89,18 +98,21 @@ sptr<DirectoryMeta> DirectoryMeta::get_dir( std::string name )
 sptr<DirectoryMeta> DirectoryMeta::get_dir( sptr<Path> path )
 {
     auto p = path->list( );
-    sptr<DirectoryMeta> cur_dir = sptr<DirectoryMeta>( this );
-    
-    for ( auto dir : p )
+
+    DirectoryMeta* rt = this;
+    sptr<DirectoryMeta> result = shared_from_this();
+
+    for ( auto & dir : p )
     {
-        cur_dir = cur_dir->get_dir( dir );
-        if ( cur_dir == nullptr )
+        result = result->get_dir( dir );
+
+        if ( result == nullptr )
         {
             return nullptr;
         }
     }
 
-    return cur_dir;
+    return move_ptr( result );
 }
 
 bool DirectoryMeta::dir_exist( std::string name )

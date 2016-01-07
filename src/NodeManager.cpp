@@ -1,4 +1,5 @@
 #include "NodeManager.h"
+#include <meloton.h>
 
 NodeManager::NodeManager( )
 {
@@ -8,7 +9,7 @@ NodeManager::NodeManager( )
     {
         this->all_node( [ ] ( sptr<NodeSession> session )
         {
-            if ( session->alive_time( ) > 5000 )
+            if ( session->alive_time( ) > NODE_TIMEOUT )
             {
                 session->close( );
             }
@@ -25,8 +26,7 @@ NodeManager::~NodeManager( )
 
 NodeSession * NodeManager::create_node( )
 {
-    auto session = make_sptr( NodeSession );
-    return session.get( );
+    return new NodeSession( );
 }
 
 sptr<NodeSession> NodeManager::get_node( size_t index )
@@ -49,6 +49,11 @@ void NodeManager::remove_node( sptr<NodeSession> session )
     this->node_array_->remove( session );
 }
 
+void NodeManager::remove_node( NodeSession* session )
+{ 
+    this->node_array_->remove( (NodeSession*)session );
+}
+
 sptr<NodeSession> NodeManager::find_node( find_callback_t callback )
 {
     return  this->node_array_->find( callback );
@@ -68,6 +73,8 @@ void NodeManager::all_node( all_callback_t callback )
 
 void NodeManager::sort( compare_callback_t callback )
 {
+    if ( this->node_array_->size( ) < 2 )
+        return;
     quick_sort( 0 , this->node_array_->size( ) - 1, callback );
 }
 

@@ -168,6 +168,30 @@ class MessageToken : public ::google::protobuf::Message {
   inline ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
       mutable_index();
 
+  // repeated int64 size = 7;
+  inline int size_size() const;
+  inline void clear_size();
+  static const int kSizeFieldNumber = 7;
+  inline ::google::protobuf::int64 size(int index) const;
+  inline void set_size(int index, ::google::protobuf::int64 value);
+  inline void add_size(::google::protobuf::int64 value);
+  inline const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+      size() const;
+  inline ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+      mutable_size();
+
+  // repeated int64 offset = 8;
+  inline int offset_size() const;
+  inline void clear_offset();
+  static const int kOffsetFieldNumber = 8;
+  inline ::google::protobuf::int64 offset(int index) const;
+  inline void set_offset(int index, ::google::protobuf::int64 value);
+  inline void add_offset(::google::protobuf::int64 value);
+  inline const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+      offset() const;
+  inline ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+      mutable_offset();
+
   // @@protoc_insertion_point(class_scope:MessageToken)
  private:
 
@@ -181,6 +205,8 @@ class MessageToken : public ::google::protobuf::Message {
   ::google::protobuf::RepeatedField< ::google::protobuf::int32 > port_;
   ::google::protobuf::RepeatedField< ::google::protobuf::int64 > block_id_;
   ::google::protobuf::RepeatedField< ::google::protobuf::int64 > index_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int64 > size_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int64 > offset_;
   friend void  protobuf_AddDesc_MessageToken_2eproto();
   friend void protobuf_AssignDesc_MessageToken_2eproto();
   friend void protobuf_ShutdownFile_MessageToken_2eproto();
@@ -421,6 +447,66 @@ inline ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
 MessageToken::mutable_index() {
   // @@protoc_insertion_point(field_mutable_list:MessageToken.index)
   return &index_;
+}
+
+// repeated int64 size = 7;
+inline int MessageToken::size_size() const {
+  return size_.size();
+}
+inline void MessageToken::clear_size() {
+  size_.Clear();
+}
+inline ::google::protobuf::int64 MessageToken::size(int index) const {
+  // @@protoc_insertion_point(field_get:MessageToken.size)
+  return size_.Get(index);
+}
+inline void MessageToken::set_size(int index, ::google::protobuf::int64 value) {
+  size_.Set(index, value);
+  // @@protoc_insertion_point(field_set:MessageToken.size)
+}
+inline void MessageToken::add_size(::google::protobuf::int64 value) {
+  size_.Add(value);
+  // @@protoc_insertion_point(field_add:MessageToken.size)
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+MessageToken::size() const {
+  // @@protoc_insertion_point(field_list:MessageToken.size)
+  return size_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+MessageToken::mutable_size() {
+  // @@protoc_insertion_point(field_mutable_list:MessageToken.size)
+  return &size_;
+}
+
+// repeated int64 offset = 8;
+inline int MessageToken::offset_size() const {
+  return offset_.size();
+}
+inline void MessageToken::clear_offset() {
+  offset_.Clear();
+}
+inline ::google::protobuf::int64 MessageToken::offset(int index) const {
+  // @@protoc_insertion_point(field_get:MessageToken.offset)
+  return offset_.Get(index);
+}
+inline void MessageToken::set_offset(int index, ::google::protobuf::int64 value) {
+  offset_.Set(index, value);
+  // @@protoc_insertion_point(field_set:MessageToken.offset)
+}
+inline void MessageToken::add_offset(::google::protobuf::int64 value) {
+  offset_.Add(value);
+  // @@protoc_insertion_point(field_add:MessageToken.offset)
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+MessageToken::offset() const {
+  // @@protoc_insertion_point(field_list:MessageToken.offset)
+  return offset_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+MessageToken::mutable_offset() {
+  // @@protoc_insertion_point(field_mutable_list:MessageToken.offset)
+  return &offset_;
 }
 
 

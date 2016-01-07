@@ -133,6 +133,13 @@ class MessageRequestPutToken : public ::google::protobuf::Message {
   inline ::google::protobuf::int64 client_id() const;
   inline void set_client_id(::google::protobuf::int64 value);
 
+  // required int64 offset = 6;
+  inline bool has_offset() const;
+  inline void clear_offset();
+  static const int kOffsetFieldNumber = 6;
+  inline ::google::protobuf::int64 offset() const;
+  inline void set_offset(::google::protobuf::int64 value);
+
   // @@protoc_insertion_point(class_scope:MessageRequestPutToken)
  private:
   inline void set_has_request_id();
@@ -145,6 +152,8 @@ class MessageRequestPutToken : public ::google::protobuf::Message {
   inline void clear_has_file_name();
   inline void set_has_client_id();
   inline void clear_has_client_id();
+  inline void set_has_offset();
+  inline void clear_has_offset();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -155,6 +164,7 @@ class MessageRequestPutToken : public ::google::protobuf::Message {
   ::google::protobuf::int64 size_;
   ::std::string* file_name_;
   ::google::protobuf::int64 client_id_;
+  ::google::protobuf::int64 offset_;
   friend void  protobuf_AddDesc_MessageRequestPutToken_2eproto();
   friend void protobuf_AssignDesc_MessageRequestPutToken_2eproto();
   friend void protobuf_ShutdownFile_MessageRequestPutToken_2eproto();
@@ -391,6 +401,30 @@ inline void MessageRequestPutToken::set_client_id(::google::protobuf::int64 valu
   set_has_client_id();
   client_id_ = value;
   // @@protoc_insertion_point(field_set:MessageRequestPutToken.client_id)
+}
+
+// required int64 offset = 6;
+inline bool MessageRequestPutToken::has_offset() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void MessageRequestPutToken::set_has_offset() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void MessageRequestPutToken::clear_has_offset() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void MessageRequestPutToken::clear_offset() {
+  offset_ = GOOGLE_LONGLONG(0);
+  clear_has_offset();
+}
+inline ::google::protobuf::int64 MessageRequestPutToken::offset() const {
+  // @@protoc_insertion_point(field_get:MessageRequestPutToken.offset)
+  return offset_;
+}
+inline void MessageRequestPutToken::set_offset(::google::protobuf::int64 value) {
+  set_has_offset();
+  offset_ = value;
+  // @@protoc_insertion_point(field_set:MessageRequestPutToken.offset)
 }
 
 

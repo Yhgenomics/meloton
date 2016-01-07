@@ -2,7 +2,7 @@
 
 FS::FS( )
 {
-    this->root_ = make_sptr( DirectoryMeta , "" );
+    this->root_ = make_sptr( DirectoryMeta , "/" );
 }
 
 FS::~FS( )
@@ -17,13 +17,16 @@ sptr<DirectoryMeta> FS::create_dir( std::string str_path )
 
     for ( std::string & p : cpath )
     {
-        dir = dir->get_dir( str_path );
+        if ( dir->name( ) == p )
+        {
+            return dir;
+        }
 
-        if ( dir == nullptr )
+        if ( !dir->dir_exist( str_path ) )
         {
             sptr<DirectoryMeta> tmp_dir = make_sptr( DirectoryMeta , p );
             dir->append_dir( tmp_dir );
-            dir = tmp_dir;
+            dir = move_ptr( tmp_dir );
         }
     }
 
@@ -58,5 +61,6 @@ bool FS::exist_file( std::string path )
 
 sptr<FileMeta> FS::get_file( std::string path )
 {
-     return this->root_->get_file( make_sptr( Path , path) );
+    auto p = make_sptr( Path , path );
+    return this->root_->get_file( move_ptr(p) );
 }
