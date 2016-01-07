@@ -136,6 +136,9 @@
     <ClCompile Include="..\src\ClientSession.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\message\MessageSyncBlock.pb.cc">
+      <Filter>message</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\inc\NodeDetector.h">
@@ -323,6 +326,12 @@
     </ClInclude>
     <ClInclude Include="..\inc\TokenMeta.h">
       <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\handler\MessageSyncBlockHandler.h">
+      <Filter>handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\message\MessageSyncBlock.pb.h">
+      <Filter>message</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

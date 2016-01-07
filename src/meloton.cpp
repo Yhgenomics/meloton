@@ -9,6 +9,9 @@
 #include <time.h>
 #include <ClientListener.h>
 #include <BlockTable.h>
+#include <Path.h>
+#include <DirectoryMeta.h>
+#include <FS.h>
 
 void test_file_table( )
 {
@@ -40,8 +43,16 @@ void test_file_table( )
 }
 
 int main( int argc , char * argv[] )
-{   
-    //auto t = MRT::UUID::create( );
+{    
+    //sptr<Path> p = make_sptr(Path ,  "/test/4g" );
+    //sptr<DirectoryMeta> test = make_sptr( DirectoryMeta , "test" );
+    //sptr<FileMeta> file = make_sptr( FileMeta , "4g" );
+    //DirectoryMeta root( "/" );
+    //auto d = root.append_dir( sptr<DirectoryMeta> ( test ) );
+    //d->append_file( sptr<FileMeta>( file ) );
+
+    //auto res = root.get_file( sptr<Path>( p ) );
+
     if ( !CMDParameter::parse( argc , argv ) )
     {
         return 0;

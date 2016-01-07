@@ -91,6 +91,8 @@ namespace test_cli
 
                 for (int i = 0; i < tokens.Address.Count; i++)
                 {
+                    Console.WriteLine("Writing Block :" + tokens.BlockId[i]);
+
                     stream.Position = tokens.Offset[i];
 
                     Protocol srv = new Protocol();
@@ -152,7 +154,7 @@ namespace test_cli
 
                 for (int i = 0; i < tokens.Address.Count; i++)
                 { 
-                    Console.WriteLine("Reading Block "+ tokens.BlockId[i]);
+                    Console.WriteLine("Reading Block :"+ tokens.BlockId[i]);
                     stream.Position = tokens.Offset[i];
 
                     Protocol srv = new Protocol();

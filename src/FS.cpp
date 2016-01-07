@@ -17,16 +17,17 @@ sptr<DirectoryMeta> FS::create_dir( std::string str_path )
 
     for ( std::string & p : cpath )
     {
-        if ( dir->name( ) == p )
-        {
-            return dir;
-        }
+        auto tmp = dir->get_dir( p );
 
-        if ( !dir->dir_exist( str_path ) )
+        if ( tmp == nullptr )
         {
             sptr<DirectoryMeta> tmp_dir = make_sptr( DirectoryMeta , p );
-            dir->append_dir( tmp_dir );
-            dir = move_ptr( tmp_dir );
+            dir = dir->append_dir( tmp_dir );
+            //dir = move_ptr( tmp_dir );
+        }
+        else
+        {
+            dir = tmp->get_dir( p );
         }
     }
 
@@ -35,17 +36,31 @@ sptr<DirectoryMeta> FS::create_dir( std::string str_path )
 
 sptr<DirectoryMeta> FS::get_dir( std::string path )
 {
-    return this->root_->get_dir( make_sptr( Path , path ) );
+    Path p( path );
+    sptr<DirectoryMeta> result = nullptr;
+
+    for ( auto & pstr : p.list( ) )
+    {
+        result = this->root_->get_dir( pstr );
+
+        if ( result == nullptr )
+        {
+            return result;
+        }
+    }
+
+    return  sptr<DirectoryMeta>( result );
 }
 
 std::vector<sptr<DirectoryMeta>> FS::list_dir( std::string path )
 {
-    return std::vector<sptr<DirectoryMeta>>();
+    return std::vector<sptr<DirectoryMeta>>( );
 }
 
 sptr<FileMeta> FS::create_file( std::string str_path )
 {
     Path path( str_path );
+
     auto dir = this->create_dir( str_path );
 
     sptr<FileMeta> file = make_sptr( FileMeta , path.filename( ) );
@@ -56,11 +71,19 @@ sptr<FileMeta> FS::create_file( std::string str_path )
 
 bool FS::exist_file( std::string path )
 {
-    return this->root_->get_file( make_sptr( Path , path) ) != nullptr ;
+    return get_file( path ) != nullptr;
 }
 
 sptr<FileMeta> FS::get_file( std::string path )
 {
     auto p = make_sptr( Path , path );
-    return this->root_->get_file( move_ptr(p) );
+    auto dir = get_dir( path );
+
+    if ( dir == nullptr )
+    {
+        return nullptr;
+    }
+
+    auto file = dir->get_file( p->filename( ) );
+    return file;
 }

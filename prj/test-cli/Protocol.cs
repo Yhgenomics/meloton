@@ -140,16 +140,23 @@ namespace test_cli
 
         Package read_package()
         {
-            socket.ReceiveTimeout = 1000 * 10;
+            socket.ReceiveTimeout = 100;
             while (true)
             {
-                byte[] buffer = new byte[10240];
-                var reads = socket.Receive(buffer);
-                reader.AddContent(buffer, reads);
-                var p = reader.ReadPackage();
-                if (p != null)
+                try
                 {
-                    return p;
+                    byte[] buffer = new byte[10240];
+                    var reads = socket.Receive(buffer);
+                    reader.AddContent(buffer, reads);
+                    var p = reader.ReadPackage();
+                    if (p != null)
+                    {
+                        return p;
+                    }
+                }
+                catch
+                {
+
                 }
             }
         }

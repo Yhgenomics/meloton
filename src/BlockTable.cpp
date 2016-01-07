@@ -73,7 +73,7 @@ void BlockTable::save_index( FILE * pfile , size_t index )
 
 size_t BlockTable::alloc_data_space( )
 {
-    size_t pos              = 0;
+    size_t pos = 0;
     char* buf = new char[BLOCK_SIZE];
     memset( buf , 0 , BLOCK_SIZE );
     //char buf[BLOCK_SIZE]    = { 0 };

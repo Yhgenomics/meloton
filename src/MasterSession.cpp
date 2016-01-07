@@ -6,7 +6,7 @@
 #include <MessageAlive.pb.h>
 #include <TokenPool.h>
 #include <BlockTable.h>
-#include <MessageUpdateBlock.pb.h>
+#include <MessageSyncBlock.pb.h>
 
 MasterSession* MasterSession::instance_ = nullptr;
 
@@ -35,7 +35,8 @@ void MasterSession::sync_all_block( )
 
         if ( false == block->is_used ) continue;
 
-        uptr<MessageUpdateBlock> msg = make_uptr( MessageUpdateBlock );
+        uptr<MessageSyncBlock> msg = make_uptr( MessageSyncBlock );
+
         msg->set_id( block->block_id );
         msg->set_index( block->index );
         msg->set_path( block->path );

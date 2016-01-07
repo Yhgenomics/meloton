@@ -53,8 +53,10 @@ static int MessageGetHandler( ClusterSession * session , uptr<MessageGet> msg )
     reply->set_data( data->data( ) , size );
     session->send_message( move_ptr( reply ) );
 
+    
     if ( (size_t)( msg->offset( ) + size ) >= block->size )
     {
+        LOG_DEBUG( "Reading Block %lld finished" , block->block_id );
         // TODO 
         // remove token, finish the transfer
         TokenPool::instance( )->remove( msg->token( ) );

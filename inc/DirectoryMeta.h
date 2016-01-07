@@ -25,12 +25,12 @@ public:
 
     sptr<FileMeta> append_file( sptr<FileMeta> meta );
     sptr<FileMeta> get_file( std::string name );
-    sptr<FileMeta> get_file( sptr<Path> path );
+    //sptr<FileMeta> get_file( sptr<Path> path );
     bool file_exist( std::string name );
 
     sptr<DirectoryMeta> append_dir( sptr<DirectoryMeta> meta );
     sptr<DirectoryMeta> get_dir( std::string name );
-    sptr<DirectoryMeta> get_dir( sptr<Path> path );
+    //sptr<DirectoryMeta> get_dir( sptr<Path> path );
     bool dir_exist( std::string name );
 
     PP_DEF( std::string , name )

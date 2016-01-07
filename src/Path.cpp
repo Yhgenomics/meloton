@@ -22,6 +22,7 @@ Error Path::parse( std::string path )
     path_list_.clear( );
     std::string tmp = "";
     char buf[256]= { 0 };
+    buf[0] = '/';
     const char* pPath = path.c_str( );
     char chr = 0;
     int index = 0;
@@ -36,8 +37,8 @@ Error Path::parse( std::string path )
 
             if ( ( chr == '\\' ||
                  chr == '/' ))
-            {
-                buf[cur_size++] = chr;
+            { 
+                cur_size = cur_size == 0 ? 1 : cur_size;
                 this->path_list_.push_back( std::string( buf , cur_size ) );
                 cur_size = 0;
             }

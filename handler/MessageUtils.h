@@ -1,7 +1,7 @@
 /* * * * * * * * * * * * * * * *
 * YHGenomics Inc.
 * Author     : yang shubo
-* Date       : 2015-12-31
+* Date       : 2016-01-07
 * Description: map messages to id
 * * * * * * * * * * * * * * * */
 
@@ -26,6 +26,7 @@
 #include "MessageRequestGetToken.pb.h"
 #include "MessageRequestPut.pb.h"
 #include "MessageRequestPutToken.pb.h"
+#include "MessageSyncBlock.pb.h"
 #include "MessageToken.pb.h"
 #include "MessageTokenACK.pb.h"
 #include "MessageUpdateBlock.pb.h"
@@ -41,11 +42,10 @@
 #include "MessageRequestGetTokenHandler.h"
 #include "MessageRequestPutHandler.h"
 #include "MessageRequestPutTokenHandler.h"
+#include "MessageSyncBlockHandler.h"
 #include "MessageTokenHandler.h"
 #include "MessageTokenACKHandler.h"
 #include "MessageUpdateBlockHandler.h"
-
-#include <MRT.h>
 
 class MessageUtils
 {
@@ -73,7 +73,6 @@ public:
         *((size_t*)pbuf) = message_id;
         pbuf += sizeof( size_t );
         memcpy(pbuf , body.c_str( ) , body.size( ) );
-
         return make_uptr( MRT::Buffer , buffer );
     }
 
@@ -84,7 +83,6 @@ public:
         message_id = *( (size_t*) data );
         data += sizeof( size_t );
         int msg_len = scast<int>( len - sizeof( size_t ) );
-
         switch( message_id )
         {
             case 0x416567757377676F : 
@@ -152,6 +150,12 @@ public:
                 auto msg = new MessageRequestPutToken( );
                 msg->ParseFromArray( data, msg_len );
                 return MessageRequestPutTokenHandler( session , move_ptr( std::unique_ptr<MessageRequestPutToken>( msg ) ) );
+            }break;
+            case 0x7B676F6D73736F7F : 
+            {
+                auto msg = new MessageSyncBlock( );
+                msg->ParseFromArray( data, msg_len );
+                return MessageSyncBlockHandler( session , move_ptr( std::unique_ptr<MessageSyncBlock>( msg ) ) );
             }break;
             case 0x546567617F776F6F : 
             {

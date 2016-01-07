@@ -9,6 +9,7 @@ DirectoryMeta::DirectoryMeta( std::string name )
 
 DirectoryMeta::~DirectoryMeta( )
 {
+
 }
 
 sptr<FileMeta> DirectoryMeta::append_file( sptr<FileMeta> meta )
@@ -40,16 +41,16 @@ sptr<FileMeta> DirectoryMeta::get_file( std::string name )
     return nullptr;
 }
 
-sptr<FileMeta> DirectoryMeta::get_file( sptr<Path> path )
-{
-    auto dir = this->get_dir( path );
-    
-    if ( dir == nullptr ) return nullptr;
-
-    auto result = dir->get_file( path->filename( ) );
-     
-    return result;
-}
+//sptr<FileMeta> DirectoryMeta::get_file( sptr<Path> path )
+//{
+//    auto dir = this->get_dir( path );
+//    
+//    if ( dir == nullptr ) return nullptr;
+//
+//    auto result = dir->get_file( path->filename( ) );
+//     
+//    return result;
+//}
 
 bool DirectoryMeta::file_exist( std::string name )
 {
@@ -95,25 +96,27 @@ sptr<DirectoryMeta> DirectoryMeta::get_dir( std::string name )
     return nullptr;
 }
 
-sptr<DirectoryMeta> DirectoryMeta::get_dir( sptr<Path> path )
-{
-    auto p = path->list( );
-
-    DirectoryMeta* rt = this;
-    sptr<DirectoryMeta> result = shared_from_this();
-
-    for ( auto & dir : p )
-    {
-        result = result->get_dir( dir );
-
-        if ( result == nullptr )
-        {
-            return nullptr;
-        }
-    }
-
-    return move_ptr( result );
-}
+//sptr<DirectoryMeta> DirectoryMeta::get_dir( sptr<Path> path )
+//{
+//    auto p = path->list( );
+//
+//    DirectoryMeta* rt = this;
+//    sptr<DirectoryMeta> result = shared_from_this();
+//
+//    for ( auto & dir : p )
+//    {
+//        result = result->get_dir( dir );
+//
+//        if ( result == nullptr )
+//        {
+//            return nullptr;
+//        }
+//
+//        return result;
+//    }
+//
+//    return move_ptr( result );
+//}
 
 bool DirectoryMeta::dir_exist( std::string name )
 {

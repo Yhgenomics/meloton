@@ -54,8 +54,12 @@ static int MessagePutHandler( ClusterSession * session , uptr<MessagePut> msg )
                                           msg->size( ) , 
                                           msg->offset( ) );
 
+    
+
     if ( block->size == ( msg->offset( ) + msg->size( ) ) )
     {
+        LOG_DEBUG( "Writing Block %lld finished" , block->block_id );
+
         TokenPool::instance( )->remove( msg->token( ) );
 
         uptr<MessageUpdateBlock> update_msg = make_uptr( MessageUpdateBlock );

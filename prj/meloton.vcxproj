@@ -159,6 +159,7 @@
     <ClCompile Include="..\message\MessageRequestGetToken.pb.cc" />
     <ClCompile Include="..\message\MessageRequestPut.pb.cc" />
     <ClCompile Include="..\message\MessageRequestPutToken.pb.cc" />
+    <ClCompile Include="..\message\MessageSyncBlock.pb.cc" />
     <ClCompile Include="..\message\MessageToken.pb.cc" />
     <ClCompile Include="..\message\MessageTokenACK.pb.cc" />
     <ClCompile Include="..\message\MessageUpdateBlock.pb.cc" />
@@ -202,6 +203,7 @@
     <ClInclude Include="..\handler\MessageRequestGetTokenHandler.h" />
     <ClInclude Include="..\handler\MessageRequestPutHandler.h" />
     <ClInclude Include="..\handler\MessageRequestPutTokenHandler.h" />
+    <ClInclude Include="..\handler\MessageSyncBlockHandler.h" />
     <ClInclude Include="..\handler\MessageTokenACKHandler.h" />
     <ClInclude Include="..\handler\MessageTokenHandler.h" />
     <ClInclude Include="..\handler\MessageUpdateBlockHandler.h" />
@@ -250,6 +252,7 @@
     <ClInclude Include="..\message\MessageRequestGetToken.pb.h" />
     <ClInclude Include="..\message\MessageRequestPut.pb.h" />
     <ClInclude Include="..\message\MessageRequestPutToken.pb.h" />
+    <ClInclude Include="..\message\MessageSyncBlock.pb.h" />
     <ClInclude Include="..\message\MessageToken.pb.h" />
     <ClInclude Include="..\message\MessageTokenACK.pb.h" />
     <ClInclude Include="..\message\MessageUpdateBlock.pb.h" />
