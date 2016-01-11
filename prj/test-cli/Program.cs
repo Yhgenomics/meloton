@@ -88,10 +88,15 @@ namespace test_cli
             if (msg is Message.MessageToken)
             {
                 var tokens = msg as Message.MessageToken;
+                int count = tokens.Address.Count;
 
-                for (int i = 0; i < tokens.Address.Count; i++)
+                for (int j= 0; j < tokens.Address.Count; j++)
                 {
-                    Console.WriteLine("Writing Block :" + tokens.BlockId[i]);
+
+                    int i = j;
+                    Console.WriteLine("Block: " + tokens.BlockId[i] + " Offset: " + tokens.Offset[i] );
+
+                    //Console.WriteLine("Writing Block :" + tokens.BlockId[i] +" "+ j+ "/"+ count);
 
                     stream.Position = tokens.Offset[i];
 
@@ -103,13 +108,11 @@ namespace test_cli
 
                     while (total_len > 0)
                     {
-                        const int length = 10240;
-
+                        const int length = 1024*1024;
                         long send_size = total_len > length ? length : total_len;
                         byte[] readBuffer = new byte[length];
                         var readSize = stream.Read(readBuffer, 0, (int)send_size);
 
-                        total_len -= readSize;
 
                         Message.MessagePut putmsg = new Message.MessagePut();
                         putmsg.Data = readBuffer;
@@ -119,8 +122,10 @@ namespace test_cli
                         putmsg.Token = tokens.Token[i];
                         srv.Send<Message.MessagePut>(Message.MessagePut.SerializeToBytes(putmsg));
 
+                        total_len -= readSize;
                         offset += readSize;
                     }
+
 
                     srv.Close();
                 }
@@ -152,9 +157,12 @@ namespace test_cli
             {
                 var tokens = msg as Message.MessageToken;
 
+                int count = tokens.Address.Count;
+
                 for (int i = 0; i < tokens.Address.Count; i++)
-                { 
-                    Console.WriteLine("Reading Block :"+ tokens.BlockId[i]);
+                {
+                    //Console.WriteLine("Reading Block :"+ tokens.BlockId[i] + " " + i + "/" + count);
+                    Console.WriteLine("Block: " + tokens.BlockId[i] + " Offset: " + tokens.Offset[i]);
                     stream.Position = tokens.Offset[i];
 
                     Protocol srv = new Protocol();
@@ -162,7 +170,7 @@ namespace test_cli
 
                     long size_left = tokens.Size[i];
                     long pos = 0;
-                    long package_size = 1024 * 5 * 100;
+                    long package_size = 1024 * 1024;
 
                     while ( size_left > 0 )
                     {
@@ -179,13 +187,14 @@ namespace test_cli
                          
                         if (reply != null)
                         {
-                            stream.Position = offset;
                             stream.Write(reply.Data, 0, (int)reply.Size);
                         }
 
+                        pos += reply.Size;
                         offset += reply.Size;
                         size_left -= reply.Size;
                     }
+
 
                     srv.Close();
                 }

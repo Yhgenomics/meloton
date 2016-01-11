@@ -26,7 +26,8 @@ public:
     sptr<BlockIndex>  find_block( size_t index );
     sptr<BlockIndex>  create_block( std::string file_name , 
                                     size_t size ,
-                                    size_t block_id);
+                                    size_t block_id , 
+                                    size_t file_offset);
                       
     sptr<BlockIndex>  delete_block( size_t index );
 

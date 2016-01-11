@@ -22,19 +22,23 @@
 
 static int MessagePutHandler( ClusterSession * session , uptr<MessagePut> msg )
 {
-    auto & token    = msg->token( );
-    auto size       = msg->size( ) > SIZE_PER_MESSAGE ? SIZE_PER_MESSAGE : msg->size( );
-    auto block      = BlockTable::instance( )->find_block( msg->index( ) );
-    auto offset     = msg->offset( );
-    auto msg_size   = msg->size( );
-    auto pos        = offset + msg_size;
+    auto token = TokenPool::instance( )->get_token( msg->token( ) );
 
-    if ( !TokenPool::instance( )->check_token( msg->token( ) ) )
+    if ( token == nullptr )
     {
-        LOG_DEBUG( "Token check failed" );
+        uptr<MessageActionError> err = make_uptr( MessageActionError );
+        err->set_code( ERR_TOKEN_NOT_EXIST );
+        err->set_message( ERR_TOKEN_NOT_EXIST_STR );
+        session->send_message( move_ptr( err ) );
         return -1;
     }
 
+    auto size       = msg->size( ) > SIZE_PER_MESSAGE ? SIZE_PER_MESSAGE : msg->size( );
+    auto block      = BlockTable::instance( )->find_block( token->index( ) );
+    auto offset     = msg->offset( );
+    auto msg_size   = msg->size( );
+    auto pos        = offset + msg_size;
+ 
     if ( block->size < ( pos ) )
     {
         LOG_DEBUG( "Block Size : %lld" , block->size );
@@ -51,10 +55,8 @@ static int MessagePutHandler( ClusterSession * session , uptr<MessagePut> msg )
 
     BlockTable::instance( )->write_block( block , 
                                           msg->data( ).c_str( ) , 
-                                          msg->size( ) , 
-                                          msg->offset( ) );
-
-    
+                                          size , 
+                                          offset );
 
     if ( block->size == ( msg->offset( ) + msg->size( ) ) )
     {

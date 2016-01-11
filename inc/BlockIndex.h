@@ -19,6 +19,7 @@ struct BlockIndex
     size_t      size = 0;
     size_t      offset = 0;
     size_t      block_id = 0;
+    size_t      file_offset = 0;
     bool        is_used = false;
 };
 

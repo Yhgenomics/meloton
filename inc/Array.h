@@ -143,7 +143,9 @@ template<class T>
 inline void Array<T>::remove_at( size_t index )
 {
     if ( index >= size_ )return;
+
     array_[index] = nullptr;
+
     if ( index == cur_ )
     {
         --cur_;

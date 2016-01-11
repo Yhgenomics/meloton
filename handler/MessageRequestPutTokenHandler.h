@@ -24,7 +24,10 @@ static int MessageRequestPutTokenHandler( ClusterSession * session , uptr<Messag
 {
     auto block = BlockTable::instance( )->create_block( msg->file_name( ) , 
                                                         msg->size( ) , 
-                                                        msg->block_id( ) );
+                                                        msg->block_id( ) ,
+                                                        msg->offset( ) );
+
+    auto token = TokenPool::instance( )->create( block->index );
 
     if ( block == nullptr ) return -1;
 
@@ -32,12 +35,12 @@ static int MessageRequestPutTokenHandler( ClusterSession * session , uptr<Messag
 
     reply->set_block_id( block->block_id );
     reply->set_expire ( MAX_SIZE_T );
-    reply->set_index( block->index );
+    reply->set_index( 0 );
     reply->set_request_id( msg->request_id( ) );
-    reply->set_token( TokenPool::instance( )->create( ) );
+    reply->set_token( token->token( ) );
     reply->set_client_id( msg->client_id( ) );
     reply->set_block_size( msg->size( ) );
-    reply->set_offset( msg->offset( ) );
+    reply->set_offset( block->file_offset );
 
     session->send_message( move_ptr( reply ) );
 

@@ -112,6 +112,15 @@ void BlockDistributer::put_file( size_t file_size ,
 
         LOG_DEBUG( "Block[%lld] size: %lld" , i , c_size );
 
+        auto n = NodeManager::instance( )->get_node( i % NodeManager::instance( )->count( ) );
+        
+        if ( n == nullptr )
+        {
+            break;
+        }
+        
+        LOG_DEBUG( "distribute block to %lld " , n->id( ) );
+
         uptr<MessageRequestPutToken> req = make_uptr( MessageRequestPutToken );
         req->set_request_id( msg->request_id( ) );
         req->set_block_id( i );
@@ -119,16 +128,6 @@ void BlockDistributer::put_file( size_t file_size ,
         req->set_client_id( client->id( ) );
         req->set_file_name( msg->path( ) );
         req->set_offset( offset );
-
-        auto n = NodeManager::instance( )->get_node( i % NodeManager::instance( )->count( ) );
-        
-        if ( n == nullptr )
-        {
-            break;
-        }
-
-        LOG_DEBUG( "distribute block to %lld " , n->id( ) );
-
         n->send_message( move_ptr( req ) );
 
         size_left -= c_size;

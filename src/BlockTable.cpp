@@ -91,7 +91,8 @@ sptr<BlockIndex> BlockTable::find_block( size_t index )
 
 sptr<BlockIndex> BlockTable::create_block( std::string file_name , 
                                            size_t size , 
-                                           size_t block_id)
+                                           size_t block_id, 
+                                           size_t file_offset)
 {
     if ( file_name.size( ) > MAX_PATH_SIZE )
     {
@@ -112,10 +113,11 @@ sptr<BlockIndex> BlockTable::create_block( std::string file_name ,
         
         memset( idx.get( ) , 0 , sizeof( BlockIndex ) );
         memcpy( idx->path , file_name.c_str( ) , file_name.size( ) );
-        idx->path_hash  = hash_code( file_name );
-        idx->size       = size;
-        idx->is_used    = true;
-        idx->block_id   = block_id;
+        idx->path_hash   = hash_code( file_name );
+        idx->size        = size;
+        idx->is_used     = true;
+        idx->block_id    = block_id;
+        idx->file_offset = file_offset;
         save_index( this->pfile_index_ , idx->index );
     }
     else
@@ -124,13 +126,14 @@ sptr<BlockIndex> BlockTable::create_block( std::string file_name ,
         memset( idx.get( ) , 0 , sizeof( BlockIndex ) );
         memcpy( idx->path , file_name.c_str( ) , file_name.size( ) );
         
-        idx->path_hash  = hash_code( file_name );
-        idx->index      = this->block_num_;
-        idx->is_used    = true;
-        idx->size       = size;
-        idx->block_id   = block_id;
-        idx->offset     = alloc_data_space( );
-        
+        idx->path_hash   = hash_code( file_name );
+        idx->index       = this->block_num_;
+        idx->is_used     = true;
+        idx->size        = size;
+        idx->block_id    = block_id;
+        idx->offset      = alloc_data_space( );
+        idx->file_offset = file_offset;
+
         this->block_index_list_[this->block_num_++] = idx;
         save_index( this->pfile_index_ , idx->index );
     }

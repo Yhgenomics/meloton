@@ -4,18 +4,20 @@ TokenPool::~TokenPool( )
 {
 }
 
-std::string TokenPool::create( )
+sptr<Token> TokenPool::create( size_t index )
 {
-    auto token = MRT::UUID::create( );
-    this->token_list_.push_back( token );
-    return token;
+    sptr<Token> meta = make_sptr( Token , index );
+    meta->token( MRT::UUID::create( ) );
+    meta->index( index );
+    this->token_list_.push_back( sptr<Token>(meta) );
+    return sptr<Token>(meta);
 }
 
 bool TokenPool::check_token( std::string token )
 {
     for ( auto & t : this->token_list_ )
     {
-        if ( t == token )
+        if ( t->token() == token )
         {
             return true;
         }
@@ -24,13 +26,26 @@ bool TokenPool::check_token( std::string token )
     return false;
 }
 
+sptr<Token> TokenPool::get_token( std::string token )
+{
+    for ( auto & t : this->token_list_ )
+    {
+        if ( t->token() == token )
+        {
+            return sptr<Token>(t);
+        }
+    }
+
+    return nullptr;
+}
+
 void TokenPool::remove( std::string token )
 {
     for ( auto i = this->token_list_.begin(); 
           i != this->token_list_.end( ); 
           i++ )
     {
-        if ( *i == token )
+        if ( (*i)->token() == token )
         {
             this->token_list_.erase( i );
             return;
