@@ -17,14 +17,30 @@ class ClientManager :
 {
 public:
 
-    ~ClientManager( );
     SINGLETON( ClientManager );
+    
+    ~ClientManager( )
+    {
 
-    sptr<ClientSession> find_session( size_t id );
+    }
+
+    sptr<ClientSession> find_session( size_t id )
+    {
+        return this->find_node( [&id] ( sptr<ClientSession> session )
+        {
+            if ( session->id( ) == id ) return true;
+
+            return false;
+        } );
+    }
 
 protected:
 
-    ClientManager( );
+    ClientManager( )
+        : Manager( 10240 )
+    {
+
+    }
 
 private:
 
