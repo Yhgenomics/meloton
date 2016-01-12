@@ -72,13 +72,25 @@ public:                                                     \
 // Debug mode definitions
 #define DEBUG_MODE 1
 #if DEBUG_MODE
+
+#if _WIN32
 #define LOG_DEBUG(msg_,...) Logger::log("%s:%d "##msg_,__FILE__,__LINE__,##__VA_ARGS__)
+#else
+#define LOG_DEBUG(msg_,...)
+#endif
+
+#if _WIN32
 #define LOG_DEBUG_UV(status) \
                 if( status != 0 ) \
                     Logger::log("%s:%d %s",\
                                 __FILE__,\
                                 __LINE__,\
                                 uv_strerror((int)status))
+#else
+#define LOG_DEBUG_UV(status)  
+#endif
+
+
 #else
 #define LOG_DEBUG(msg_,...) 
 #define LOG_DEBUG_UV(status)
