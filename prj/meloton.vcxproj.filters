@@ -273,9 +273,6 @@
     <ClInclude Include="..\inc\ClientSession.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="..\inc\Manager.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\inc\ClientManager.h">
       <Filter>inc</Filter>
     </ClInclude>
@@ -332,6 +329,9 @@
     </ClInclude>
     <ClInclude Include="..\message\MessageSyncBlock.pb.h">
       <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\PoolManager.h">
+      <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

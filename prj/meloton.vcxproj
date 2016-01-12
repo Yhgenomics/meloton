@@ -223,7 +223,7 @@
     <ClInclude Include="..\inc\Error.h" />
     <ClInclude Include="..\inc\FileMeta.h" />
     <ClInclude Include="..\inc\FS.h" />
-    <ClInclude Include="..\inc\Manager.h" />
+    <ClInclude Include="..\inc\PoolManager.h" />
     <ClInclude Include="..\inc\MasterConfig.h" />
     <ClInclude Include="..\inc\MasterConnector.h" />
     <ClInclude Include="..\inc\MasterHTTPListener.h" />
