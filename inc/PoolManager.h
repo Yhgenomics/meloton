@@ -129,6 +129,9 @@ inline PoolManager<T>::PoolManager( size_t element_size )
 template<class T>
 inline void PoolManager<T>::quick_sort( size_t i , size_t j , compare_callback_t compare )
 {
+    size_t l , r;
+    l = r =  0;
+
     if (l < r)  
     {        
         size_t i = l , j = r;
@@ -165,13 +168,10 @@ inline void PoolManager<T>::quick_sort( size_t i , size_t j , compare_callback_t
         this->node_array_->set( i , x );
         //s[i] = x;  
         
-        quick_sort(l, i - 1 , compare); // µÝ¹éµ÷ÓÃ  
+        quick_sort(l, i - 1 , compare);
         quick_sort(i + 1, r , compare);  
     }  
 }
-
-
-
 
 #endif // !MANAGER_H_
 
