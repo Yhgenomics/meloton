@@ -51,7 +51,7 @@ class MessageUtils
 {
 private:
 
-    static size_t hash_name( std::string & name)
+    static size_t hash_name( std::string name)
     {
         size_t ret = 0;
         for (int i = 0; i < name.length(); i++)
