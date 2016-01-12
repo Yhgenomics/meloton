@@ -99,8 +99,21 @@ public:                                                     \
 // Message definitions
 #define LOG_UV_ERROR(__x__) if ( __x__ != 0 ) printf( "error %s", \
                                                   uv_strerror((int)__x__));
+
+#if _WIN32
 #define LOG_SYS(msg_,...) Logger::sys(msg_,__VA_ARGS__)
+#else
+#define LOG_SYS(msg_,...) 
+#endif
+
+
+#if _WIN32
 #define LOG_EERROR(msg_,...) Logger::error(msg_,__VA_ARGS__)
+#else
+#define LOG_EERROR(msg_,...)
+#endif
+
+
 #define UV_ERROR(status) uv_strerror((int)status)
 
 #endif // !MRT_MACRO_H_
