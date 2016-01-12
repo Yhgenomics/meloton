@@ -9,11 +9,11 @@
 #define CLIENT_MANAGER_H_
 
 #include <meloton.h>
-#include <Manager.h>
+#include <PoolManager.h>
 #include <ClientSession.h>
 
 class ClientManager :
-    public ::Manager<ClientSession>
+    public ::PoolManager<ClientSession>
 {
 public:
 
@@ -37,7 +37,7 @@ public:
 protected:
 
     ClientManager( )
-        : Manager( 10240 )
+        : PoolManager( 10240 )
     {
 
     }

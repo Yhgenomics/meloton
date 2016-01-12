@@ -14,7 +14,7 @@
 #include <Array.h>
 
 template<class T>
-class Manager
+class PoolManager
 {
 public:
     
@@ -25,7 +25,7 @@ public:
                                 sptr<T> n2)> compare_callback_t;
     typedef std::function<void( sptr<T> instance)> all_callback_t;
    
-    virtual ~Manager( );
+    virtual ~PoolManager( );
     sptr<T>             create_node ( );
     sptr<T>             get_node    ( size_t index );
     size_t              count       ( );
@@ -39,7 +39,7 @@ public:
 
 protected:
 
-    Manager( size_t element_size );
+    PoolManager( size_t element_size );
 
     uptr<Array<T>> node_array_ = nullptr;
     
@@ -47,12 +47,12 @@ protected:
 }; 
 
 template<class T>
-inline Manager<T>::~Manager( )
+inline PoolManager<T>::~PoolManager( )
 {
 }
 
 template<class T>
-inline sptr<T> Manager<T>::create_node( )
+inline sptr<T> PoolManager<T>::create_node( )
 {
     auto session = make_sptr( T );
     this->push_node( session );
@@ -60,49 +60,49 @@ inline sptr<T> Manager<T>::create_node( )
 }
 
 template<class T>
-inline sptr<T> Manager<T>::get_node( size_t index )
+inline sptr<T> PoolManager<T>::get_node( size_t index )
 {
     return this->node_array_->get( index );
 }
 
 template<class T>
-inline size_t Manager<T>::count( )
+inline size_t PoolManager<T>::count( )
 {
      return this->node_array_->size( );
 }
 
 template<class T>
-inline void Manager<T>::push_node( sptr<T> session )
+inline void PoolManager<T>::push_node( sptr<T> session )
 {
      this->node_array_->push( sptr<T>(session) );
 }
 
 template<class T>
-inline void Manager<T>::push_node( T* session )
+inline void PoolManager<T>::push_node( T* session )
 {
     this->node_array_->push( sptr<T>( session ) );
 }
 
 template<class T>
-inline void Manager<T>::remove_node( sptr<T> session )
+inline void PoolManager<T>::remove_node( sptr<T> session )
 {
     this->node_array_->remove( sptr<T>( session ) );
 }
 
 template<class T>
-inline void Manager<T>::remove_node( T* session )
+inline void PoolManager<T>::remove_node( T* session )
 {
     this->node_array_->remove( session );
 }
 
 template<class T>
-inline sptr<T> Manager<T>::find_node( find_callback_t callback )
+inline sptr<T> PoolManager<T>::find_node( find_callback_t callback )
 {
     return this->node_array_->find( callback );
 }
 
 template<class T>
-inline void Manager<T>::all_node( all_callback_t callback )
+inline void PoolManager<T>::all_node( all_callback_t callback )
 {
     for ( size_t i = 0; i < this->node_array_->size( ); i++ )
     {
@@ -115,19 +115,19 @@ inline void Manager<T>::all_node( all_callback_t callback )
 }
 
 template<class T>
-inline void Manager<T>::sort( compare_callback_t callback )
+inline void PoolManager<T>::sort( compare_callback_t callback )
 {
     quick_sort( 0 , this->node_array_->size( ) - 1, callback );
 }
 
 template<class T>
-inline Manager<T>::Manager( size_t element_size )
+inline PoolManager<T>::PoolManager( size_t element_size )
 {
     this->node_array_ = make_uptr( Array<T> , element_size );
 }
 
 template<class T>
-inline void Manager<T>::quick_sort( size_t i , size_t j , compare_callback_t compare )
+inline void PoolManager<T>::quick_sort( size_t i , size_t j , compare_callback_t compare )
 {
     if (l < r)  
     {        
