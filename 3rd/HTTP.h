@@ -16,7 +16,7 @@
 #include "Buffer.h"
 #include "Connector.h"
 #include "CircleBuffer.h"
-#include "Maraton.h"
+#include "maraton.h"
 
 NS_MARATON_BEGIN
 
