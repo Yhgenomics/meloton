@@ -13,7 +13,7 @@
 #include <ClientSession.h>
 
 class ClientManager :
-    public Manager<ClientSession>
+    public ::Manager<ClientSession>
 {
 public:
 
