@@ -15,25 +15,58 @@
 
 NS_MARATON_BEGIN
 
+template<class T>
 class AsyncToken
 {
 public:
 
-    typedef std::function<void( AsyncToken*,void* )> callback_t;
+    typedef std::function<void( AsyncToken*, uptr<T> )> callback_t;
 
-    AsyncToken( callback_t callback );
-    ~AsyncToken( );
+    static void create( callback_t callback , uptr<T> data )
+    {
+        AsyncToken* token = new AsyncToken( callback );
+        token->send( move_ptr( data ) );
+    }
 
-    void send( void* data );
+    AsyncToken( callback_t callback )
+    {
+        this->callback_     = callback;
+        this->async_.data   = this;
+        uv_async_init( uv_default_loop( ) ,
+                       &this->async_ ,
+                       AsyncToken::uv_async_callback );
+    }
+
+    ~AsyncToken( )
+    {
+        //uv_close( ( uv_handle_t* ) &this->async_ , NULL );
+    }
+
+    void send( uptr<T> data )
+    {
+         this->data_ = move_ptr( data );
+         uv_async_send( &this->async_ );
+    }
 
 private:
 
-    static void uv_async_callback( uv_async_t* handle );
+    static void uv_async_callback( uv_async_t* handle )
+    {
+        AsyncToken* token = scast<AsyncToken*>( handle->data );
 
-    void*      data_        = nullptr;
-    uv_async_t async_       = { 0 };
-    callback_t callback_    = nullptr;
+        if ( token->callback_ != nullptr )
+        {
+            token->callback_( token , move_ptr( token->data_ ) );
+        }
+       
+        SAFE_DELETE( token );
+    }
+
+    uptr<T>  data_        = nullptr;
+    uv_async_t  async_       = { 0 };
+    callback_t  callback_    = nullptr;
 };
+ 
 
 NS_MARATON_END
 

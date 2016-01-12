@@ -1,7 +1,7 @@
 /* * * * * * * * * * * * * * * *
 * YHGenomics Inc.
 * Author     : yang shubo
-* Date       : 2015-12-31
+* Date       : 2016-01-07
 * Description: handler for MessagePut
 * * * * * * * * * * * * * * * */
 

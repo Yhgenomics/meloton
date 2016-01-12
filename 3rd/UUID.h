@@ -22,14 +22,17 @@ public:
     static std::string create() 
     {
         std::string ret = "";
-        char buf[UUID_LEN];
+        //char buf[UUID_LEN];
         const char *c = "yhgenomics";
         char num_buf[8] = { 0 };
 
         for (int n = 0; n < 16; ++n )
         {
             int seed = rand() % 255;
-            itoa( seed , num_buf , 16 );
+
+            sprintf( num_buf , "%02X" , seed );
+            
+            //itoa( seed , num_buf , 16 );
             ret += num_buf;
         } 
 

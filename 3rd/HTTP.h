@@ -37,6 +37,7 @@ public:
     std::string domain   ( );
     std::string path     ( );
     std::string protocol ( );
+    int port             ( );
 
 protected:
 
@@ -48,6 +49,8 @@ private:
     std::string domain_   = "";
     std::string path_     = "";
     std::string protocol_ = "";
+    int port_             = 80;
+    std::string tmp_      = "";
 };
 // ===========================================
 // HTTPRequest
@@ -86,6 +89,7 @@ public:
 private:
 
     std::string                         ip_             = "";
+    int                                 port_           = 0;
     std::string                         url_            = "";
     std::string                         method_         = "";
     std::string                         domain_         = "";

@@ -34,6 +34,7 @@ public:
     void    data( const char * value , size_t size );
     size_t  size( ) { return this->size_; }
     void    push( const char* data , size_t len );
+    void    zero( );
 
 private:
 

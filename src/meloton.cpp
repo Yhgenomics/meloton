@@ -12,47 +12,9 @@
 #include <Path.h>
 #include <DirectoryMeta.h>
 #include <FS.h>
-
-void test_file_table( )
-{
-    size_t data_size = 1024;
-    char read_tmp_data[512] = { 0 };
-    auto tim = time( 0 );
-
-    char* write_data = new char[data_size];
-
-    for ( size_t i = 0; i < data_size; i++ )
-    {
-        write_data[i] = 'A';
-    }
-
-    //auto f = FileTable::instance( )->open_file( "FILE_1" , 1 );
-    //if( f != nullptr) FileTable::instance( )->read_file( f , read_tmp_data , 512 );
-
-    for ( size_t i = 0; i < 100000; i++ )
-    {
-        char buf[10] = { 0 };
-        itoa( (i+1) , buf , 10 );
-        std::string id ( buf );
-        std::string name = "FILE_" + id;
-        //auto f = FileTable::instance( )->create_file( name , 1 , data_size );
-        //FileTable::instance( )->write_file( f , write_data , data_size );
-    }
-
-    auto deltaTime = time( 0 ) - tim;
-}
-
+ 
 int main( int argc , char * argv[] )
-{    
-    //sptr<Path> p = make_sptr(Path ,  "/test/4g" );
-    //sptr<DirectoryMeta> test = make_sptr( DirectoryMeta , "test" );
-    //sptr<FileMeta> file = make_sptr( FileMeta , "4g" );
-    //DirectoryMeta root( "/" );
-    //auto d = root.append_dir( sptr<DirectoryMeta> ( test ) );
-    //d->append_file( sptr<FileMeta>( file ) );
-
-    //auto res = root.get_file( sptr<Path>( p ) );
-
+{     
     if ( !CMDParameter::parse( argc , argv ) )
     {
         return 0;
@@ -81,7 +43,6 @@ int main( int argc , char * argv[] )
         LOG_SYS( "load index file" );
         BlockTable::instance( )->load_from_file( );
         LOG_SYS( "connecting %s:%d" , Variable::server_ip , Variable::port );
-        
 
         MRT::Maraton::instance( )->regist( make_uptr( ClientListener ,
                                            "0.0.0.0"  ,

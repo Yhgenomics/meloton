@@ -1,10 +1,11 @@
 #include "ClusterSession.h"
 #include "MessageUtils.h"
+#include <AsyncToken.h>
 
 ClusterSession::ClusterSession( )
 {
     this->parse_state_ = kHead;
-     static size_t ndoe_session_id = 0x1000;
+    static size_t ndoe_session_id = 0x1000;
     this->id_ = ndoe_session_id;
     ndoe_session_id = ( ndoe_session_id + 1 ) % 0xFFFFFFFFFFFF;
 }
@@ -14,13 +15,13 @@ ClusterSession::~ClusterSession( )
 }
 
 void ClusterSession::send_message( uptr<::google::protobuf::Message> message )
-{
+{ 
     uptr<MRT::Buffer> head      = make_uptr( MRT::Buffer , "YH" );
     uptr<MRT::Buffer> length    = make_uptr( MRT::Buffer , 4 );
     uptr<MRT::Buffer> body      = MessageUtils::build( message.get( ) );
 
     *( ( int* ) length->data( ) ) = ( int ) body->size( );
-
+    
     this->send( move_ptr( head ) );
     this->send( move_ptr( length ) );
     this->send( move_ptr( body ) );

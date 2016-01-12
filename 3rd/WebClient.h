@@ -16,7 +16,7 @@
 
 NS_MARATON_BEGIN 
 
-typedef std::function<void( uptr<HTTPResponse>)>  callback_response_t;
+typedef std::function<void( uptr<HTTPResponse> )>  callback_response_t;
  
 class WebClient
 {
