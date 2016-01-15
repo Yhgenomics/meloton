@@ -24,7 +24,6 @@ int main( int argc , char * argv[] )
     if ( Variable::mode == 1 )
     {
         LOG_SYS( "system start in master mode" );
-        LOG_SYS( "listen on: %s:%d" , Variable::server_ip , Variable::port );
 
         MRT::Maraton::instance( )->regist( make_uptr( NodeListener , 
                                            "0.0.0.0" , 
@@ -42,7 +41,7 @@ int main( int argc , char * argv[] )
         LOG_SYS( "system start in node mode" );
         LOG_SYS( "load index file" );
         BlockTable::instance( )->load_from_file( );
-        LOG_SYS( "connecting %s:%d" , Variable::server_ip , Variable::port );
+        LOG_SYS( "connecting %s:%d" , Variable::server_ip.c_str( ) , Variable::port );
 
         MRT::Maraton::instance( )->regist( make_uptr( ClientListener ,
                                            "0.0.0.0"  ,
