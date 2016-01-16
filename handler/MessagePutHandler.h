@@ -33,16 +33,15 @@ static int MessagePutHandler( ClusterSession * session , uptr<MessagePut> msg )
         return -1;
     }
 
-    auto size       = msg->size( ) > SIZE_PER_MESSAGE ? SIZE_PER_MESSAGE : msg->size( );
+    auto size       = msg->size( );// > SIZE_PER_MESSAGE ? SIZE_PER_MESSAGE : msg->size( );
     auto block      = BlockTable::instance( )->find_block( token->index( ) );
     auto offset     = msg->offset( );
-    auto msg_size   = msg->size( );
-    auto pos        = offset + msg_size;
+    auto data_size  = size > msg->data().size() ? msg->data().size() : size; 
+    auto pos        = offset + data_size;
  
     if ( block->size < ( pos ) )
     {
-        LOG_DEBUG( "Block Size : %lld" , block->size );
-        LOG_DEBUG( "MessagePutHandler Leave" );
+        LOG_DEBUG( "Offset is not correct : %lld" , block->size );
         return -1;
     }
 
@@ -55,15 +54,19 @@ static int MessagePutHandler( ClusterSession * session , uptr<MessagePut> msg )
 
     BlockTable::instance( )->write_block( block , 
                                           msg->data( ).c_str( ) , 
-                                          size , 
+                                          data_size , 
                                           offset );
+
+    //LOG_DEBUG( "Write Offset: %lld Size: %lld RealSize: %lld" , offset , size , msg->size( ) );
 
     if ( block->size == ( msg->offset( ) + msg->size( ) ) )
     {
-        LOG_DEBUG( "Writing Block %lld finished" , block->block_id );
+        BlockTable::instance( )->flush_block( );
+
+        LOG_DEBUG( "Writing Block %lld finished" , block->block_id ); 
 
         TokenPool::instance( )->remove( msg->token( ) );
-
+        
         uptr<MessageUpdateBlock> update_msg = make_uptr( MessageUpdateBlock );
         update_msg->set_id( block->block_id );
         update_msg->set_index( block->index );

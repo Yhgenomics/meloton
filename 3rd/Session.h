@@ -57,6 +57,7 @@ private:
     uv_tcp_t    uv_tcp_         = { 0 };
     std::string ip_address_     = "";
     int         port_           = 0;
+    bool        is_connected_   = false;
     
     static void uv_write_callback ( uv_write_t * req, int status );
 

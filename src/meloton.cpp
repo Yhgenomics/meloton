@@ -55,7 +55,6 @@ int main( int argc , char * argv[] )
             MRT::Maraton::instance( )->loop( );
             LOG_SYS( "disconnected to server , reconnecting" );
         }
-        
     } 
 
     return 0;

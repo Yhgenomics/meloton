@@ -39,6 +39,7 @@ public:
                                    const char * data ,
                                    size_t size ,
                                    size_t offset );
+    void              flush_block( );
 
     ~BlockTable( );
 

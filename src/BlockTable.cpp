@@ -1,6 +1,12 @@
 #include <BlockTable.h>
 #include <Utils.h>
 
+#ifdef _WIN32
+#define fseek _fseeki64 
+#else
+#define fseek lseek64
+#endif
+
 BlockTable::BlockTable( )
 {
     this->block_index_list_ = new sptr<BlockIndex>[MAX_BLOCK_NUM];
@@ -68,7 +74,6 @@ void BlockTable::save_index( FILE * pfile , size_t index )
     size_t pos = index* sizeof( BlockIndex );
     fseek( pfile , pos , SEEK_SET );
     fwrite( data.get( ) , sizeof( BlockIndex ) , 1 , pfile );
-    fflush( pfile );
 }
 
 size_t BlockTable::alloc_data_space( )
@@ -157,7 +162,15 @@ uptr<MRT::Buffer> BlockTable::read_block( sptr<BlockIndex> block ,
     }
 
     uptr<MRT::Buffer> buffer = make_uptr( MRT::Buffer , size );
-    fseek( this->pfile_data_ , block->offset + offset , SEEK_SET );
+    auto seek_result = fseek( this->pfile_data_ , 
+                              block->offset + offset ,
+                              SEEK_SET );
+
+    if ( seek_result != 0 )
+    {
+        return nullptr;
+    }
+
     fread( buffer->data( ) , 1 , size , this->pfile_data_ );
     return buffer;
 }
@@ -172,10 +185,27 @@ size_t BlockTable::write_block( sptr<BlockIndex> block,
         return 0;
     }
 
-    fseek( this->pfile_data_ , block->offset + offset , SEEK_SET );
+    auto seek_result = fseek( this->pfile_data_ ,
+                              block->offset + offset , 
+                              SEEK_SET );
+
+    if ( seek_result != 0 )
+    {
+        return 0;
+    }
+
     fwrite( data , 1 , size , this->pfile_data_ );
-    fflush( this->pfile_data_ );
+    //fflush( this->pfile_data_ );
     return size;
+}
+
+void BlockTable::flush_block( )
+{
+    if( this->pfile_data_ != nullptr )
+        fflush( this->pfile_data_ );
+    
+    if( this->pfile_index_ != nullptr )
+        fflush( this->pfile_index_ );
 }
 
 BlockTable::~BlockTable( )

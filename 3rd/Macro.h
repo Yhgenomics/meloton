@@ -12,7 +12,7 @@
 #include "Logger.h"
 
 // Cast values defination
-#define MAX_CIRCLE_BUFFER_SIZE  1024*1024
+#define MAX_CIRCLE_BUFFER_SIZE  1024*1024*5
 #define MAX_PATH_LEN            1024
 #define MAX_CONNECTION_SIZE     2048
 #define MAX_UINT                0xFFFFFFFF
@@ -74,48 +74,45 @@ public:                                                     \
 #if DEBUG_MODE
 
 #if _WIN32
-#define LOG_DEBUG(msg_,...) Logger::log("%s:%d "##msg_,__FILE__,__LINE__,##__VA_ARGS__)
-#else
-#define LOG_DEBUG(msg_,...)
-#endif
 
-#if _WIN32
+#define LOG_DEBUG(msg_,...) Logger::log("%s:%d "##msg_,__FILE__,__LINE__,##__VA_ARGS__)
 #define LOG_DEBUG_UV(status) \
                 if( status != 0 ) \
                     Logger::log("%s:%d %s",\
                                 __FILE__,\
                                 __LINE__,\
                                 uv_strerror((int)status))
+
 #else
-#define LOG_DEBUG_UV(status)  
+#define LOG_DEBUG Logger::log
+#define LOG_DEBUG_UV(status) \
+                if( status != 0 ) \
+                    Logger::log(uv_strerror((int)status))
+
 #endif
 
-
 #else
-#define LOG_DEBUG(msg_,...) 
+#define LOG_DEBUG Logger::log
 #define LOG_DEBUG_UV(status)
 #endif
 
-// Message definitions
+#if _WIN32
+
 #define LOG_UV_ERROR(__x__) if ( __x__ != 0 ) printf( "error %s", \
                                                   uv_strerror((int)__x__));
-
-#if _WIN32
 #define LOG_SYS(msg_,...) Logger::sys(msg_,__VA_ARGS__)
-#else
-#define LOG_SYS(msg_,...) 
-#endif
-
-
-#if _WIN32
 #define LOG_EERROR(msg_,...) Logger::error(msg_,__VA_ARGS__)
-#else
-#define LOG_EERROR(msg_,...)
-#endif
-
-
 #define UV_ERROR(status) uv_strerror((int)status)
 
+#else
+#define LOG_UV_ERROR(__x__) if ( __x__ != 0 ) printf( "error %s", \
+                                                  uv_strerror((int)__x__));
+#define LOG_SYS Logger::sys
+#define LOG_EERROR Logger::error
+#define UV_ERROR(status) uv_strerror((int)status)
+
+#endif
+ 
 #endif // !MRT_MACRO_H_
 
 
