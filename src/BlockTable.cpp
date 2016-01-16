@@ -4,7 +4,7 @@
 #ifdef _WIN32
 #define fseek _fseeki64 
 #else
-#define fseek lseek64
+#define fseek fseeko64
 #endif
 
 BlockTable::BlockTable( )
