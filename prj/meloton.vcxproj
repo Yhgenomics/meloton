@@ -104,7 +104,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -176,6 +176,8 @@
     <ClCompile Include="..\src\Error.cpp" />
     <ClCompile Include="..\src\FileMeta.cpp" />
     <ClCompile Include="..\src\FS.cpp" />
+    <ClCompile Include="..\src\NodeHTTPListener.cpp" />
+    <ClCompile Include="..\src\NodeHTTPSession.cpp" />
     <ClCompile Include="..\src\MasterConnector.cpp" />
     <ClCompile Include="..\src\MasterHTTPListener.cpp" />
     <ClCompile Include="..\src\MasterHTTPSession.cpp" />
@@ -223,6 +225,8 @@
     <ClInclude Include="..\inc\Error.h" />
     <ClInclude Include="..\inc\FileMeta.h" />
     <ClInclude Include="..\inc\FS.h" />
+    <ClInclude Include="..\inc\NodeHTTPListener.h" />
+    <ClInclude Include="..\inc\NodeHTTPSession.h" />
     <ClInclude Include="..\inc\PoolManager.h" />
     <ClInclude Include="..\inc\MasterConfig.h" />
     <ClInclude Include="..\inc\MasterConnector.h" />

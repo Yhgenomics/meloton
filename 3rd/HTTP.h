@@ -73,6 +73,7 @@ public:
     
     void header                 ( std::string key ,
                                   std::string value );
+    std::string header          ( std::string key );
     std::string domain          ( ){ return this->domain_; };
     std::string host            ( ){ return this->ip_;};
 

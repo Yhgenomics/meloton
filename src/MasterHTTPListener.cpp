@@ -1,8 +1,8 @@
 #include "MasterHTTPListener.h"
 #include "MasterHTTPSession.h"
 
-MasterHTTPListener::MasterHTTPListener( std::string ip )
-    : Listener( ip , 8081 )
+MasterHTTPListener::MasterHTTPListener( std::string ip , int port )
+    : Listener( ip , port )
 {
 
 }

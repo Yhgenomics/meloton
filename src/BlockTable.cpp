@@ -12,7 +12,6 @@ BlockTable::BlockTable( )
     this->block_index_list_ = new sptr<BlockIndex>[MAX_BLOCK_NUM];
 }
 
-
 void BlockTable::load_from_file( )
 {
     this->pfile_index_ = fopen( FILE_INDEX_NAME , "rb+" );
@@ -37,7 +36,6 @@ void BlockTable::load_from_file( )
                    this->block_index_list_[i]->path);
     }
 }
-
 
 void BlockTable::load_index( FILE * pfile )
 {
@@ -65,7 +63,6 @@ void BlockTable::load_index( FILE * pfile )
 
         this->block_num_++;
     }
-
 }
 
 void BlockTable::save_index( FILE * pfile , size_t index )

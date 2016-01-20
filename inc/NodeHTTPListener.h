@@ -1,27 +1,30 @@
 /* * * * * * * * * * * * * * * *
 * YHGenomics Inc.
 * Author     : yang shubo
-* Date       : 2015-12-10
+* Date       : 2016-01-18
 * Description:
 * * * * * * * * * * * * * * * */
 
-#ifndef MASTER_HTTP_LISTENER
-#define MASTER_HTTP_LISTENER
+#ifndef HTTP_NODE_LISTENER_H_
+#define HTTP_NODE_LISTENER_H_
 
 #include <string>
+#include <MRT.h>
 
-#include "MRT.h"
-
-class MasterHTTPListener :
+class NodeHTTPListener :
     public MRT::Listener
 {
 public:
-    MasterHTTPListener( std::string ip , int port );
-    ~MasterHTTPListener( );
+
+    NodeHTTPListener( std::string ip , int port );
+    ~NodeHTTPListener( );
 
     virtual MRT::Session * create_session( ) override;
+
     virtual void on_session_open( MRT::Session * session ) override;
+
     virtual void on_session_close( MRT::Session * session ) override;
+
 };
 
-#endif // !MASTER_HTTP_LISTENER
+#endif // !HTTP_NODE_LISTENER_H_

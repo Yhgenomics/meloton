@@ -12,7 +12,9 @@
 #include <Path.h>
 #include <DirectoryMeta.h>
 #include <FS.h>
- 
+#include <NodeHTTPListener.h>
+#include <MasterHTTPListener.h>
+
 int main( int argc , char * argv[] )
 {     
     if ( !CMDParameter::parse( argc , argv ) )
@@ -32,7 +34,13 @@ int main( int argc , char * argv[] )
         MRT::Maraton::instance( )->regist( make_uptr( ClientListener , 
                                            "0.0.0.0"  , 
                                            101));
+
+        MRT::Maraton::instance( )->regist( make_uptr( MasterHTTPListener ,
+                                           "0.0.0.0"  ,
+                                           80 ) );
+
         MRT::Maraton::instance( )->loop( );
+
         LOG_SYS( "system shutdown" );
     }
     // Node mode
@@ -40,22 +48,30 @@ int main( int argc , char * argv[] )
     {
         LOG_SYS( "system start in node mode" );
         LOG_SYS( "load index file" );
+        
         BlockTable::instance( )->load_from_file( );
+        
         LOG_SYS( "connecting %s:%d" , Variable::server_ip.c_str( ) , Variable::port );
 
         MRT::Maraton::instance( )->regist( make_uptr( ClientListener ,
                                            "0.0.0.0"  ,
                                            101 ) );
 
+        MRT::Maraton::instance( )->regist( make_uptr( NodeHTTPListener ,
+                                           "0.0.0.0"  ,
+                                           80 ) );
+
         while ( true )
         {
             MRT::Maraton::instance( )->regist( make_uptr( MasterConnector , 
                                            Variable::server_ip , 
                                            100));
+            
             MRT::Maraton::instance( )->loop( );
+
             LOG_SYS( "disconnected to server , reconnecting" );
         }
-    } 
-
+    }
+    
     return 0;
 }

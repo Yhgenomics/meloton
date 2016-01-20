@@ -26,7 +26,7 @@ void MasterHTTPSession::on_read( uptr<MRT::Buffer> data )
 
     if ( request_.finish( ) )
     {
-
+        MRT::HTTPResponse rep;
     }
 }
 

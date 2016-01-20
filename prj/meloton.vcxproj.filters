@@ -139,6 +139,12 @@
     <ClCompile Include="..\message\MessageSyncBlock.pb.cc">
       <Filter>message</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\NodeHTTPSession.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\NodeHTTPListener.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\inc\NodeDetector.h">
@@ -331,6 +337,12 @@
       <Filter>message</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\PoolManager.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\NodeHTTPSession.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\NodeHTTPListener.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>
