@@ -75,6 +75,7 @@ void NodeManager::sort( compare_callback_t callback )
 {
     if ( this->node_array_->size( ) < 2 )
         return;
+
     quick_sort( 0 , this->node_array_->size( ) - 1, callback );
 }
 
@@ -116,7 +117,10 @@ void NodeManager::quick_sort( size_t l , size_t r , compare_callback_t compare )
         this->node_array_->set( i , x );
         //s[i] = x;  
         
-        quick_sort(l, i - 1 , compare); // µÝ¹éµ÷ÓÃ  
-        quick_sort(i + 1, r , compare);  
+        if( i>0 )
+            quick_sort(l, i - 1 , compare);  
+
+        if( i<r )
+            quick_sort(i + 1, r , compare);  
     }  
 }

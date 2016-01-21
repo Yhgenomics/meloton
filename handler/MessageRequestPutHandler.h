@@ -22,7 +22,9 @@ static int MessageRequestPutHandler( ClusterSession * session , uptr<MessageRequ
 {
     auto client = ClientManager::instance( )->find_session( session->id( ) );
     auto size =  msg->size( );
+
     if ( client == nullptr ) return -1;
+    if ( size == 0 ) return -1;
 
     auto path = msg->path( );
     auto uuid = msg->request_id( );
