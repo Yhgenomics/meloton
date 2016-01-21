@@ -39,16 +39,16 @@ static int MessagePutHandler( ClusterSession * session , uptr<MessagePut> msg )
     auto data_size  = size > msg->data().size() ? msg->data().size() : size; 
     auto pos        = offset + data_size;
  
-    if ( block->size < ( pos ) )
-    {
-        LOG_DEBUG( "Offset is not correct : %lld" , block->size );
-        return -1;
-    }
-
     if ( block == nullptr )
     {
         LOG_DEBUG( "Block is nullptr" );
         LOG_DEBUG( "MessagePutHandler Leave" );
+        return -1;
+    }
+
+    if ( block->size < ( pos ) )
+    {
+        LOG_DEBUG( "Offset is not correct : %lld" , block->size );
         return -1;
     }
 
@@ -57,7 +57,15 @@ static int MessagePutHandler( ClusterSession * session , uptr<MessagePut> msg )
                                           data_size , 
                                           offset );
 
+    uptr<MessagePutAccept> reply = make_uptr( MessagePutAccept );
+    reply->set_offset( offset );
+    reply->set_size( data_size );
+    reply->set_token( msg->token( ) );
+    session->send_message( move_ptr( reply ) );
+
     //LOG_DEBUG( "Write Offset: %lld Size: %lld RealSize: %lld" , offset , size , msg->size( ) );
+
+    Logger::log( "Size: %d Left: %d" , data_size ,  block->size - ( msg->offset() + msg->size()) );
 
     if ( block->size == ( msg->offset( ) + msg->size( ) ) )
     {
@@ -75,6 +83,12 @@ static int MessagePutHandler( ClusterSession * session , uptr<MessagePut> msg )
         update_msg->set_status( 1 );
 
         MasterSession::instance( )->send_message( move_ptr( update_msg ) );
+
+        uptr<MessagePutAccept> reply = make_uptr( MessagePutAccept );
+        reply->set_offset( block->size );
+        reply->set_size( 0 );
+        reply->set_token( msg->token( ) );
+        session->send_message( move_ptr( reply ) );
 
         LOG_DEBUG( "Block transfer finished" );
     }

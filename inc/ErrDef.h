@@ -17,4 +17,7 @@
 #define ERR_TOKEN_NOT_EXIST 0x2000
 #define ERR_TOKEN_NOT_EXIST_STR "Token not exists"
 
+#define ERR_BLOCK_NOT_EXIST 0x3001
+#define ERR_BLOCK_NOT_EXIST_STR "Block not exists"
+
 #endif // !ERR_DEF_H_

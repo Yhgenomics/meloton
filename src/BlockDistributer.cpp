@@ -61,7 +61,7 @@ void BlockDistributer::get_file( sptr<FileMeta> file ,
         req->set_block_id( block->id( ) );
         req->set_client_id( client->id( ) );
         node_session->send_message( move_ptr( req ) );
-    } 
+    }
 
     client->token_num( blocks.size( ) );
 }

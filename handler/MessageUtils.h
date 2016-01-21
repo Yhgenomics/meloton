@@ -1,7 +1,7 @@
 /* * * * * * * * * * * * * * * *
 * YHGenomics Inc.
 * Author     : yang shubo
-* Date       : 2016-01-07
+* Date       : 2016-01-21
 * Description: map messages to id
 * * * * * * * * * * * * * * * */
 
@@ -21,6 +21,7 @@
 #include "MessageBlockData.pb.h"
 #include "MessageGet.pb.h"
 #include "MessagePut.pb.h"
+#include "MessagePutAccept.pb.h"
 #include "MessageRegister.pb.h"
 #include "MessageRequestGet.pb.h"
 #include "MessageRequestGetToken.pb.h"
@@ -37,6 +38,7 @@
 #include "MessageBlockDataHandler.h"
 #include "MessageGetHandler.h"
 #include "MessagePutHandler.h"
+#include "MessagePutAcceptHandler.h"
 #include "MessageRegisterHandler.h"
 #include "MessageRequestGetHandler.h"
 #include "MessageRequestGetTokenHandler.h"
@@ -51,7 +53,7 @@ class MessageUtils
 {
 private:
 
-    static size_t hash_name( std::string name)
+    static size_t hash_name( std::string & name)
     {
         size_t ret = 0;
         for (int i = 0; i < name.length(); i++)
@@ -120,6 +122,12 @@ public:
                 auto msg = new MessagePut( );
                 msg->ParseFromArray( data, msg_len );
                 return MessagePutHandler( session , move_ptr( std::unique_ptr<MessagePut>( msg ) ) );
+            }break;
+            case 0x747567637373757F : 
+            {
+                auto msg = new MessagePutAccept( );
+                msg->ParseFromArray( data, msg_len );
+                return MessagePutAcceptHandler( session , move_ptr( std::unique_ptr<MessagePutAccept>( msg ) ) );
             }break;
             case 0x52776775737B676F : 
             {
