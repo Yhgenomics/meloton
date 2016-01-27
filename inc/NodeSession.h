@@ -8,7 +8,9 @@
 #ifndef NODE_SESSION_H_
 #define NODE_SESSION_H_
 
+#include <vector>
 #include "ClusterSession.h"
+#include <BlockMeta.h>
 
 class NodeSession :
     public ClusterSession
@@ -24,6 +26,8 @@ public:
     PP_DEF( std::string , data_ip )
     PP_DEF( int , data_port )
 
+    void    add_block( sptr<BlockMeta> block );
+    virtual void on_close( ) ;
     void    update_alive( );
     size_t  alive_time( );
     size_t  delay( );
@@ -32,13 +36,14 @@ protected:
 
 private: 
 
-    size_t      alive_time_  = 0;
-    size_t      delay_       = 0;
-    size_t      block_num_   = 0;
-    size_t      disk_space_  = 0;
-    size_t      token_num_   = 0;
-    std::string data_ip_     = "";
-    int         data_port_   = 0;
+    size_t                        alive_time_  = 0;
+    size_t                        delay_       = 0;
+    size_t                        block_num_   = 0;
+    size_t                        disk_space_  = 0;
+    size_t                        token_num_   = 0;
+    std::string                   data_ip_     = "";
+    int                           data_port_   = 0;
+    std::vector<sptr<BlockMeta>>  own_block_;
 };
 
 #endif // !NODE_SESSION_H_

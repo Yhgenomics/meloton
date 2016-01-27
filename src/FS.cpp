@@ -37,11 +37,11 @@ sptr<DirectoryMeta> FS::create_dir( std::string str_path )
 sptr<DirectoryMeta> FS::get_dir( std::string path )
 {
     Path p( path );
-    sptr<DirectoryMeta> result = nullptr;
+    sptr<DirectoryMeta> result = this->root_;
 
     for ( auto & pstr : p.list( ) )
     {
-        result = this->root_->get_dir( pstr );
+        result = result->get_dir( pstr );
 
         if ( result == nullptr )
         {

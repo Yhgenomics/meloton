@@ -16,10 +16,18 @@
 #include <google/protobuf/message.h>
 #include <MessageUpdateBlock.pb.h>
 
+#include <NodeSession.h>
 #include "FS.h"
 
 static int MessageUpdateBlockHandler( ClusterSession * session , uptr<MessageUpdateBlock> msg )
 {
+    NodeSession* node_session = ( NodeSession* ) session;
+
+    if ( node_session == nullptr )
+    {
+        return -1;
+    }
+
     auto file = FS::instance( )->get_file( msg->path( ) );
 
     if ( file == nullptr )
@@ -39,6 +47,8 @@ static int MessageUpdateBlockHandler( ClusterSession * session , uptr<MessageUpd
     {
         block->size( msg->size( ) );
     }
+
+    node_session->add_block( block );
 
     sptr<NodeMeta> node = block->get_nodes( session->id( ) );
 

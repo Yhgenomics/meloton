@@ -49,6 +49,22 @@ public:
         this->nodes_.push_back( move_ptr( node ) );
     };
 
+    void remove_node( int session_id )
+    {
+       
+        for ( auto itr = nodes_.begin( ); itr != nodes_.end( );
+        itr++ )
+        {
+            auto n = *itr;
+             if ( n != nullptr && n.get( ) != nullptr &&
+                 n->node_id( ) == session_id )
+            {
+                this->nodes_.erase( itr );
+                return;
+            }
+        }
+    }
+
     PP_DEF( int , size )
 
 private:

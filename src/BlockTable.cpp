@@ -3,8 +3,10 @@
 
 #ifdef _WIN32
 #define fseek _fseeki64 
+#define ftell _ftelli64
 #else
 #define fseek fseeko64
+#define ftell ftello64
 #endif
 
 BlockTable::BlockTable( )
@@ -28,13 +30,6 @@ void BlockTable::load_from_file( )
     }
 
     load_index( this->pfile_index_ );
-
-    for ( size_t i = 0; i < this->block_num_; i++ )
-    {
-        LOG_DEBUG( "[%lld] %s" , 
-                   i , 
-                   this->block_index_list_[i]->path);
-    }
 }
 
 void BlockTable::load_index( FILE * pfile )
@@ -55,6 +50,8 @@ void BlockTable::load_index( FILE * pfile )
 
         auto p_index = sptr<BlockIndex>( idx );
         this->block_index_list_[this->block_num_] = p_index;
+
+        Logger::sys( "Loading %s Offset: %d Size: %d" , p_index->path , p_index->offset , p_index->size );
        
         if ( !idx->is_used )
         {
@@ -75,13 +72,18 @@ void BlockTable::save_index( FILE * pfile , size_t index )
 
 size_t BlockTable::alloc_data_space( )
 {
-    size_t pos = 0;
-    char* buf = new char[BLOCK_SIZE];
+    this->flush_block( );
+
+    size_t pos  = 0;
+    char* buf   = new char[BLOCK_SIZE];
     memset( buf , 0 , BLOCK_SIZE );
     //char buf[BLOCK_SIZE]    = { 0 };
+
     fseek( this->pfile_data_ , 0 , SEEK_END );
+    
     pos = ftell( this->pfile_data_ );
-    fwrite( buf , BLOCK_SIZE , 1 , this->pfile_data_ ); 
+
+    fwrite( buf , 1 , BLOCK_SIZE , this->pfile_data_ ); 
     SAFE_DELETE( buf );
     return pos;
 }
@@ -165,6 +167,7 @@ uptr<MRT::Buffer> BlockTable::read_block( sptr<BlockIndex> block ,
 
     if ( seek_result != 0 )
     {
+        Logger::error( "Seek failed" );
         return nullptr;
     }
 
@@ -188,6 +191,7 @@ size_t BlockTable::write_block( sptr<BlockIndex> block,
 
     if ( seek_result != 0 )
     {
+        Logger::error( "Seek failed" );
         return 0;
     }
 
@@ -203,6 +207,8 @@ void BlockTable::flush_block( )
     
     if( this->pfile_index_ != nullptr )
         fflush( this->pfile_index_ );
+
+
 }
 
 BlockTable::~BlockTable( )

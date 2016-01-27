@@ -29,9 +29,6 @@ static int MessageGetHandler( ClusterSession * session , uptr<MessageGet> msg )
     auto size    = msg->size( ) > SIZE_PER_MESSAGE ? SIZE_PER_MESSAGE : msg->size( );
     auto token   = TokenPool::instance( )->get_token( msg->token( ) );
 
-    Logger::log( "\r\n%s" , msg->DebugString( ).c_str( ) );
-    Logger::log( "\r\n%d" , token->index() );
-    
     if ( token == nullptr )
     {
         Logger::error( "Token is nullptr" );
@@ -70,7 +67,7 @@ static int MessageGetHandler( ClusterSession * session , uptr<MessageGet> msg )
     if ( data == nullptr )
     {
         Logger::error( "Data is nullptr" );
-        return 0;
+        return -1;
     }
 
     uptr<MessageBlockData> reply = make_uptr( MessageBlockData );
@@ -79,8 +76,6 @@ static int MessageGetHandler( ClusterSession * session , uptr<MessageGet> msg )
     reply->set_offset( msg->offset( ) );
     reply->set_data( data->data( ) , size );
     session->send_message( move_ptr( reply ) );
-
-    Logger::log( "Read Offset : %d Size: %d " , msg->offset( ) , size );
 
     if ( ( size_t ) ( msg->offset( ) + size ) >= block->size )
     {

@@ -17,6 +17,8 @@
 
 int main( int argc , char * argv[] )
 {     
+    printf( "Enter any thing to start...\r\n" );
+    scanf("");
     if ( !CMDParameter::parse( argc , argv ) )
     {
         return 0;

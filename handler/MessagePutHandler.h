@@ -42,7 +42,6 @@ static int MessagePutHandler( ClusterSession * session , uptr<MessagePut> msg )
     if ( block == nullptr )
     {
         LOG_DEBUG( "Block is nullptr" );
-        LOG_DEBUG( "MessagePutHandler Leave" );
         return -1;
     }
 
@@ -64,8 +63,6 @@ static int MessagePutHandler( ClusterSession * session , uptr<MessagePut> msg )
     session->send_message( move_ptr( reply ) );
 
     //LOG_DEBUG( "Write Offset: %lld Size: %lld RealSize: %lld" , offset , size , msg->size( ) );
-
-    Logger::log( "Size: %d Left: %d" , data_size ,  block->size - ( msg->offset() + msg->size()) );
 
     if ( block->size == ( msg->offset( ) + msg->size( ) ) )
     {
@@ -90,7 +87,6 @@ static int MessagePutHandler( ClusterSession * session , uptr<MessagePut> msg )
         reply->set_token( msg->token( ) );
         session->send_message( move_ptr( reply ) );
 
-        LOG_DEBUG( "Block transfer finished" );
     }
 
     return 0;
