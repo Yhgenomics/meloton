@@ -17,9 +17,12 @@
 #include <MessageSyncBlock.pb.h>
 
 #include <FS.h>
+#include <NodeSession.h>
 
 static int MessageSyncBlockHandler( ClusterSession * session , uptr<MessageSyncBlock> msg )
 {
+    NodeSession* node_session = ( NodeSession* ) session;
+
     auto file = FS::instance( )->get_file( msg->path( ) );
 
     if ( file == nullptr )
@@ -39,6 +42,8 @@ static int MessageSyncBlockHandler( ClusterSession * session , uptr<MessageSyncB
     {
         block->size( msg->size( ) );
     }
+
+    node_session->add_block( block );
 
     sptr<NodeMeta> node = block->get_nodes( session->id( ) );
 

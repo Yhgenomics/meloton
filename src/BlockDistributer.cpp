@@ -15,12 +15,12 @@ BlockDistributer::~BlockDistributer( )
 {
 }
 
-void BlockDistributer::get_file( sptr<FileMeta> file , 
-                                 sptr<ClientSession> client , 
+bool BlockDistributer::get_file( sptr<FileMeta> file ,
+                                 sptr<ClientSession> client ,
                                  uptr<MessageRequestGet> msg )
 {
     if ( file == nullptr || client == nullptr || msg == nullptr )
-        return;
+         return false;
 
     auto blocks = file->blocks( );
 
@@ -28,7 +28,7 @@ void BlockDistributer::get_file( sptr<FileMeta> file ,
     //    RequestTokenTable::instance( )->create( sptr<ClusterSession>( client ) , 
     //                                            msg->request_id( ) ,
     //                                            blocks.size( ) );
-     
+
     for ( auto & block : blocks )
     {
         auto nodes = block->nodes( );
@@ -39,8 +39,8 @@ void BlockDistributer::get_file( sptr<FileMeta> file ,
 
         for ( auto & node : nodes )
         {
-            auto n = NodeManager::instance( )->find_node( [ node ] ( sptr<NodeSession> ns )
-            { 
+            auto n = NodeManager::instance( )->find_node( [node] ( sptr<NodeSession> ns )
+            {
                 return ns->id( ) == node->node_id( );
             } );
 
@@ -54,7 +54,12 @@ void BlockDistributer::get_file( sptr<FileMeta> file ,
                 }
             }
         }
-        
+
+        if ( node_meta == nullptr )
+        {
+            return false;
+        }
+
         uptr<MessageRequestGetToken> req = make_uptr( MessageRequestGetToken );
         req->set_index( node_meta->index( ) );
         req->set_request_id( msg->request_id( ) );
@@ -64,22 +69,24 @@ void BlockDistributer::get_file( sptr<FileMeta> file ,
     }
 
     client->token_num( blocks.size( ) );
+
+    return true;
 }
 
-void BlockDistributer::put_file( size_t file_size , 
+bool BlockDistributer::put_file( size_t file_size ,
                                  sptr<ClientSession> client ,
                                  uptr<MessageRequestPut> msg )
 {
     LOG_DEBUG( "file size num %lld " , file_size );
-    
+
     auto size_left = file_size;
-      
-    size_t block_num        = (size_t)ceil( (double)file_size / (double)(BLOCK_SIZE) );
+
+    size_t block_num        = ( size_t ) ceil( ( double ) file_size / ( double ) ( BLOCK_SIZE ) );
     size_t max_block_num    = 0;
     size_t offset           = 0;
 
-    NodeManager::instance( )->sort( [ ] ( sptr<NodeSession> n1 , sptr<NodeSession> n2)
-    { 
+    NodeManager::instance( )->sort( [ ] ( sptr<NodeSession> n1 , sptr<NodeSession> n2 )
+    {
         return n1->block_num( ) > n2->block_num( );
     } );
 
@@ -87,22 +94,8 @@ void BlockDistributer::put_file( size_t file_size ,
     {
         LOG_DEBUG( "node count is 0 exit" , block_num );
         client->close( );
-        return;
+        return false;
     }
-
-    LOG_DEBUG( "block num %lld " , block_num );
-    //NodeManager::instance( )->all_node( [ &max_block_num ] ( sptr<NodeSession> node )
-    //{ 
-    //    if ( node->block_num( ) > max_block_num )
-    //    {
-    //        max_block_num = node->block_num( );
-    //    }
-    //} );
-
-    //sptr<RequestTokenCollection> token = 
-    //    RequestTokenTable::instance( )->create( sptr<ClusterSession>( client ) , 
-    //                                            msg->request_id( ) ,
-    //                                            block_num );
 
     for ( size_t i = 0; i < block_num; i++ )
     {
@@ -110,16 +103,14 @@ void BlockDistributer::put_file( size_t file_size ,
 
         auto c_size = size_left > BLOCK_SIZE ? BLOCK_SIZE : size_left;
 
-        LOG_DEBUG( "Block[%lld] size: %lld" , i , c_size );
-
         auto n = NodeManager::instance( )->get_node( i % NodeManager::instance( )->count( ) );
-        
+
         if ( n == nullptr )
         {
-            break;
+            LOG_DEBUG( "No node found exit..." , n->id( ) );
+            return false;
         }
-        
-        LOG_DEBUG( "distribute block to %lld " , n->id( ) );
+
 
         uptr<MessageRequestPutToken> req = make_uptr( MessageRequestPutToken );
         req->set_request_id( msg->request_id( ) );
@@ -135,4 +126,5 @@ void BlockDistributer::put_file( size_t file_size ,
     }
 
     client->token_num( block_num );
+    return true;
 }

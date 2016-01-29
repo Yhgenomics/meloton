@@ -48,7 +48,17 @@ static int MessageRequestGetHandler( ClusterSession * session , uptr<MessageRequ
     }
 
     BlockDistributer distributer;
-    distributer.get_file( file , client , move_ptr( msg ) );
+    auto result = distributer.get_file( file , client , move_ptr( msg ) );
+
+    if ( !result )
+    {
+        uptr<MessageActionError> result = make_uptr( MessageActionError );
+        result->set_action_id( uuid );
+        result->set_code( ERR_NO_NODE );
+        result->set_message( ERR_NO_NODE_STR );
+        session->send_message( move_ptr( result ) );
+        session->close( );
+    }
 
     return 0;
 }

@@ -24,11 +24,11 @@ public:
     BlockDistributer( );
     ~BlockDistributer( );
 
-    void get_file( sptr<FileMeta> file , 
+    bool get_file( sptr<FileMeta> file , 
                    sptr<ClientSession> session , 
                    uptr<MessageRequestGet> msg );
 
-    void put_file( size_t file_size , 
+    bool put_file( size_t file_size , 
                    sptr<ClientSession> session , 
                    uptr<MessageRequestPut> msg );
 

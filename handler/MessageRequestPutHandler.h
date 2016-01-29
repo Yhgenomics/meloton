@@ -41,13 +41,21 @@ static int MessageRequestPutHandler( ClusterSession * session , uptr<MessageRequ
         return 0;
     }
 
-    LOG_DEBUG( "Split Block..." );
+    Logger::sys( "Request Put File: %s Size: %lld" , msg->path( ) , msg->size( ) );
 
     BlockDistributer distributer;
-    distributer.put_file( size , client , move_ptr( msg ) );
-    //distributer.get_file( file , session , move_ptr( msg ) );
+    auto p_result = distributer.put_file( size , client , move_ptr( msg ) );
 
-    LOG_DEBUG( "Split Finish..." );
+    if ( !p_result )
+    {
+        uptr<MessageActionError> result = make_uptr( MessageActionError );
+        result->set_action_id( uuid );
+        result->set_code( ERR_NO_NODE );
+        result->set_message( ERR_NO_NODE_STR );
+        session->send_message( move_ptr( result ) );
+        session->close( );
+        return 0;
+    }
 
     return 0;
 }

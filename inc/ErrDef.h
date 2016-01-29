@@ -20,4 +20,7 @@
 #define ERR_BLOCK_NOT_EXIST 0x3001
 #define ERR_BLOCK_NOT_EXIST_STR "Block not exists"
 
+#define ERR_NO_NODE 0x4001
+#define ERR_NO_NODE_STR "No block data"
+
 #endif // !ERR_DEF_H_
