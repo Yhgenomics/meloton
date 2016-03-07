@@ -75,16 +75,16 @@ size_t BlockTable::alloc_data_space( )
     this->flush_block( );
 
     size_t pos  = 0;
-    char* buf   = new char[BLOCK_SIZE];
-    memset( buf , 0 , BLOCK_SIZE );
+    //char* buf   = new char[BLOCK_SIZE];
+    //memset( buf , 0 , BLOCK_SIZE );
     //char buf[BLOCK_SIZE]    = { 0 };
 
     fseek( this->pfile_data_ , 0 , SEEK_END );
     
     pos = ftell( this->pfile_data_ );
 
-    fwrite( buf , 1 , BLOCK_SIZE , this->pfile_data_ ); 
-    SAFE_DELETE( buf );
+    //fwrite( buf , 1 , BLOCK_SIZE , this->pfile_data_ ); 
+    //SAFE_DELETE( buf );
     return pos;
 }
 
