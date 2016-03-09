@@ -83,8 +83,11 @@ size_t BlockTable::alloc_data_space( )
     
     pos = ftell( this->pfile_data_ );
 
+    fseek( this->pfile_data_ , pos + BLOCK_SIZE , SEEK_END );
+
     //fwrite( buf , 1 , BLOCK_SIZE , this->pfile_data_ ); 
     //SAFE_DELETE( buf );
+
     return pos;
 }
 
@@ -135,7 +138,7 @@ sptr<BlockIndex> BlockTable::create_block( std::string file_name ,
         idx->is_used     = true;
         idx->size        = size;
         idx->block_id    = block_id;
-        idx->offset      = alloc_data_space( );
+        idx->offset      = this->block_num_ * BLOCK_SIZE;
         idx->file_offset = file_offset;
 
         this->block_index_list_[this->block_num_++] = idx;

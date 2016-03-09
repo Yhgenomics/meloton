@@ -1,234 +1,234 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Diagnostics;
+//using System.IO;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
 
-namespace test_cli
-{
-    class Program
-    {
-        static string Method;
-        static string LocalPath;
-        static string ServerAddress;
-        static string RemotePath;
+//namespace melotoncsharp
+//{
+//    class Program
+//    {
+//        static string Method;
+//        static string LocalPath;
+//        static string ServerAddress;
+//        static string RemotePath;
 
-        static int tick = 0;
+//        static int tick = 0;
 
-        static int Main(string[] args)
-        {
-            tick = Environment.TickCount;
+//        static int Main(string[] args)
+//        {
+//            tick = Environment.TickCount;
 
-            if (!ReadArgs(args))
-            {
-                return 1;
-            }
+//            if (!ReadArgs(args))
+//            {
+//                return 1;
+//            }
 
-            if (Method == "p")
-            {
-                return PutFile(System.IO.File.Open(LocalPath,FileMode.Open));
-            }
-            else if (Method == "g")
-            {
-                return GetFile(System.IO.File.Open(LocalPath, FileMode.Create));
-            }
+//            if (Method == "p")
+//            {
+//                return PutFile(System.IO.File.Open(LocalPath,FileMode.Open));
+//            }
+//            else if (Method == "g")
+//            {
+//                return GetFile(System.IO.File.Open(LocalPath, FileMode.Create));
+//            }
 
-            Console.WriteLine(Environment.TickCount - tick);
+//            Console.WriteLine(Environment.TickCount - tick);
 
-            return 0;
-            //ProtoBuf.Serializer.DeserializeWithLengthPrefix(null, ProtoBuf.PrefixStyle.None);
-        }
-        static bool ReadArgs(string[] args)
-        {
-            if (args.Length < 4)
-            {
-                Console.WriteLine("usage");
-                Console.WriteLine("<g,p> <server ip> <path> <local path>");
-                Console.WriteLine("g: get a file from yhfs");
-                Console.WriteLine("p: put a file to yhfs");
-                Console.WriteLine("server ip: yhfs ip address");
-                Console.WriteLine("path: yhfs path");
-                Console.WriteLine("local path: the local file path");
-                return false;
-            }
+//            return 0;
+//            //ProtoBuf.Serializer.DeserializeWithLengthPrefix(null, ProtoBuf.PrefixStyle.None);
+//        }
+//        static bool ReadArgs(string[] args)
+//        {
+//            if (args.Length < 4)
+//            {
+//                Console.WriteLine("usage");
+//                Console.WriteLine("<g,p> <server ip> <path> <local path>");
+//                Console.WriteLine("g: get a file from yhfs");
+//                Console.WriteLine("p: put a file to yhfs");
+//                Console.WriteLine("server ip: yhfs ip address");
+//                Console.WriteLine("path: yhfs path");
+//                Console.WriteLine("local path: the local file path");
+//                return false;
+//            }
 
-            Method = args[0];
-            ServerAddress = args[1];
-            RemotePath = args[2];
-            LocalPath = args[3];
+//            Method = args[0];
+//            ServerAddress = args[1];
+//            RemotePath = args[2];
+//            LocalPath = args[3];
              
-            if( Method != "g" && Method != "p" )
-            {
-                Console.WriteLine("g or p can not be found");
-                return false;
-            }
+//            if( Method != "g" && Method != "p" )
+//            {
+//                Console.WriteLine("g or p can not be found");
+//                return false;
+//            }
 
-            return true;
-        }
+//            return true;
+//        }
 
-        static int PutFile(FileStream stream )
-        {
-            if (!System.IO.File.Exists(LocalPath))
-            {
-                Console.WriteLine("Local File not exists");
-                return 1;
-            }
+//        static int PutFile(FileStream stream )
+//        {
+//            if (!System.IO.File.Exists(LocalPath))
+//            {
+//                Console.WriteLine("Local File not exists");
+//                return 1;
+//            }
 
-            Protocol p = new Protocol();
-            p.Connect(ServerAddress, 101);
-            Message.MessageRequestPut req = new Message.MessageRequestPut();
-            req.Path = RemotePath;
-            req.RequestId = Guid.NewGuid().ToString().Replace("-", "");
-            req.Size = stream.Length;
-            p.Send<Message.MessageRequestPut>(Message.MessageRequestPut.SerializeToBytes(req));
-            var msg = p.Receive();
+//            Protocol p = new Protocol();
+//            p.Connect(ServerAddress, 101);
+//            Message.MessageRequestPut req = new Message.MessageRequestPut();
+//            req.Path = RemotePath;
+//            req.RequestId = Guid.NewGuid().ToString().Replace("-", "");
+//            req.Size = stream.Length;
+//            p.Send<Message.MessageRequestPut>(Message.MessageRequestPut.SerializeToBytes(req));
+//            var msg = p.Receive();
 
-            if (msg is Message.MessageToken)
-            {
-                var tokens = msg as Message.MessageToken;
-                int count = tokens.Address.Count;
+//            if (msg is Message.MessageToken)
+//            {
+//                var tokens = msg as Message.MessageToken;
+//                int count = tokens.Address.Count;
 
-                for (int j= 0; j < tokens.Address.Count; j++)
-                {
+//                for (int j= 0; j < tokens.Address.Count; j++)
+//                {
 
-                    int i = j;
-                    Console.WriteLine("Block: " + tokens.BlockId[i] + " Offset: " + tokens.Offset[i] );
+//                    int i = j;
+//                    Console.WriteLine("Block: " + tokens.BlockId[i] + " Offset: " + tokens.Offset[i] );
 
-                    //Console.WriteLine("Writing Block :" + tokens.BlockId[i] +" "+ j+ "/"+ count);
+//                    //Console.WriteLine("Writing Block :" + tokens.BlockId[i] +" "+ j+ "/"+ count);
 
-                    stream.Position = tokens.Offset[i];
+//                    stream.Position = tokens.Offset[i];
 
-                    Protocol srv = new Protocol();
-                    srv.Connect(tokens.Address[i], 101);
+//                    Protocol srv = new Protocol();
+//                    srv.Connect(tokens.Address[i], 101);
 
-                    long total_len = tokens.Size[i];
-                    long offset = 0;
+//                    long total_len = tokens.Size[i];
+//                    long offset = 0;
 
-                    while (total_len > 0)
-                    {
-                        const int length = 1024*1024;
-                        long send_size = total_len > length ? length : total_len;
-                        byte[] readBuffer = new byte[length];
-                        var readSize = stream.Read(readBuffer, 0, (int)send_size);
-
-
-                        Message.MessagePut putmsg = new Message.MessagePut();
-                        putmsg.Data = readBuffer;
-                        putmsg.Index = tokens.Index[i];
-                        putmsg.Offset = offset;
-                        putmsg.Size = send_size;
-                        putmsg.Token = tokens.Token[i];
-                        srv.Send<Message.MessagePut>(Message.MessagePut.SerializeToBytes(putmsg));
-
-                        total_len -= readSize;
-                        offset += readSize;
-                    }
+//                    while (total_len > 0)
+//                    {
+//                        const int length = 1024*1024;
+//                        long send_size = total_len > length ? length : total_len;
+//                        byte[] readBuffer = new byte[length];
+//                        var readSize = stream.Read(readBuffer, 0, (int)send_size);
 
 
-                    srv.Close();
-                }
-            }
-            else if ( msg is Message.MessageActionError )
-            {
-                Message.MessageActionError err = msg as Message.MessageActionError;
-                Console.WriteLine(string.Format("Error[{0}]:{1}",err.Code , err.Message));
-                return 1;
-            }
+//                        Message.MessagePut putmsg = new Message.MessagePut();
+//                        putmsg.Data = readBuffer;
+//                        putmsg.Index = tokens.Index[i];
+//                        putmsg.Offset = offset;
+//                        putmsg.Size = send_size;
+//                        putmsg.Token = tokens.Token[i];
+//                        srv.Send<Message.MessagePut>(Message.MessagePut.SerializeToBytes(putmsg));
 
-            return 0;
-        }
+//                        total_len -= readSize;
+//                        offset += readSize;
+//                    }
 
-        static int GetFile(FileStream stream)
-        {
-            Protocol p = new Protocol();
-            p.Connect(ServerAddress, 101);
-            Message.MessageRequestGet req = new Message.MessageRequestGet();
-            req.Path = RemotePath;
-            req.RequestId = Guid.NewGuid().ToString().Replace("-", "");
 
-            p.Send<Message.MessageRequestGet>(Message.MessageRequestGet.SerializeToBytes(req));
-            var msg = p.Receive();
+//                    srv.Close();
+//                }
+//            }
+//            else if ( msg is Message.MessageActionError )
+//            {
+//                Message.MessageActionError err = msg as Message.MessageActionError;
+//                Console.WriteLine(string.Format("Error[{0}]:{1}",err.Code , err.Message));
+//                return 1;
+//            }
 
-            long offset = 0;
+//            return 0;
+//        }
 
-            if (msg is Message.MessageToken)
-            {
-                var tokens = msg as Message.MessageToken;
+//        static int GetFile(Stream stream)
+//        {
+//            Protocol p = new Protocol();
+//            p.Connect(ServerAddress, 101);
+//            Message.MessageRequestGet req = new Message.MessageRequestGet();
+//            req.Path = RemotePath;
+//            req.RequestId = Guid.NewGuid().ToString().Replace("-", "");
 
-                int count = tokens.Address.Count;
+//            p.Send<Message.MessageRequestGet>(Message.MessageRequestGet.SerializeToBytes(req));
+//            var msg = p.Receive();
 
-                for (int i = 0; i < tokens.Address.Count; i++)
-                {
-                    //Console.WriteLine("Reading Block :"+ tokens.BlockId[i] + " " + i + "/" + count);
-                    Console.WriteLine("Block: " + tokens.BlockId[i] + " Offset: " + tokens.Offset[i]);
-                    stream.Position = tokens.Offset[i];
+//            long offset = 0;
 
-                    Protocol srv = new Protocol();
-                    srv.Connect(tokens.Address[i], 101);
+//            if (msg is Message.MessageToken)
+//            {
+//                var tokens = msg as Message.MessageToken;
 
-                    long size_left = tokens.Size[i];
-                    long pos = 0;
-                    long package_size = 1024 * 1024;
+//                int count = tokens.Address.Count;
 
-                    while ( size_left > 0 )
-                    {
-                        package_size = size_left > package_size ? package_size : size_left;
+//                for (int i = 0; i < tokens.Address.Count; i++)
+//                {
+//                    //Console.WriteLine("Reading Block :"+ tokens.BlockId[i] + " " + i + "/" + count);
+//                    Console.WriteLine("Block: " + tokens.BlockId[i] + " Offset: " + tokens.Offset[i]);
+//                    stream.Position = tokens.Offset[i];
 
-                        Message.MessageGet msgGet = new Message.MessageGet();
-                        msgGet.Index = tokens.Index[i];
-                        msgGet.Token = tokens.Token[i];
-                        msgGet.Offset = pos;
-                        msgGet.Size = package_size;
-                        srv.Send<Message.MessageGet>(Message.MessageGet.SerializeToBytes(msgGet));
+//                    Protocol srv = new Protocol();
+//                    srv.Connect(tokens.Address[i], 101);
 
-                        var reply = srv.Receive() as Message.MessageBlockData;
+//                    long size_left = tokens.Size[i];
+//                    long pos = 0;
+//                    long package_size = 1024 * 1024;
+
+//                    while ( size_left > 0 )
+//                    {
+//                        package_size = size_left > package_size ? package_size : size_left;
+
+//                        Message.MessageGet msgGet = new Message.MessageGet();
+//                        msgGet.Index = tokens.Index[i];
+//                        msgGet.Token = tokens.Token[i];
+//                        msgGet.Offset = pos;
+//                        msgGet.Size = package_size;
+//                        srv.Send<Message.MessageGet>(Message.MessageGet.SerializeToBytes(msgGet));
+
+//                        var reply = srv.Receive() as Message.MessageBlockData;
                          
-                        if (reply != null)
-                        {
-                            stream.Write(reply.Data, 0, (int)reply.Size);
-                        }
+//                        if (reply != null)
+//                        {
+//                            stream.Write(reply.Data, 0, (int)reply.Size);
+//                        }
 
-                        pos += reply.Size;
-                        offset += reply.Size;
-                        size_left -= reply.Size;
-                    }
-
-
-                    srv.Close();
-                }
-            }
-            else if (msg is Message.MessageActionError)
-            {
-                Message.MessageActionError err = msg as Message.MessageActionError;
-                Console.WriteLine(string.Format("Error[{0}]:{1}", err.Code, err.Message));
-                return 1;
-            }
-
-            return 0;
-        }
+//                        pos += reply.Size;
+//                        offset += reply.Size;
+//                        size_left -= reply.Size;
+//                    }
 
 
-        static List<long> SplitSize(long fileLength , int blockNum)
-        {
-            long fileSize = fileLength;
-            long perBlockSize = (long)Math.Ceiling( (double)fileSize / (double)(64*1024*1024));
-            List<long> ret = new List<long>();
+//                    srv.Close();
+//                }
+//            }
+//            else if (msg is Message.MessageActionError)
+//            {
+//                Message.MessageActionError err = msg as Message.MessageActionError;
+//                Console.WriteLine(string.Format("Error[{0}]:{1}", err.Code, err.Message));
+//                return 1;
+//            }
 
-            long index = 0;
-            for (int i = 0; i < blockNum - 1; i++)
-            {
-                var size = fileSize > perBlockSize ? perBlockSize : fileSize;
-                ret.Add(size);
-                index += size;
-                fileSize -= size;
-            }
+//            return 0;
+//        }
 
-            ret.Add(fileSize);
 
-            return ret;
-        }
+//        static List<long> SplitSize(long fileLength , int blockNum)
+//        {
+//            long fileSize = fileLength;
+//            long perBlockSize = (long)Math.Ceiling( (double)fileSize / (double)(64*1024*1024));
+//            List<long> ret = new List<long>();
 
-    }
-}
+//            long index = 0;
+//            for (int i = 0; i < blockNum - 1; i++)
+//            {
+//                var size = fileSize > perBlockSize ? perBlockSize : fileSize;
+//                ret.Add(size);
+//                index += size;
+//                fileSize -= size;
+//            }
+
+//            ret.Add(fileSize);
+
+//            return ret;
+//        }
+
+//    }
+//}
