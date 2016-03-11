@@ -66,14 +66,13 @@ int main( int argc , char * argv[] )
                                            "0.0.0.0"  ,
                                            80 ) );
 
-        while ( true )
-        {
-            MRT::Maraton::instance( )->regist( make_uptr( MasterConnector , 
+        MRT::Maraton::instance( )->regist( make_uptr( MasterConnector , 
                                            Variable::server_ip , 
                                            100));
+        while ( true )
+        {
             
             MRT::Maraton::instance( )->loop( );
-
             LOG_SYS( "disconnected to server , reconnecting" );
         }
     }

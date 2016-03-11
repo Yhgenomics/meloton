@@ -24,7 +24,7 @@ static int MessageRequestPutHandler( ClusterSession * session , uptr<MessageRequ
     auto size =  msg->size( );
 
     if ( client == nullptr ) return -1;
-    if ( size == 0 ) return -1;
+    if ( size <= 0 ) return -1;
 
     auto path = msg->path( );
     auto uuid = msg->request_id( );
