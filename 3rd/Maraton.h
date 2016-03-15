@@ -35,23 +35,25 @@ public:
         return inst;
     }
 
-    void regist( uptr<Operator> listener );
-    void unregist( const Operator* opt );
-    void loop( );
+    void regist     ( sptr<Operator> listener );
+    void unregist   ( sptr<Operator> opt );
+    void unregist   ( const Operator * opt );
+    void run        ( );
 
 private:
-
-    uv_loop_t*          uv_loop( );
-    uptr<Operator>      elements_[MAX_CONNECTION_SIZE];
-    int                 elements_index_                 = 0;
 
     Maraton( )
     {
     };
+
     ~Maraton( )
     {
     };
 
+    uv_loop_t*          uv_loop( );
+    sptr<Operator>      elements_[MAX_CONNECTION_SIZE];
+    int                 elements_index_                 = 0;
+     
     static void uv_process_resolved( uv_getaddrinfo_t * req , int status , addrinfo * res );
 };
 

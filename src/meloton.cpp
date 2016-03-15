@@ -17,11 +17,6 @@
 
 int main( int argc , char * argv[] )
 {     
-
-
-
-    printf( "Enter any thing to start...\r\n" );
-    scanf("");
     if ( !CMDParameter::parse( argc , argv ) )
     {
         return 0;
@@ -44,7 +39,7 @@ int main( int argc , char * argv[] )
                                            "0.0.0.0"  ,
                                            80 ) );
 
-        MRT::Maraton::instance( )->loop( );
+        MRT::Maraton::instance( )->run( );
 
         LOG_SYS( "system shutdown" );
     }
@@ -56,7 +51,7 @@ int main( int argc , char * argv[] )
         
         BlockTable::instance( )->load_from_file( );
         
-        LOG_SYS( "connecting %s:%d" , Variable::server_ip.c_str( ) , Variable::port );
+        LOG_SYS( "connecting %:%" , Variable::server_ip.c_str( ) , Variable::port );
 
         MRT::Maraton::instance( )->regist( make_uptr( ClientListener ,
                                            "0.0.0.0"  ,
@@ -72,7 +67,7 @@ int main( int argc , char * argv[] )
         while ( true )
         {
             
-            MRT::Maraton::instance( )->loop( );
+            MRT::Maraton::instance( )->run( );
             LOG_SYS( "disconnected to server , reconnecting" );
         }
     }

@@ -30,8 +30,11 @@ public:
         {
             int seed = rand() % 255;
 
+#ifdef _WIN32
+            sprintf_s( num_buf , "%02X" , seed );
+#else
             sprintf( num_buf , "%02X" , seed );
-            
+#endif
             //itoa( seed , num_buf , 16 );
             ret += num_buf;
         } 

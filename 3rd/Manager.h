@@ -19,18 +19,18 @@ class Manager
 {
 public:
 
-    virtual void push( T* instance )
+    virtual void push( sptr<T> instance )
     {
-        this->instance_.push_back( instance );
+        this->instance_.push_back( move_ptr( instance ) );
     }
 
-    virtual bool pop( T* instance )
+    virtual bool pop( sptr<T> instance )
     {
-        typename std::vector<T*>::iterator itr = this->instance_.begin();
+        typename std::vector<sptr<T>>::iterator itr = this->instance_.begin( );
 
-        while ( itr != this->instance_.end() )
+        while ( itr != this->instance_.end( ) )
         {
-            if ( *itr == instance )
+            if ( ( *itr ).get( ) == instance.get( ) )
             {
                 itr = this->instance_.erase( itr );
                 return true;
@@ -46,14 +46,14 @@ public:
 
 protected:
 
-    std::vector<T*> instances() 
+    std::vector<sptr<T>> instances() 
     {
-        std::vector<T*> vret( this->instance_.begin(), this->instance_.end() );
+        std::vector<sptr<T>> vret( this->instance_.begin(), this->instance_.end() );
 
         return vret;
     }
 
-    std::vector<T*> instance_;
+    std::vector<sptr<T>> instance_;
 
 private:
 

@@ -31,7 +31,8 @@ void NodeSession::update_alive( )
 
 size_t NodeSession::alive_time( )
 {
-    return  (Timer::tick( ) - this->alive_time_);
+    auto time =  ( Timer::tick( ) - this->alive_time_ ) / 1000;
+    return  time;
 }
 
 size_t NodeSession::delay( )

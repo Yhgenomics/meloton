@@ -51,8 +51,7 @@ void BlockTable::load_index( FILE * pfile )
         auto p_index = sptr<BlockIndex>( idx );
         this->block_index_list_[this->block_num_] = p_index;
 
-        Logger::sys( "Loading %s Offset: %d Size: %d" , p_index->path , p_index->offset , p_index->size );
-       
+        
         if ( !idx->is_used )
         {
             this->block_idle_list_.push_back( p_index );
@@ -60,6 +59,9 @@ void BlockTable::load_index( FILE * pfile )
 
         this->block_num_++;
     }
+
+    Logger::sys( "Loading % files in total" , this->block_num_ );
+       
 }
 
 void BlockTable::save_index( FILE * pfile , size_t index )

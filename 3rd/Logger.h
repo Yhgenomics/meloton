@@ -8,7 +8,8 @@
 #ifndef MRT_LOGER_H_
 #define MRT_LOGER_H_ 
 
-#include "stdio.h"
+#include <stdio.h>
+#include <iostream>
 #include <stdarg.h>
 #include "Timer.h"
 
@@ -21,17 +22,17 @@ public:
     {
 
 #ifdef _WIN32
-        printf( "[SYS] %lld: ", Timer::tick() );
+        tprintf( "[SYS] %lld: ", Timer::tick() );
 #else
-        printf( "\033[1;33m[SYS] %lld: ", Timer::tick() );
+        tprintf( "\033[1;33m[SYS] %lld: ", Timer::tick() );
 #endif
 
-        printf( fmt, args... );
+        tprintf( fmt, args... );
 
 #ifdef _WIN32
-        printf( "\r\n" );
+        tprintf( "\r\n" );
 #else
-        printf( "\033[0m\r\n" );
+        tprintf( "\033[0m\r\n" );
 #endif      
 
     }
@@ -40,31 +41,54 @@ public:
     static void error( const char* fmt, Types... args )
     {
 #ifdef _WIN32
-        printf( "[ERROR] %lld: ", Timer::tick() );
+        tprintf( "[ERROR] %lld: ", Timer::tick() );
 #else
-        printf( "\033[0;31m[ERROR] %lld: ", Timer::tick() );
+        tprintf( "\033[0;31m[ERROR] %lld: ", Timer::tick() );
 #endif
-
-        printf( fmt , args... );
+        tprintf( fmt , args... );
 
 #ifdef _WIN32
-        printf( "\r\n" );
+        tprintf( "\r\n" );
 #else
-        printf( "\033[0;31m\r\n" );
+        tprintf( "\033[0;31m\r\n" );
 #endif    
     }
 
     template<typename ...Types>
     static void log( const char* fmt, Types... args )
     { 
-        printf( "%lld: ", Timer::tick() );
-        printf( fmt , args... );
-        printf( "\r\n" );
+        tprintf( "%lld: ", Timer::tick() );
+        tprintf( fmt , args... );
+        tprintf( "\r\n" );
     }
 private:
 
-    Logger() {};
-    ~Logger() {};
+    Logger( )
+    {
+    };
+    ~Logger( )
+    {
+    };
+
+    static void tprintf( const char* format ) // base function
+    {
+        std::cout << format;
+    }
+
+    template<typename T , typename... Targs>
+    static void tprintf( const char* format , T value , Targs... Fargs ) // recursive variadic function
+    {
+        for ( ; *format != '\0'; format++ )
+        {
+            if ( *format == '%' )
+            {
+                std::cout << value;
+                tprintf( format + 1 , Fargs... ); // recursive call
+                return;
+            }
+            std::cout << *format;
+        }
+    }
 };
 
 #endif // !MRT_LOGER_H_ 

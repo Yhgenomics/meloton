@@ -9,10 +9,10 @@ NodeManager::NodeManager( )
     {
         this->all_node( [ ] ( sptr<NodeSession> session )
         {
-            //if ( session->alive_time( ) > NODE_TIMEOUT )
-            //{
-            //    session->close( );
-            //}
+            if ( session->alive_time( ) > NODE_TIMEOUT )
+            {
+                session->close( );
+            }
         } );
 
         return false;

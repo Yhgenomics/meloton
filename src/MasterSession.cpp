@@ -42,11 +42,12 @@ void MasterSession::sync_all_block( )
         msg->set_path( block->path );
         msg->set_size( block->size );
         msg->set_status( 0 );
-        
-        LOG_DEBUG( "Sync File[%lld] : %s" , block->block_id , block->path );
 
         this->send_message( move_ptr( msg ) );
     }
+
+    LOG_DEBUG( "Sync % files in total" , block_num );
+
 }
 
 void MasterSession::alive( )
@@ -55,7 +56,7 @@ void MasterSession::alive( )
     {
         uptr<MessageAlive> alive = make_uptr( MessageAlive );
         alive->set_block_num( BlockTable::instance( )->block_num( ) );
-        alive->set_disk_space( 1000 );
+        alive->set_disk_space( 0 );
         alive->set_session_id( this->session_id( ) );
         alive->set_token_num( TokenPool::instance( )->token_num( ) );
         alive->set_local_time( Timer::tick( ) );

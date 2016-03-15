@@ -84,15 +84,13 @@ public:                                                     \
                                 uv_strerror((int)status))
 
 #else
-#define LOG_DEBUG Logger::log
-#define LOG_DEBUG_UV(status) \
-                if( status != 0 ) \
-                    Logger::log(uv_strerror((int)status))
+#define LOG_DEBUG  
+#define LOG_DEBUG_UV(status) 
 
 #endif
 
 #else
-#define LOG_DEBUG Logger::log
+#define LOG_DEBUG  
 #define LOG_DEBUG_UV(status)
 #endif
 
@@ -105,11 +103,10 @@ public:                                                     \
 #define UV_ERROR(status) uv_strerror((int)status)
 
 #else
-#define LOG_UV_ERROR(__x__) if ( __x__ != 0 ) printf( "error %s", \
-                                                  uv_strerror((int)__x__));
-#define LOG_SYS Logger::sys
-#define LOG_EERROR Logger::error
-#define UV_ERROR(status) uv_strerror((int)status)
+#define LOG_UV_ERROR(__x__)  
+#define LOG_SYS 
+#define LOG_EERROR 
+#define UV_ERROR(status) 
 
 #endif
  
