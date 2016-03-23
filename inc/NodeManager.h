@@ -37,6 +37,7 @@ public:
     sptr<NodeSession>   find_node   ( find_callback_t callback );
     void                all_node    ( all_callback_t callback );
     void                sort        ( compare_callback_t callback );
+    void                clear       ( );
 
 private:
 

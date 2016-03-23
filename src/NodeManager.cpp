@@ -79,6 +79,11 @@ void NodeManager::sort( compare_callback_t callback )
     quick_sort( 0 , this->node_array_->size( ) - 1, callback );
 }
 
+void NodeManager::clear()
+{
+
+}
+
 void NodeManager::quick_sort( size_t l , size_t r , compare_callback_t compare )
 { 
     if (l < r)  

@@ -40,6 +40,7 @@ private:
     sptr<T>*      array_ = nullptr;
     size_t  size_  = 0;
     size_t  cur_   = 0;
+    size_t  count_ = 0;
 };
 
 
@@ -71,7 +72,9 @@ inline void Array<T>::push( T* element )
     {
         if ( array_[i] == nullptr )
         {
+            ++count_;
             array_[i] = sptr<T>(element);
+
             if ( i == ( cur_ ) )
             {
                 ++cur_;
@@ -90,6 +93,7 @@ inline void Array<T>::push( sptr<T> element )
     {
         if ( array_[i] == nullptr )
         {
+            ++count_;
             array_[i] = sptr<T>(element);
 
             if ( i == ( cur_ ) )
@@ -109,6 +113,7 @@ inline void Array<T>::remove( T* element )
         if ( array_[i] != nullptr &&
              array_[i].get() == element )
         {
+            --count_;
             array_[i] = nullptr;
 
             if ( i == ( cur_ - 1 ) )
@@ -128,6 +133,7 @@ inline void Array<T>::remove( sptr<T> element )
         if ( array_[i] != nullptr &&
              array_[i].get() == element.get() )
         {
+            --count_;
             array_[i] = nullptr;
 
             if ( i == ( cur_ - 1 ) )
@@ -144,6 +150,11 @@ inline void Array<T>::remove_at( size_t index )
 {
     if ( index >= size_ )return;
 
+    if ( array_[index] == nullptr )
+    {
+        --count_;
+    }
+
     array_[index] = nullptr;
 
     if ( index == cur_ )
@@ -151,24 +162,39 @@ inline void Array<T>::remove_at( size_t index )
         --cur_;
     }
 }
+
 template<class T>
 inline sptr<T> Array<T>::get( size_t index )
 {
     if ( index > cur_ ) return nullptr;
     return array_[index];
 }
+
 template<class T>
 inline void Array<T>::set( size_t index , sptr<T> instance )
 {
     if ( index > cur_ ) return;
+      
+    if ( array_[index] == nullptr && instance != nullptr )
+    {
+        ++count_;
+    }
+
+     if ( array_[index] != nullptr && instance == nullptr )
+    {
+        --count_;
+    }
+
     array_[index] = instance;
 }
+
 template<class T>
 inline sptr<T> Array<T>::operator[]( size_t index )
 {
     if ( index > cur_ )return nullptr;
     return array_[index];
 }
+
 template<class T>
 inline sptr<T> Array<T>::find( find_callback_t callback )
 {
@@ -185,6 +211,7 @@ inline sptr<T> Array<T>::find( find_callback_t callback )
 
     return nullptr;
 }
+
 template<class T>
 inline void Array<T>::swap( size_t p1 , size_t p2 )
 {
@@ -192,10 +219,11 @@ inline void Array<T>::swap( size_t p1 , size_t p2 )
     this->array_[p1] = this->array_[p2];
     this->array_[p2] = v1;
 }
+
 template<class T>
 inline size_t Array<T>::size( )
 {
-    return this->cur_;
+    return count_;
 };
 
 #endif // !ARRAY_H_
